@@ -1,0 +1,59 @@
+{
+"id": "RX-2025-001542",
+"status": "Expired",
+"issuedDate": "1/15/2025",
+"validUntil": "2/14/2025",
+"daysRemaining": 0,
+
+"doctor": {
+"name": "Dr. Sarah Mitchell",
+"specialization": "Cardiologist",
+"hospital": "City Heart Center",
+"phone": "+1 (555) 234-5678",
+"license": "MD-12345-CA"
+},
+
+"diagnosis": "Essential Hypertension (Stage 1)",
+
+"notes":
+"Monitor blood pressure daily. Follow low-sodium diet. Return for follow-up after 30 days.",
+
+"medicines": [
+{
+"id": 1,
+"name": "Amlodipine Besylate",
+"strength": "5mg Tablet",
+"dosage": "1 tablet",
+"frequency": "Once daily",
+"timing": "Morning, with or without food",
+"quantity": "30 Tablets",
+"duration": "30 days",
+"instructions":
+"Take at the same time each day"
+},
+{
+"id": 2,
+"name": "Losartan Potassium",
+"strength": "50mg Tablet",
+"dosage": "1 tablet",
+"frequency": "Twice daily",
+"timing": "Morning and Evening",
+"quantity": "60 Tablets",
+"duration": "30 days",
+"instructions":
+"Take with a full glass of water"
+},
+{
+"id": 3,
+"name": "Hydrochlorothiazide",
+"strength": "12.5mg Tablet",
+"dosage": "1 tablet",
+"frequency": "Once daily",
+"timing": "Morning",
+"quantity": "30 Tablets",
+"duration": "30 days",
+"instructions":
+"Take early in the day to avoid nighttime urination"
+}
+]
+}

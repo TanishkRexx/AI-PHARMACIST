@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Paracetamol 500mg",
+    "price": 45,
+    "uses": "Fever, headache, body pain relief",
+    "sideEffects": "Nausea, rash, liver issues (rare)",
+    "timing": "After Meal",
+    "orderable": true
+  },
+  {
+    "name": "Amoxicillin 250mg",
+    "price": 120,
+    "uses": "Bacterial infections",
+    "sideEffects": "Diarrhea, stomach upset",
+    "timing": "After Meal",
+    "orderable": true
+  },
+  {
+    "name": "Cetirizine 10mg",
+    "price": 35,
+    "uses": "Allergy relief",
+    "sideEffects": "Drowsiness, dry mouth",
+    "timing": "Before Meal",
+    "orderable": true
+  }
+]
