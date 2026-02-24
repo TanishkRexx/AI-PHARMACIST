@@ -1,0 +1,82 @@
+2026-02-23 20:00:27,658 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-23 20:00:42,079 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-23 20:00:42,117 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-23 20:00:42,117 - app.main - INFO - Langfuse observability enabled
+2026-02-23 20:00:42,117 - app.main - INFO - APOS is ready!
+2026-02-23 20:42:18,298 - openai._base_client - INFO - Retrying request to /chat/completions in 0.930733 seconds
+2026-02-23 20:42:20,018 - openai._base_client - INFO - Retrying request to /chat/completions in 1.653002 seconds
+2026-02-23 21:01:25,840 - openai._base_client - INFO - Retrying request to /chat/completions in 0.767820 seconds
+2026-02-23 21:01:27,286 - openai._base_client - INFO - Retrying request to /chat/completions in 1.717908 seconds
+2026-02-23 21:01:29,568 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-23 21:01:35,801 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-23 21:01:35,859 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-23 21:01:35,859 - app.main - INFO - Langfuse observability enabled
+2026-02-23 21:01:35,860 - app.main - INFO - APOS is ready!
+2026-02-23 21:02:23,884 - openai._base_client - INFO - Retrying request to /chat/completions in 0.867966 seconds
+2026-02-23 21:02:25,554 - openai._base_client - INFO - Retrying request to /chat/completions in 1.697801 seconds
+2026-02-23 21:04:07,498 - openai._base_client - INFO - Retrying request to /chat/completions in 0.891171 seconds
+2026-02-23 21:04:08,749 - openai._base_client - INFO - Retrying request to /chat/completions in 1.552239 seconds
+2026-02-23 21:04:36,288 - openai._base_client - INFO - Retrying request to /chat/completions in 0.998519 seconds
+2026-02-23 21:04:38,016 - openai._base_client - INFO - Retrying request to /chat/completions in 1.847661 seconds
+2026-02-23 21:05:30,196 - openai._base_client - INFO - Retrying request to /chat/completions in 0.852254 seconds
+2026-02-23 21:05:31,278 - openai._base_client - INFO - Retrying request to /chat/completions in 1.890846 seconds
+2026-02-23 21:08:11,649 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-23 21:08:43,450 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-23 21:08:43,502 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-23 21:08:43,503 - app.main - INFO - Langfuse observability enabled
+2026-02-23 21:08:43,503 - app.main - INFO - APOS is ready!
+2026-02-23 21:09:13,680 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-23 21:13:06,144 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-23 21:13:06,171 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-23 21:13:06,171 - app.main - INFO - Langfuse observability enabled
+2026-02-23 21:13:06,172 - app.main - INFO - APOS is ready!
+2026-02-23 21:13:39,752 - openai._base_client - INFO - Retrying request to /chat/completions in 0.913100 seconds
+2026-02-23 21:13:41,167 - openai._base_client - INFO - Retrying request to /chat/completions in 1.832557 seconds
+2026-02-23 21:14:29,051 - openai._base_client - INFO - Retrying request to /chat/completions in 0.911549 seconds
+2026-02-23 21:14:30,240 - openai._base_client - INFO - Retrying request to /chat/completions in 1.673367 seconds
+2026-02-23 21:15:01,041 - openai._base_client - INFO - Retrying request to /chat/completions in 0.854234 seconds
+2026-02-23 21:15:02,192 - openai._base_client - INFO - Retrying request to /chat/completions in 1.756906 seconds
+2026-02-23 21:21:44,360 - openai._base_client - INFO - Retrying request to /chat/completions in 0.773488 seconds
+2026-02-23 21:21:45,418 - openai._base_client - INFO - Retrying request to /chat/completions in 1.729061 seconds
+2026-02-23 21:22:20,852 - openai._base_client - INFO - Retrying request to /chat/completions in 0.932480 seconds
+2026-02-23 21:22:22,069 - openai._base_client - INFO - Retrying request to /chat/completions in 1.647587 seconds
+2026-02-23 21:22:24,248 - openai._base_client - INFO - Retrying request to /chat/completions in 0.849245 seconds
+2026-02-23 21:22:25,370 - openai._base_client - INFO - Retrying request to /chat/completions in 1.788327 seconds
+2026-02-24 00:42:22,604 - openai._base_client - INFO - Retrying request to /chat/completions in 0.926299 seconds
+2026-02-24 00:42:23,819 - openai._base_client - INFO - Retrying request to /chat/completions in 1.916151 seconds
+2026-02-24 00:42:26,757 - openai._base_client - INFO - Retrying request to /chat/completions in 0.905374 seconds
+2026-02-24 00:42:28,349 - openai._base_client - INFO - Retrying request to /chat/completions in 1.873969 seconds
+2026-02-24 00:42:30,718 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-24 00:42:44,832 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-24 00:42:45,337 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-24 00:42:45,337 - app.main - INFO - Langfuse observability enabled
+2026-02-24 00:42:45,338 - app.main - INFO - APOS is ready!
+2026-02-24 00:42:49,912 - openai._base_client - INFO - Retrying request to /chat/completions in 0.994021 seconds
+2026-02-24 00:42:51,422 - openai._base_client - INFO - Retrying request to /chat/completions in 1.943974 seconds
+2026-02-24 00:51:11,170 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-24 01:08:35,363 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-24 01:08:35,364 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-24 01:08:36,098 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-24 01:08:50,648 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-24 01:08:50,687 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-24 01:08:50,688 - app.main - INFO - Langfuse observability enabled
+2026-02-24 01:08:50,688 - app.main - INFO - APOS is ready!
+2026-02-24 01:22:04,177 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-24 01:22:04,240 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-24 01:22:04,240 - app.main - INFO - Langfuse observability enabled
+2026-02-24 01:22:04,241 - app.main - INFO - APOS is ready!
+2026-02-24 01:24:25,437 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-24 01:24:49,712 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-24 01:24:49,743 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-24 01:24:49,744 - app.main - INFO - Langfuse observability enabled
+2026-02-24 01:24:49,744 - app.main - INFO - APOS is ready!
+2026-02-24 02:49:07,732 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-24 02:49:42,949 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-24 02:49:43,025 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-24 02:49:43,027 - app.main - INFO - Langfuse observability enabled
+2026-02-24 02:49:43,028 - app.main - INFO - APOS is ready!
+2026-02-24 03:36:48,487 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-24 04:20:22,221 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-24 04:20:22,254 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-24 04:20:22,256 - app.main - INFO - Langfuse observability enabled
+2026-02-24 04:20:22,257 - app.main - INFO - APOS is ready!

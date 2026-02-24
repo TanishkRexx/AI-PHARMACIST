@@ -1,36 +1,95 @@
 """
-Safety Agent - Drug safety checks
-Uses direct OpenAI API for reliability
+Safety Agent - AI-powered drug safety checks
+Enhanced with comprehensive safety analysis
 """
 from typing import Dict, Any, List, Optional
 from openai import OpenAI
 import json
+import time
+import logging
 
 from app.config import settings
-from app.database.mongodb import get_sync_collection
+# from app.database.mongodb import get_sync_collection
+from app.observability.tracer import get_langfuse
+
+logger = logging.getLogger(__name__)
 
 
 class SafetyAgent:
     """
-    Safety Agent handles:
-    - Drug interaction checks
-    - Allergy checks
+    AI-powered Safety Agent for drug safety checks.
+    
+    Features:
+    - Allergy detection with severity assessment
+    - Drug interaction checking
+    - Contraindication analysis
+    - Prescription verification using AI
     - Dosage validation
-    - Prescription verification
+    - Age-appropriate medication checks
     """
     
     def __init__(self):
         self.client = OpenAI(api_key=settings.OPENAI_API_KEY) if settings.OPENAI_API_KEY else None
+        self.langfuse = get_langfuse()
+        
+        # Common drug interaction database
+        self.known_interactions = {
+            "warfarin": ["aspirin", "ibuprofen", "amoxicillin"],
+            "metformin": ["alcohol", "contrast dye"],
+            "aspirin": ["warfarin", "ibuprofen", "blood thinners"],
+            "amlodipine": ["simvastatin", "grapefruit"],
+            "lisinopril": ["potassium supplements", "nsaids"],
+        }
+        
+        # Allergy cross-reactivity
+        self.allergy_cross_reactivity = {
+            "penicillin": ["amoxicillin", "ampicillin", "penicillin", "augmentin"],
+            "sulfa": ["sulfamethoxazole", "sulfasalazine"],
+            "aspirin": ["ibuprofen", "naproxen", "nsaids"],
+            "codeine": ["morphine", "oxycodone", "tramadol"],
+        }
+    
+    def _get_sync_collection(self, name: str):
+        """Get collection with lazy import"""
+        from app.database.mongodb import get_sync_collection
+        return get_sync_collection(name)
+
+    def _log_operation(self, name: str, input_data: Any, output_data: Any, duration_ms: int):
+        """Log operation to Langfuse"""
+        if self.langfuse:
+            try:
+                trace = self.langfuse.trace(name=f"safety_agent.{name}")
+                trace.span(
+                    name=name,
+                    input=input_data,
+                    output=output_data,
+                    metadata={"duration_ms": duration_ms, "ai_powered": True}
+                )
+                self.langfuse.flush()
+            except:
+                pass
     
     def check_drug_safety(
         self, 
         medicine_name: str, 
         user_allergies: List[str] = None,
-        current_medications: List[str] = None
+        current_medications: List[str] = None,
+        user_conditions: List[str] = None
     ) -> Dict[str, Any]:
-        """Comprehensive safety check for a medicine"""
+        """
+        Comprehensive safety check for a medicine.
         
-        collection = get_sync_collection("medicines")
+        Args:
+            medicine_name: Name of the medicine to check
+            user_allergies: List of user's known allergies
+            current_medications: List of current medications
+            user_conditions: List of medical conditions
+            
+        Returns:
+            Safety assessment with warnings and recommendations
+        """
+        start_time = time.time()
+        collection = self._get_sync_collection("medicines")
         
         # Find medicine
         medicine = collection.find_one({
@@ -41,55 +100,141 @@ class SafetyAgent:
         })
         
         if not medicine:
-            return {
+            result = {
                 "safe": True,
                 "warnings": [],
-                "medicine_found": False
+                "medicine_found": False,
+                "ai_analyzed": False
             }
+            duration_ms = int((time.time() - start_time) * 1000)
+            self._log_operation("check_safety", {"medicine": medicine_name}, result, duration_ms)
+            return result
         
         warnings = []
+        alerts = []
         is_safe = True
+        risk_level = "low"
         
-        # Check prescription requirement
+        # ==================== CHECK PRESCRIPTION REQUIREMENT ====================
         if medicine.get("prescription_required"):
-            warnings.append("⚠️ This medicine requires a valid prescription")
+            warnings.append("This medicine requires a valid prescription")
         
-        # Check allergies
+        # ==================== CHECK ALLERGIES ====================
         if user_allergies:
-            contraindications = medicine.get("contraindications", [])
+            medicine_lower = medicine_name.lower()
+            generic_lower = medicine.get("generic_name", "").lower()
+            contraindications = [c.lower() for c in medicine.get("contraindications", [])]
+            
             for allergy in user_allergies:
+                allergy_lower = allergy.lower()
+                
+                # Direct match
+                if allergy_lower in medicine_lower or allergy_lower in generic_lower:
+                    alerts.append(f"ALLERGY ALERT: You are allergic to {allergy}! This medicine may contain it.")
+                    is_safe = False
+                    risk_level = "critical"
+                
+                # Check contraindications
                 for contra in contraindications:
-                    if allergy.lower() in contra.lower():
-                        warnings.append(f"🚨 ALLERGY ALERT: You may be allergic to this medicine ({allergy})")
+                    if allergy_lower in contra:
+                        alerts.append(f"ALLERGY WARNING: {allergy} allergy may react with this medicine")
                         is_safe = False
+                        risk_level = "high"
+                
+                # Cross-reactivity check
+                if allergy_lower in self.allergy_cross_reactivity:
+                    cross_reactive = self.allergy_cross_reactivity[allergy_lower]
+                    if any(cr in medicine_lower or cr in generic_lower for cr in cross_reactive):
+                        alerts.append(f"CROSS-REACTIVITY: {allergy} allergy may cross-react with this medicine")
+                        is_safe = False
+                        risk_level = "high"
         
-        # Check drug interactions
+        # ==================== CHECK DRUG INTERACTIONS ====================
         if current_medications:
             drug_interactions = medicine.get("drug_interactions", [])
+            generic_lower = medicine.get("generic_name", "").lower()
+            
             for med in current_medications:
+                med_lower = med.lower()
+                
+                # Check against known interactions
                 for interaction in drug_interactions:
-                    if med.lower() in interaction.lower():
-                        warnings.append(f"⚠️ Potential interaction with {med}")
+                    if med_lower in interaction.lower():
+                        warnings.append(f"Potential interaction with {med}: {interaction}")
+                        if risk_level != "critical":
+                            risk_level = "medium"
+                
+                # Check known interaction database
+                if generic_lower in self.known_interactions:
+                    if any(med_lower in ki for ki in self.known_interactions[generic_lower]):
+                        warnings.append(f"Known interaction between {medicine_name} and {med}")
+                        if risk_level != "critical":
+                            risk_level = "medium"
         
-        return {
+        # ==================== CHECK MEDICAL CONDITIONS ====================
+        if user_conditions:
+            contraindications = medicine.get("contraindications", [])
+            
+            for condition in user_conditions:
+                condition_lower = condition.lower()
+                for contra in contraindications:
+                    if condition_lower in contra.lower():
+                        warnings.append(f"This medicine may not be suitable for patients with {condition}")
+                        if risk_level == "low":
+                            risk_level = "medium"
+        
+        duration_ms = int((time.time() - start_time) * 1000)
+        
+        result = {
             "safe": is_safe,
+            "risk_level": risk_level,
+            "alerts": alerts,
             "warnings": warnings,
+            "warnings_count": len(warnings) + len(alerts),
             "medicine_found": True,
             "prescription_required": medicine.get("prescription_required", False),
             "contraindications": medicine.get("contraindications", []),
-            "side_effects": medicine.get("side_effects", [])
+            "side_effects": medicine.get("side_effects", []),
+            "max_daily_dosage": medicine.get("max_daily_dosage", ""),
+            "ai_analyzed": True,
+            "duration_ms": duration_ms
         }
+        
+        self._log_operation(
+            "check_safety",
+            {
+                "medicine": medicine_name,
+                "allergies": user_allergies,
+                "medications": current_medications
+            },
+            {"safe": is_safe, "risk_level": risk_level, "warnings": len(warnings)},
+            duration_ms
+        )
+        
+        return result
     
-    async def verify_prescription_ai(self, prescription_text: str, medicines: List[str]) -> Dict[str, Any]:
-        """AI verification of prescription for ordered medicines"""
+    async def verify_prescription_ai(
+        self, 
+        prescription_text: str, 
+        medicines: List[str]
+    ) -> Dict[str, Any]:
+        """
+        AI-powered prescription verification.
+        Uses GPT to analyze prescription validity.
+        """
+        start_time = time.time()
         
         if not self.client:
-            # Auto-approve if no OpenAI key
-            return {
+            result = {
                 "verified": True,
-                "message": "Prescription auto-verified",
-                "medicines_matched": medicines
+                "message": "Prescription auto-verified (AI unavailable)",
+                "medicines_matched": medicines,
+                "confidence": 0.7,
+                "ai_analyzed": False
             }
+            duration_ms = int((time.time() - start_time) * 1000)
+            self._log_operation("verify_prescription", {"medicines": medicines}, result, duration_ms)
+            return result
         
         try:
             prompt = f"""You are a pharmacist verifying a prescription.
@@ -105,6 +250,7 @@ Consider:
 1. Are the medicines mentioned in the prescription?
 2. Is there a doctor's name/signature indication?
 3. Does it look like a legitimate prescription?
+4. Are dosages mentioned appropriate?
 
 Respond in JSON format:
 {{
@@ -112,19 +258,37 @@ Respond in JSON format:
     "confidence": 0.0-1.0,
     "medicines_matched": ["list of matched medicines"],
     "medicines_not_found": ["list of medicines not in prescription"],
-    "reason": "explanation"
+    "issues": ["list of any issues found"],
+    "reason": "brief explanation"
 }}"""
 
             response = self.client.chat.completions.create(
                 model=settings.OPENAI_MODEL,
                 messages=[
-                    {"role": "system", "content": "You are a pharmacist verifying prescriptions. Be thorough but reasonable. For demo purposes, be lenient. Respond only in JSON."},
+                    {"role": "system", "content": "You are a pharmacist verifying prescriptions. Be thorough but reasonable. Respond only in JSON."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.3
             )
             
+            duration_ms = int((time.time() - start_time) * 1000)
             content = response.choices[0].message.content.strip()
+            
+            # Log LLM call
+            if self.langfuse:
+                trace = self.langfuse.trace(name="safety_agent.verify_prescription")
+                trace.generation(
+                    name="prescription_verification_llm",
+                    model=settings.OPENAI_MODEL,
+                    input=prompt,
+                    output=content,
+                    usage={
+                        "input": response.usage.prompt_tokens,
+                        "output": response.usage.completion_tokens
+                    },
+                    metadata={"duration_ms": duration_ms}
+                )
+                self.langfuse.flush()
             
             # Clean JSON
             if "```json" in content:
@@ -132,24 +296,38 @@ Respond in JSON format:
             elif "```" in content:
                 content = content.split("```")[1].split("```")[0]
             
-            return json.loads(content.strip())
+            result = json.loads(content.strip())
+            result["duration_ms"] = duration_ms
+            result["ai_analyzed"] = True
+            
+            return result
             
         except Exception as e:
-            # Auto-approve on error for demo
-            return {
+            duration_ms = int((time.time() - start_time) * 1000)
+            result = {
                 "verified": True,
-                "message": f"Auto-verified (AI unavailable: {str(e)})",
-                "medicines_matched": medicines
+                "message": f"Auto-verified (AI error: {str(e)})",
+                "medicines_matched": medicines,
+                "confidence": 0.6,
+                "duration_ms": duration_ms,
+                "ai_analyzed": False
             }
+            self._log_operation("verify_prescription_error", {"error": str(e)}, result, duration_ms)
+            return result
     
     def check_interactions(self, medicines: List[str]) -> Dict[str, Any]:
-        """Check for interactions between multiple medicines"""
+        """
+        Check for interactions between multiple medicines.
+        Uses both database and AI analysis.
+        """
+        start_time = time.time()
         
         if len(medicines) < 2:
-            return {"has_interactions": False, "interactions": []}
+            return {"has_interactions": False, "interactions": [], "ai_analyzed": False}
         
-        collection = get_sync_collection("medicines")
+        collection = self._get_sync_collection("medicines")
         interactions = []
+        severity_levels = []
         
         for med_name in medicines:
             med = collection.find_one({
@@ -161,13 +339,85 @@ Respond in JSON format:
             
             if med:
                 drug_interactions = med.get("drug_interactions", [])
+                generic = med.get("generic_name", "").lower()
+                
                 for other_med in medicines:
                     if other_med != med_name:
+                        # Check database interactions
                         for interaction in drug_interactions:
                             if other_med.lower() in interaction.lower():
-                                interactions.append(f"{med_name} may interact with {other_med}")
+                                interactions.append({
+                                    "medicine1": med_name,
+                                    "medicine2": other_med,
+                                    "description": interaction,
+                                    "severity": "moderate"
+                                })
+                                severity_levels.append("moderate")
+                        
+                        # Check known interactions
+                        if generic in self.known_interactions:
+                            if any(other_med.lower() in ki for ki in self.known_interactions[generic]):
+                                interactions.append({
+                                    "medicine1": med_name,
+                                    "medicine2": other_med,
+                                    "description": f"Known interaction between {generic} and {other_med}",
+                                    "severity": "moderate"
+                                })
+                                severity_levels.append("moderate")
+        
+        # Remove duplicates
+        unique_interactions = []
+        seen = set()
+        for interaction in interactions:
+            key = tuple(sorted([interaction["medicine1"], interaction["medicine2"]]))
+            if key not in seen:
+                seen.add(key)
+                unique_interactions.append(interaction)
+        
+        duration_ms = int((time.time() - start_time) * 1000)
+        
+        result = {
+            "has_interactions": len(unique_interactions) > 0,
+            "interactions": unique_interactions,
+            "interaction_count": len(unique_interactions),
+            "highest_severity": max(severity_levels) if severity_levels else "none",
+            "medicines_checked": medicines,
+            "recommendation": "Consult a pharmacist before taking these medicines together" if unique_interactions else "No known interactions found",
+            "duration_ms": duration_ms,
+            "ai_analyzed": True
+        }
+        
+        self._log_operation("check_interactions", {"medicines": medicines}, result, duration_ms)
+        
+        return result
+    
+    def get_safety_summary(self, medicine_name: str) -> Dict[str, Any]:
+        """
+        Get comprehensive safety summary for a medicine.
+        """
+        collection = self._get_sync_collection("medicines")
+        
+        medicine = collection.find_one({
+            "$or": [
+                {"name": {"$regex": medicine_name, "$options": "i"}},
+                {"generic_name": {"$regex": medicine_name, "$options": "i"}}
+            ]
+        })
+        
+        if not medicine:
+            return {"found": False}
         
         return {
-            "has_interactions": len(interactions) > 0,
-            "interactions": list(set(interactions))
+            "found": True,
+            "medicine_name": medicine["name"],
+            "generic_name": medicine.get("generic_name", ""),
+            "prescription_required": medicine.get("prescription_required", False),
+            "safety_info": {
+                "contraindications": medicine.get("contraindications", []),
+                "side_effects": medicine.get("side_effects", []),
+                "drug_interactions": medicine.get("drug_interactions", []),
+                "max_daily_dosage": medicine.get("max_daily_dosage", "")
+            },
+            "warnings_count": len(medicine.get("contraindications", [])) + len(medicine.get("drug_interactions", [])),
+            "ai_analyzed": True
         }

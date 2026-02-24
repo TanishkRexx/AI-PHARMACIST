@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 
 
 class Database:
-    client: AsyncIOMotorClient | None= None
-    sync_client: MongoClient | None = None
+    client: Optional[AsyncIOMotorClient] = None
+    sync_client: Optional[MongoClient] = None
 
 
 db = Database()
@@ -22,7 +22,7 @@ async def connect_db():
         db.sync_client = MongoClient(settings.MONGODB_URL)
         
         await db.client.admin.command('ping')
-        logger.info("✅ Connected to MongoDB")
+        logger.info("Connected to MongoDB")
         
     except Exception as e:
         logger.error(f" MongoDB connection failed: {e}")
@@ -39,11 +39,15 @@ async def disconnect_db():
 
 def get_database():
     """Get async database instance"""
+    if db.client is None:
+        raise RuntimeError("Database not connected. Call connect_db() first.")
     return db.client[settings.DATABASE_NAME]
 
 
 def get_sync_database():
     """Get sync database instance"""
+    if db.sync_client is None:
+        raise RuntimeError("Database not connected. Call connect_db() first.")
     return db.sync_client[settings.DATABASE_NAME]
 
 

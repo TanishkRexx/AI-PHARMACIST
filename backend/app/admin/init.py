@@ -2,10 +2,11 @@
 Admin APIs Package
 """
 from fastapi import APIRouter
+from app.admin import routes
+from app.admin import observability_routes
 
-from .routes import router
-
-# router = APIRouter(prefix="/admin", tags=["Admin"])
-# router.include_router(admin_router)
+router = APIRouter()
+router.include_router(routes.router)
+router.include_router(observability_routes.router)
 
 __all__ = ["router"]

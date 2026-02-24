@@ -2,6 +2,7 @@
 User Models for Authentication
 """
 from pydantic import BaseModel, Field, EmailStr
+from typing import List, Optional
 from datetime import datetime, timezone
 from enum import Enum
 
@@ -16,13 +17,13 @@ class UserRole(str, Enum):
 class AllergyInfo(BaseModel):
     allergen: str
     severity: str = "moderate" 
-    reaction: str | None = None
+    reaction: Optional[str] = None
 
 
 class MedicalInfo(BaseModel):
-    allergies: list[AllergyInfo] = []
-    chronic_conditions: list[str] = []
-    current_medications: list[str] = []
+    allergies: List[AllergyInfo] = []
+    chronic_conditions: List[str] = []
+    current_medications: List[str] = []
 
 
 # Request Models
@@ -49,7 +50,7 @@ class TokenResponse(BaseModel):
 
 # Database Model
 class UserInDB(BaseModel):
-    id: str | None = Field(default=None, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     email: str
     password_hash: str
     name: str
@@ -57,8 +58,8 @@ class UserInDB(BaseModel):
     role: UserRole
     
     # Customer fields
-    address: str | None = None
-    medical_info: MedicalInfo | None = None
+    address: Optional[str] = None
+    medical_info: Optional[MedicalInfo] = None
     
     # Status
     is_active: bool = True
