@@ -150,7 +150,7 @@ What can I help you with today?`,
   };
 
   return (
-    <div className="h-[calc(100vh-180px)] flex flex-col bg-gray-50 rounded-2xl overflow-hidden border shadow-lg">
+    <div className="h-[calc(100vh-93px)] flex flex-col bg-gray-50 rounded-2xl overflow-hidden border shadow-lg">
       <div className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">

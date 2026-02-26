@@ -80,3 +80,139 @@
 2026-02-24 04:20:22,254 - app.database.mongodb - INFO - Connected to MongoDB
 2026-02-24 04:20:22,256 - app.main - INFO - Langfuse observability enabled
 2026-02-24 04:20:22,257 - app.main - INFO - APOS is ready!
+2026-02-24 19:25:55,074 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-24 19:25:55,689 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-24 19:25:55,690 - app.main - INFO - Langfuse observability enabled
+2026-02-24 19:25:55,690 - app.main - INFO - APOS is ready!
+2026-02-24 19:47:32,413 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-25 02:56:24,047 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-25 02:56:24,589 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-25 02:56:24,590 - app.main - INFO - Langfuse observability enabled
+2026-02-25 02:56:24,590 - app.main - INFO - APOS is ready!
+2026-02-25 03:18:23,425 - openai._base_client - INFO - Retrying request to /chat/completions in 0.805967 seconds
+2026-02-25 03:18:25,009 - openai._base_client - INFO - Retrying request to /chat/completions in 1.818827 seconds
+2026-02-25 03:18:27,635 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-25 03:18:27,642 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-25 03:18:27,646 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-25 03:18:30,060 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-25 03:18:33,073 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-25 03:18:33,074 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-25 03:18:33,522 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-25 03:18:33,523 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-25 03:19:03,571 - openai._base_client - INFO - Retrying request to /chat/completions in 0.770254 seconds
+2026-02-25 03:19:05,090 - openai._base_client - INFO - Retrying request to /chat/completions in 1.554968 seconds
+2026-02-25 03:20:37,437 - openai._base_client - INFO - Retrying request to /chat/completions in 0.958576 seconds
+2026-02-25 03:20:38,669 - openai._base_client - INFO - Retrying request to /chat/completions in 1.899579 seconds
+2026-02-25 03:59:17,578 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-25 03:59:42,225 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-25 03:59:42,250 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-25 03:59:42,251 - app.main - INFO - Langfuse observability enabled
+2026-02-25 03:59:42,251 - app.main - INFO - APOS is ready!
+2026-02-25 04:02:43,714 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-25 04:02:43,722 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-25 04:02:43,723 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-25 04:02:45,294 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-25 04:02:48,771 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-25 04:02:48,774 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-25 04:02:49,008 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-25 04:02:49,009 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-25 04:15:01,854 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-25 04:15:47,178 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-25 04:15:47,220 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-25 04:15:47,221 - app.main - INFO - Langfuse observability enabled
+2026-02-25 04:15:47,221 - app.main - INFO - APOS is ready!
+2026-02-25 04:16:05,521 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-25 04:16:05,558 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-25 04:16:05,559 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-25 04:16:07,571 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-25 04:16:10,722 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-25 04:16:10,725 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-25 04:16:11,034 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-25 04:16:11,035 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-25 04:17:01,434 - openai._base_client - INFO - Retrying request to /chat/completions in 0.790653 seconds
+2026-02-25 04:17:02,559 - openai._base_client - INFO - Retrying request to /chat/completions in 1.863639 seconds
+2026-02-25 04:25:33,874 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-25 04:25:52,297 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-25 04:25:52,363 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-25 04:25:52,363 - app.main - INFO - Langfuse observability enabled
+2026-02-25 04:25:52,364 - app.main - INFO - APOS is ready!
+2026-02-25 04:34:59,080 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-25 04:37:08,638 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,641 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,650 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,655 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,674 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,676 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,682 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,687 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,725 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,727 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,728 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,729 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,732 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,733 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,751 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,754 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,756 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,760 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,766 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,773 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,783 - app.agents.medicine_agent - WARNING - Semantic search not initialized: Database not connected. Call connect_db() first.
+2026-02-25 04:37:08,785 - app.agents.medicine_agent - ERROR - Search failed: Database not connected. Call connect_db() first.
+2026-02-25 04:44:59,383 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-25 04:44:59,433 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-25 04:44:59,434 - app.main - INFO - Langfuse observability enabled
+2026-02-25 04:44:59,435 - app.main - INFO - APOS is ready!
+2026-02-25 04:45:14,245 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-25 04:45:14,259 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-25 04:45:14,261 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-25 04:45:14,713 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-25 04:45:19,440 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-25 04:45:19,442 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-25 04:45:19,720 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-25 04:45:19,721 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-25 04:48:43,205 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-25 04:49:00,371 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-25 04:49:00,399 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-25 04:49:00,399 - app.main - INFO - Langfuse observability enabled
+2026-02-25 04:49:00,400 - app.main - INFO - APOS is ready!
+2026-02-25 04:49:12,955 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-25 04:49:12,964 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-25 04:49:12,965 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-25 04:49:13,918 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-25 04:49:18,589 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-25 04:49:18,590 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-25 04:49:18,833 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-25 04:49:18,834 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-25 04:49:32,872 - openai._base_client - INFO - Retrying request to /chat/completions in 0.978890 seconds
+2026-02-25 04:49:34,397 - openai._base_client - INFO - Retrying request to /chat/completions in 1.952467 seconds
+2026-02-25 04:49:37,512 - openai._base_client - INFO - Retrying request to /chat/completions in 0.946694 seconds
+2026-02-25 04:49:38,744 - openai._base_client - INFO - Retrying request to /chat/completions in 1.878270 seconds
+2026-02-25 04:51:03,401 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-25 04:54:22,928 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-25 04:54:22,983 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-25 04:54:22,984 - app.main - INFO - Langfuse observability enabled
+2026-02-25 04:54:22,984 - app.main - INFO - APOS is ready!
+2026-02-25 17:01:50,762 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-25 17:01:51,939 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-25 17:01:51,939 - app.main - INFO - Langfuse observability enabled
+2026-02-25 17:01:51,940 - app.main - INFO - APOS is ready!
+2026-02-26 22:11:32,334 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-26 22:11:32,773 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-26 22:11:32,774 - app.main - INFO - Langfuse observability enabled
+2026-02-26 22:11:32,774 - app.main - INFO - APOS is ready!
+2026-02-26 22:13:06,290 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-26 22:13:06,297 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-26 22:13:06,299 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-26 22:13:06,759 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-26 22:13:13,639 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-26 22:13:13,640 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-26 22:13:14,053 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-26 22:13:14,053 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-26 22:13:47,206 - openai._base_client - INFO - Retrying request to /chat/completions in 0.849610 seconds
+2026-02-26 22:13:48,395 - openai._base_client - INFO - Retrying request to /chat/completions in 1.976917 seconds
+2026-02-26 22:14:14,344 - openai._base_client - INFO - Retrying request to /chat/completions in 0.973392 seconds
+2026-02-26 22:14:15,680 - openai._base_client - INFO - Retrying request to /chat/completions in 1.710889 seconds
+2026-02-26 22:15:02,675 - openai._base_client - INFO - Retrying request to /chat/completions in 0.869941 seconds
+2026-02-26 22:15:03,904 - openai._base_client - INFO - Retrying request to /chat/completions in 1.832983 seconds
+2026-02-26 22:16:21,263 - app.database.mongodb - INFO -  Disconnected from MongoDB

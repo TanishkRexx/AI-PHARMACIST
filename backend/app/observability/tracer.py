@@ -51,7 +51,7 @@ def create_trace(
         return None
     
     try:
-        trace = langfuse.trace(
+        trace = langfuse.start_trace(
             name=name,
             user_id=user_id,
             session_id=session_id,
@@ -81,7 +81,7 @@ class TracedAgent:
             return None
         
         try:
-            span = trace.span(
+            span = trace.start_span(
                 name=name,
                 input=input_data
             )
@@ -118,7 +118,7 @@ class TracedAgent:
             return
         
         try:
-            trace.generation(
+            trace.start_generation(
                 name=f"{self.agent_name}_llm_call",
                 model=model,
                 input=prompt,
@@ -132,7 +132,7 @@ class TracedAgent:
                     "cost": cost,
                     "duration_ms": duration_ms
                 }
-            )
+            ).end()
         except:
             pass
     
@@ -142,10 +142,11 @@ class TracedAgent:
             return
         
         try:
-            trace.event(
+            trace.start_span(
                 name=name,
-                input=data
-            )
+                input=data,
+                type="event"
+            ).end()
         except:
             pass
 
@@ -164,17 +165,16 @@ def trace_agent_call(agent_name: str):
                 return await func(*args, **kwargs)
             
             # Create trace
-            trace = langfuse.trace(
+            trace = langfuse.start_trace(
                 name=f"{agent_name}.{func.__name__}",
                 metadata={
                     "agent": agent_name,
-                    "method": func.__name__,
-                    "timestamp": datetime.utcnow().isoformat()
+                    "method": func.__name__
                 }
             )
             
             # Create span for this call
-            span = trace.span(
+            span = trace.start_span(
                 name=func.__name__,
                 input={"args": str(args[1:]), "kwargs": str(kwargs)}
             )
@@ -200,6 +200,10 @@ def trace_agent_call(agent_name: str):
                 raise
             finally:
                 # Flush to ensure data is sent
+                try:
+                    trace.end()
+                except:
+                    pass
                 langfuse.flush()
         
         @functools.wraps(func)
@@ -209,7 +213,7 @@ def trace_agent_call(agent_name: str):
             if langfuse is None:
                 return func(*args, **kwargs)
             
-            trace = langfuse.trace(
+            trace = langfuse.start_trace(
                 name=f"{agent_name}.{func.__name__}",
                 metadata={
                     "agent": agent_name,
@@ -217,7 +221,7 @@ def trace_agent_call(agent_name: str):
                 }
             )
             
-            span = trace.span(
+            span = trace.start_span(
                 name=func.__name__,
                 input={"args": str(args[1:]), "kwargs": str(kwargs)}
             )
@@ -230,6 +234,10 @@ def trace_agent_call(agent_name: str):
                 span.end(output={"error": str(e)}, level="ERROR")
                 raise
             finally:
+                try:
+                    trace.end()
+                except:
+                    pass
                 langfuse.flush()
         
         # Return appropriate wrapper based on function type
