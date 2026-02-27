@@ -216,3 +216,8 @@
 2026-02-26 22:15:02,675 - openai._base_client - INFO - Retrying request to /chat/completions in 0.869941 seconds
 2026-02-26 22:15:03,904 - openai._base_client - INFO - Retrying request to /chat/completions in 1.832983 seconds
 2026-02-26 22:16:21,263 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:06:27,633 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:06:27,650 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:06:27,650 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 00:06:27,650 - app.main - INFO - APOS is ready!
+2026-02-28 00:19:24,695 - app.database.mongodb - INFO -  Disconnected from MongoDB
