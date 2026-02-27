@@ -60,7 +60,7 @@ export default function Recommendations() {
   if (loading) return <Loading fullScreen text="Loading recommendations..." />;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 p-2">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">

@@ -3,6 +3,7 @@ import { Heart, User, Building2, Truck, ArrowRight, Shield, Clock, Activity, Bot
 import { useState } from 'react';
 import LoginPopup from './LoginPopup';
 import SignupPopup from './SignupPopup';
+import AgentArchitecture from './AgentArchitecture';
 
 export default function LandingPage() {
   const [showLogin, setShowLogin] = useState(false);
@@ -79,128 +80,239 @@ export default function LandingPage() {
       />
 
       {/* Header */}
-      <header className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-12 bg-white/60 backdrop-blur-xl border-b">
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-3"
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg">
-            <Heart className="h-5 w-5" />
-          </div>
-          <span className="text-xl font-bold text-gray-800">GoMed</span>
-        </motion.div>
+<header className="fixed top-0 left-0 w-full z-50 px-6 pt-3">
+  <div className="
+    relative max-w-7xl mx-auto flex items-center justify-between
+    px-6 py-3 rounded-full
+    bg-white/30 backdrop-blur-xl
+    border border-white/40
+    shadow-lg
+    overflow-hidden
+  ">
 
-        <div className="flex items-center gap-4">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setShowLogin(true)}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
-          >
-            Sign In
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setShowSignup(true)}
-            className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl font-semibold shadow-lg"
-          >
-            Get Started
-          </motion.button>
-        </div>
-      </header>
+    {/* Gloss Shine */}
+    <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/10 to-transparent opacity-40 pointer-events-none" />
 
-      {/* Hero */}
-      <section className="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6"
-        >
-          <Bot className="w-4 h-4" />
-          Powered by AI Multi-Agent System
-        </motion.div>
+    {/* Logo */}
+    <motion.div
+      initial={{ opacity: 0, x: -40 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="flex items-center gap-3 relative z-10"
+    >
+      <div className="flex h-9 w-9 items-center justify-center rounded-lg 
+      bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow">
+        <Heart className="h-4 w-4" />
+      </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent pb-2"
-        >
-          Smart Healthcare Platform
-        </motion.h1>
+      <span className="text-lg font-semibold text-gray-800 tracking-tight">
+        GoMed
+      </span>
+    </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="mt-4 max-w-xl text-gray-600 text-lg"
-        >
-          AI-powered pharmacy management connecting patients, pharmacies, and distributors
-        </motion.p>
-      </section>
+    {/* Buttons */}
+    <div className="flex items-center gap-4 relative z-10">
+
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setShowLogin(true)}
+        className="text-sm font-medium text-gray-700 hover:text-black transition"
+      >
+        Sign In
+      </motion.button>
+
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setShowSignup(true)}
+        className="px-5 py-2 text-sm font-semibold rounded-full
+        bg-gray-900 text-white shadow hover:bg-black transition"
+      >
+        Get Started
+      </motion.button>
+
+    </div>
+  </div>
+</header>
+
+{/* HERO SECTION */}
+<section className="relative z-10 px-6 pt-24 pb-20 text-center">
+
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="inline-flex items-center gap-2 bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-xs font-semibold mb-6"
+  >
+    <Bot size={14}/>
+    AUTONOMOUS AI SYSTEM
+  </motion.div>
+
+<motion.h1
+  initial={{ opacity: 0, y: 60 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.2 }}
+  className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[1.05] tracking-tight"
+>
+  The Future of
+  <br />
+  <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-emerald-500 bg-clip-text text-transparent">
+    Therapy Continuity.
+  </span>
+</motion.h1>
+
+  <motion.p
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 0.4 }}
+    className="max-w-2xl mx-auto mt-6 text-gray-600"
+  >
+    GoMed is an intelligent multi-agent ecosystem that monitors therapy silently,
+    predicts drift, and automates healthcare logistics with clinical precision.
+  </motion.p>
+
+</section>
 
       {/* Portals */}
-      <section className="relative z-10 mx-auto max-w-6xl px-6 pb-16">
-        <div className="grid gap-8 md:grid-cols-3">
-          {portals.map((portal, i) => (
-            <motion.div
-              key={portal.title}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15 }}
-              whileHover={{ scale: 1.03, y: -5 }}
-              className="rounded-2xl bg-white/80 backdrop-blur-xl p-6 shadow-lg border hover:shadow-2xl transition cursor-pointer group"
-              onClick={() => handlePortalClick(portal.role)}
+<section className="relative z-10 mx-auto max-w-7xl px-6 pb-24">
+  <div className="grid gap-10 md:grid-cols-3">
+
+    {portals.map((portal, i) => (
+      <motion.div
+        key={portal.title}
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.15 }}
+        whileHover={{ y: -12, scale: 1.04 }}
+        className="relative group cursor-pointer rounded-3xl border border-white/40
+        bg-white/30 backdrop-blur-xl p-7 shadow-lg overflow-hidden
+        hover:shadow-2xl transition-all duration-300"
+        onClick={() => handlePortalClick(portal.role)}
+      >
+
+        {/* Glow background */}
+        <div className={`absolute -top-20 -right-20 w-56 h-56 rounded-full opacity-20 blur-3xl bg-gradient-to-r ${portal.gradient}`} />
+
+        {/* Icon */}
+        <div className={`flex h-14 w-14 items-center justify-center rounded-xl
+        bg-gradient-to-r ${portal.gradient} text-white shadow-lg mb-5`}>
+          {portal.icon}
+        </div>
+
+        {/* Title */}
+        <h3 className="text-xl font-bold text-gray-900">
+          {portal.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-gray-600 text-sm mt-2 mb-5 leading-relaxed">
+          {portal.description}
+        </p>
+
+        {/* Features */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {portal.features.map((feature) => (
+            <span
+              key={feature}
+              className="text-xs font-medium bg-white/60 backdrop-blur
+              border border-gray-200 px-3 py-1 rounded-full text-gray-700"
             >
-              <div className={`flex h-14 w-14 items-center justify-center rounded-xl text-white bg-gradient-to-r ${portal.gradient} shadow-lg mb-4`}>
-                {portal.icon}
-              </div>
-
-              <h3 className="font-bold text-lg text-gray-800">{portal.title}</h3>
-              <p className="text-gray-600 text-sm mt-2 mb-4">{portal.description}</p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {portal.features.map((feature) => (
-                  <span key={feature} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
-                    {feature}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex items-center gap-2 text-blue-600 font-medium group-hover:gap-3 transition-all">
-                Enter Portal <ArrowRight className="h-4 w-4" />
-              </div>
-            </motion.div>
+              {feature}
+            </span>
           ))}
         </div>
-      </section>
 
-      {/* Features */}
-      <section className="relative z-10 bg-white/60 backdrop-blur-xl border-t px-6 py-16">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="text-2xl font-bold text-center mb-12">AI-Powered Features</h2>
-          <div className="grid gap-8 md:grid-cols-4">
-            {features.map((f, i) => (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="text-center"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow mx-auto mb-4">
-                  {f.icon}
-                </div>
-                <h3 className="font-semibold text-gray-800">{f.title}</h3>
-                <p className="text-sm text-gray-600 mt-2">{f.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+        {/* Enter button */}
+        <div className="flex items-center gap-2 text-sm font-semibold text-blue-600
+        group-hover:gap-3 transition-all duration-300">
+
+          Enter Portal
+
+          <motion.div
+            whileHover={{ x: 4 }}
+          >
+            <ArrowRight className="h-4 w-4" />
+          </motion.div>
+
         </div>
-      </section>
 
+      </motion.div>
+    ))}
+
+  </div>
+</section>
+<AgentArchitecture/>
+      {/* Features */}
+<section className="relative z-10 py-24 bg-gradient-to-b from-white via-blue-50 to-cyan-50">
+
+  <div className="mx-auto max-w-7xl px-6">
+
+    {/* Title */}
+    <motion.div
+      initial={{opacity:0,y:30}}
+      whileInView={{opacity:1,y:0}}
+      viewport={{once:true}}
+      className="text-center mb-16"
+    >
+      <p className="text-xs tracking-widest text-blue-600 mb-3 font-semibold">
+        AI SYSTEM CAPABILITIES
+      </p>
+
+      <h2 className="text-4xl font-bold text-gray-900">
+        AI-Powered Healthcare Intelligence
+      </h2>
+
+      <p className="text-gray-600 mt-4 max-w-xl mx-auto">
+        Autonomous agents collaborate to analyze medical data, optimize therapy,
+        and provide intelligent healthcare recommendations.
+      </p>
+    </motion.div>
+
+
+    {/* Feature Cards */}
+    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+
+      {features.map((f, i) => (
+
+        <motion.div
+          key={f.title}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.1 }}
+          whileHover={{ y: -8, scale: 1.03 }}
+          className="group bg-white/70 backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:shadow-2xl transition border border-white/40"
+        >
+
+          {/* Icon */}
+          <div className="flex h-14 w-14 items-center justify-center rounded-xl 
+          bg-gradient-to-r from-[#60c4dc] to-[#3fb1c8] text-white shadow-md mb-5
+          group-hover:scale-110 transition">
+
+            {f.icon}
+
+          </div>
+
+
+          {/* Title */}
+          <h3 className="font-semibold text-lg text-gray-800 mb-2">
+            {f.title}
+          </h3>
+
+
+          {/* Description */}
+          <p className="text-sm text-gray-600 leading-relaxed">
+            {f.desc}
+          </p>
+
+        </motion.div>
+
+      ))}
+
+    </div>
+
+  </div>
+
+</section>
       {/* Footer */}
       <footer className="relative z-10 bg-white border-t px-6 py-6 text-center text-sm text-gray-500">
         © 2024 GoMed Healthcare Platform • Built with AI for better health outcomes

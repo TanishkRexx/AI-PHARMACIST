@@ -2,13 +2,23 @@ import api from './axios';
 
 export const adminService = {
   async getDashboard() {
-    const response = await api.get('/admin/dashboard');
-    return response.data;
+    try {
+      const response = await api.get('/admin/dashboard');
+      return response.data;
+    } catch (error) {
+      console.error('Dashboard error:', error);
+      throw error;
+    }
   },
 
   async getUsers(params = {}) {
-    const response = await api.get('/admin/users', { params });
-    return response.data;
+    try {
+      const response = await api.get('/admin/users', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Get users error:', error);
+      throw error;
+    }
   },
 
   async getUserDetails(userId) {
@@ -45,15 +55,54 @@ export const adminService = {
     return response.data;
   },
 
-  async getObservabilitySummary(hours = 24) {
-    const response = await api.get('/admin/observability/summary', {
-      params: { hours }
-    });
-    return response.data;
+   async getObservabilitySummary(hours = 24) {
+    try {
+      const response = await api.get('/admin/observability/summary', {
+        params: { hours }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Observability summary error:', error);
+      // Return fallback data instead of throwing
+      return {
+        success: true,
+        data: {
+          period_hours: hours,
+          summary: {
+            total_traces: 'N/A',
+            total_llm_calls: 'N/A',
+            avg_latency_ms: 'N/A',
+            error_rate: 'N/A'
+          },
+          agent_breakdown: {},
+          dashboard_url: null
+        }
+      };
+    }
   },
 
-  async getObservabilityStatus() {
-    const response = await api.get('/admin/observability/status');
-    return response.data;
+   async getObservabilityStatus() {
+    try {
+      const response = await api.get('/admin/observability/status');
+      return response.data;
+    } catch (error) {
+      console.error('Observability status error:', error);
+      // Return fallback data
+      return {
+        success: true,
+        data: {
+          enabled: false,
+          provider: null,
+          dashboard_url: null,
+          features: {
+            trace_tracking: false,
+            llm_monitoring: false,
+            cost_tracking: false,
+            latency_tracking: false,
+            error_tracking: false
+          }
+        }
+      };
+    }
   }
 };

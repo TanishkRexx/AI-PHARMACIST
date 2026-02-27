@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   Brain,
   Activity,
@@ -8,11 +8,11 @@ import {
   AlertCircle,
   CheckCircle,
   ExternalLink,
-  RefreshCw
-} from 'lucide-react';
-import { adminService } from '../../api/adminService';
-import Loading from '../../components/common/Loading';
-import toast from 'react-hot-toast';
+  RefreshCw,
+} from "lucide-react";
+import { adminService } from "../../api/adminService";
+import Loading from "../../components/common/Loading";
+import toast from "react-hot-toast";
 
 export default function AIObservability() {
   const [loading, setLoading] = useState(true);
@@ -27,15 +27,22 @@ export default function AIObservability() {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [statusRes, summaryRes] = await Promise.all([
+
+      const [statusRes, summaryRes] = await Promise.allSettled([
         adminService.getObservabilityStatus(),
-        adminService.getObservabilitySummary(hours)
+        adminService.getObservabilitySummary(hours),
       ]);
 
-      if (statusRes.success) setStatus(statusRes.data);
-      if (summaryRes.success) setSummary(summaryRes.data);
+      if (statusRes.status === "fulfilled" && statusRes.value.success) {
+        setStatus(statusRes.value.data);
+      }
+
+      if (summaryRes.status === "fulfilled" && summaryRes.value.success) {
+        setSummary(summaryRes.value.data);
+      }
     } catch (error) {
-      toast.error('Failed to load observability data');
+      console.error("Load data error:", error);
+      toast.error("Failed to load observability data");
     } finally {
       setLoading(false);
     }
@@ -53,7 +60,9 @@ export default function AIObservability() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white">AI Observability</h1>
-            <p className="text-gray-400">Monitor AI agent performance with Langfuse</p>
+            <p className="text-gray-400">
+              Monitor AI agent performance with Langfuse
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -82,8 +91,8 @@ export default function AIObservability() {
         animate={{ opacity: 1, y: 0 }}
         className={`p-6 rounded-2xl ${
           status?.enabled
-            ? 'bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-green-500/30'
-            : 'bg-gradient-to-r from-red-600/20 to-orange-600/20 border border-red-500/30'
+            ? "bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-green-500/30"
+            : "bg-gradient-to-r from-red-600/20 to-orange-600/20 border border-red-500/30"
         }`}
       >
         <div className="flex items-center justify-between">
@@ -95,10 +104,12 @@ export default function AIObservability() {
             )}
             <div>
               <h2 className="text-xl font-bold text-white">
-                {status?.enabled ? 'Observability Active' : 'Observability Disabled'}
+                {status?.enabled
+                  ? "Observability Active"
+                  : "Observability Disabled"}
               </h2>
               <p className="text-gray-400">
-                Provider: {status?.provider || 'Not configured'}
+                Provider: {status?.provider || "Not configured"}
               </p>
             </div>
           </div>
@@ -118,33 +129,34 @@ export default function AIObservability() {
 
       {/* Features Grid */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        {status?.features && Object.entries(status.features).map(([feature, enabled], index) => (
-          <motion.div
-            key={feature}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-            className={`p-4 rounded-xl border ${
-              enabled
-                ? 'bg-green-500/10 border-green-500/30'
-                : 'bg-gray-800 border-gray-700'
-            }`}
-          >
-            <div className="flex items-center gap-2 mb-2">
-              {enabled ? (
-                <CheckCircle className="text-green-500" size={16} />
-              ) : (
-                <AlertCircle className="text-gray-500" size={16} />
-              )}
-              <span className={enabled ? 'text-green-400' : 'text-gray-400'}>
-                {enabled ? 'Active' : 'Inactive'}
-              </span>
-            </div>
-            <p className="text-white font-medium capitalize">
-              {feature.replace(/_/g, ' ')}
-            </p>
-          </motion.div>
-        ))}
+        {status?.features &&
+          Object.entries(status.features).map(([feature, enabled], index) => (
+            <motion.div
+              key={feature}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              className={`p-4 rounded-xl border ${
+                enabled
+                  ? "bg-green-500/10 border-green-500/30"
+                  : "bg-gray-800 border-gray-700"
+              }`}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                {enabled ? (
+                  <CheckCircle className="text-green-500" size={16} />
+                ) : (
+                  <AlertCircle className="text-gray-500" size={16} />
+                )}
+                <span className={enabled ? "text-green-400" : "text-gray-400"}>
+                  {enabled ? "Active" : "Inactive"}
+                </span>
+              </div>
+              <p className="text-white font-medium capitalize">
+                {feature.replace(/_/g, " ")}
+              </p>
+            </motion.div>
+          ))}
       </div>
 
       {/* Summary Cards */}
@@ -162,7 +174,7 @@ export default function AIObservability() {
               <span className="text-gray-400">Total Traces</span>
             </div>
             <p className="text-2xl font-bold text-white">
-              {summary.summary?.total_traces || 'N/A'}
+              {summary.summary?.total_traces || "N/A"}
             </p>
           </motion.div>
 
@@ -179,7 +191,7 @@ export default function AIObservability() {
               <span className="text-gray-400">LLM Calls</span>
             </div>
             <p className="text-2xl font-bold text-white">
-              {summary.summary?.total_llm_calls || 'N/A'}
+              {summary.summary?.total_llm_calls || "N/A"}
             </p>
           </motion.div>
 
@@ -196,7 +208,7 @@ export default function AIObservability() {
               <span className="text-gray-400">Avg Latency</span>
             </div>
             <p className="text-2xl font-bold text-white">
-              {summary.summary?.avg_latency_ms || 'N/A'}
+              {summary.summary?.avg_latency_ms || "N/A"}
             </p>
           </motion.div>
 
@@ -213,7 +225,7 @@ export default function AIObservability() {
               <span className="text-gray-400">Error Rate</span>
             </div>
             <p className="text-2xl font-bold text-white">
-              {summary.summary?.error_rate || 'N/A'}
+              {summary.summary?.error_rate || "N/A"}
             </p>
           </motion.div>
         </div>
@@ -229,19 +241,20 @@ export default function AIObservability() {
           <h3 className="font-bold text-white mb-4">Agent Performance</h3>
           <div className="grid md:grid-cols-3 gap-4">
             {Object.entries(summary.agent_breakdown).map(([agent, data]) => (
-              <div
-                key={agent}
-                className="p-4 bg-gray-700/50 rounded-xl"
-              >
+              <div key={agent} className="p-4 bg-gray-700/50 rounded-xl">
                 <h4 className="font-medium text-white capitalize mb-2">
-                  {agent.replace(/_/g, ' ')}
+                  {agent.replace(/_/g, " ")}
                 </h4>
                 <div className="space-y-1 text-sm">
                   <p className="text-gray-400">
-                    Calls: <span className="text-white">{data.calls || 'N/A'}</span>
+                    Calls:{" "}
+                    <span className="text-white">{data.calls || "N/A"}</span>
                   </p>
                   <p className="text-gray-400">
-                    Avg Latency: <span className="text-white">{data.avg_latency || 'N/A'}</span>
+                    Avg Latency:{" "}
+                    <span className="text-white">
+                      {data.avg_latency || "N/A"}
+                    </span>
                   </p>
                 </div>
               </div>
@@ -252,9 +265,12 @@ export default function AIObservability() {
 
       {/* Info Box */}
       <div className="bg-purple-500/10 border border-purple-500/30 p-6 rounded-2xl">
-        <h3 className="font-bold text-purple-400 mb-2">About AI Observability</h3>
+        <h3 className="font-bold text-purple-400 mb-2">
+          About AI Observability
+        </h3>
         <p className="text-gray-300 text-sm">
-          This dashboard shows AI agent performance metrics tracked via Langfuse. You can monitor:
+          This dashboard shows AI agent performance metrics tracked via
+          Langfuse. You can monitor:
         </p>
         <ul className="mt-3 text-sm text-gray-400 space-y-1">
           <li>• Trace tracking for all AI interactions</li>

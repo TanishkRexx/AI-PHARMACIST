@@ -216,8 +216,576 @@
 2026-02-26 22:15:02,675 - openai._base_client - INFO - Retrying request to /chat/completions in 0.869941 seconds
 2026-02-26 22:15:03,904 - openai._base_client - INFO - Retrying request to /chat/completions in 1.832983 seconds
 2026-02-26 22:16:21,263 - app.database.mongodb - INFO -  Disconnected from MongoDB
+<<<<<<< HEAD
 2026-02-28 00:06:27,633 - app.main - INFO - Starting APOS Pharmacy System...
 2026-02-28 00:06:27,650 - app.database.mongodb - INFO - Connected to MongoDB
 2026-02-28 00:06:27,650 - app.main - WARNING - Langfuse observability not configured
 2026-02-28 00:06:27,650 - app.main - INFO - APOS is ready!
 2026-02-28 00:19:24,695 - app.database.mongodb - INFO -  Disconnected from MongoDB
+=======
+2026-02-26 22:50:03,127 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-26 22:50:03,167 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-26 22:50:03,169 - app.main - INFO - Langfuse observability enabled
+2026-02-26 22:50:03,172 - app.main - INFO - APOS is ready!
+2026-02-26 23:42:45,193 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-26 23:43:05,499 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-26 23:43:05,540 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-26 23:43:05,541 - app.main - INFO - Langfuse observability enabled
+2026-02-26 23:43:05,541 - app.main - INFO - APOS is ready!
+2026-02-26 23:53:03,350 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-26 23:53:43,588 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-26 23:53:43,622 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-26 23:53:43,623 - app.main - INFO - Langfuse observability enabled
+2026-02-26 23:53:43,624 - app.main - INFO - APOS is ready!
+2026-02-26 23:56:09,049 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 00:00:41,382 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 00:00:41,414 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 00:00:41,414 - app.main - INFO - Langfuse observability enabled
+2026-02-27 00:00:41,414 - app.main - INFO - APOS is ready!
+2026-02-27 00:17:09,349 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 00:19:41,591 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 00:19:41,627 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 00:19:41,627 - app.main - INFO - Langfuse observability enabled
+2026-02-27 00:19:41,628 - app.main - INFO - APOS is ready!
+2026-02-27 01:00:13,575 - openai._base_client - INFO - Retrying request to /chat/completions in 0.980880 seconds
+2026-02-27 01:00:14,827 - openai._base_client - INFO - Retrying request to /chat/completions in 1.778843 seconds
+2026-02-27 01:00:17,237 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 01:00:17,240 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 01:00:17,241 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 01:00:22,183 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 01:00:22,186 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 01:00:22,612 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 01:00:22,613 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 02:12:09,737 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 02:13:29,245 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 02:13:29,462 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 02:13:29,463 - app.main - INFO - Langfuse observability enabled
+2026-02-27 02:13:29,463 - app.main - INFO - APOS is ready!
+2026-02-27 02:22:07,057 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 02:22:38,069 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 02:22:38,119 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 02:22:38,121 - app.main - INFO - Langfuse observability enabled
+2026-02-27 02:22:38,122 - app.main - INFO - APOS is ready!
+2026-02-27 16:41:43,651 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 16:41:44,098 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 16:41:44,100 - app.main - INFO - Langfuse observability enabled
+2026-02-27 16:41:44,100 - app.main - INFO - APOS is ready!
+2026-02-27 16:44:41,918 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 16:44:41,923 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 16:44:41,924 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 16:44:43,053 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-27 16:44:53,837 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 16:44:53,839 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 16:44:54,237 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 16:44:54,238 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 16:45:03,320 - openai._base_client - INFO - Retrying request to /chat/completions in 0.913349 seconds
+2026-02-27 16:45:06,526 - openai._base_client - INFO - Retrying request to /chat/completions in 1.520996 seconds
+2026-02-27 16:45:09,411 - app.agents.smart_response_agent - ERROR - Smart response error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-27 16:45:45,667 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 16:46:07,715 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 16:46:07,737 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 16:46:07,738 - app.main - INFO - Langfuse observability enabled
+2026-02-27 16:46:07,738 - app.main - INFO - APOS is ready!
+2026-02-27 16:46:28,901 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 16:46:28,907 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 16:46:28,908 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 16:46:29,434 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-27 16:46:36,738 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 16:46:36,739 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 16:46:36,905 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 16:46:36,906 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 16:50:45,670 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 16:51:37,723 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 16:51:37,838 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 16:51:37,839 - app.main - INFO - Langfuse observability enabled
+2026-02-27 16:51:37,841 - app.main - INFO - APOS is ready!
+2026-02-27 16:54:35,181 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 16:54:54,785 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 16:54:54,811 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 16:54:54,812 - app.main - INFO - Langfuse observability enabled
+2026-02-27 16:54:54,812 - app.main - INFO - APOS is ready!
+2026-02-27 16:55:08,725 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 16:57:00,196 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 16:57:00,236 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 16:57:00,237 - app.main - INFO - Langfuse observability enabled
+2026-02-27 16:57:00,238 - app.main - INFO - APOS is ready!
+2026-02-27 16:57:00,651 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 16:57:00,660 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 16:57:00,661 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 16:57:01,761 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-27 16:57:24,026 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 16:57:24,027 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 16:57:24,217 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 16:57:24,217 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 16:58:55,791 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 16:59:12,579 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 16:59:12,606 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 16:59:12,606 - app.main - INFO - Langfuse observability enabled
+2026-02-27 16:59:12,606 - app.main - INFO - APOS is ready!
+2026-02-27 17:00:16,789 - openai._base_client - INFO - Retrying request to /chat/completions in 0.889734 seconds
+2026-02-27 17:00:20,839 - openai._base_client - INFO - Retrying request to /chat/completions in 1.668304 seconds
+2026-02-27 17:00:23,783 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 17:00:23,788 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 17:00:23,789 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 17:00:39,164 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-27 17:00:48,794 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 17:00:48,795 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 17:00:48,978 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 17:00:48,978 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 17:02:07,861 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 17:08:52,544 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 17:08:52,586 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 17:08:52,586 - app.main - INFO - Langfuse observability enabled
+2026-02-27 17:08:52,586 - app.main - INFO - APOS is ready!
+2026-02-27 17:10:35,878 - openai._base_client - INFO - Retrying request to /chat/completions in 0.787281 seconds
+2026-02-27 17:10:37,023 - openai._base_client - INFO - Retrying request to /chat/completions in 1.735343 seconds
+2026-02-27 17:10:39,210 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 17:10:39,215 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 17:10:39,216 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 17:10:41,571 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-27 17:10:46,613 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 17:10:46,614 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 17:10:46,874 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 17:10:46,875 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 17:10:49,236 - openai._base_client - INFO - Retrying request to /chat/completions in 0.844801 seconds
+2026-02-27 17:10:50,433 - openai._base_client - INFO - Retrying request to /chat/completions in 1.718940 seconds
+2026-02-27 17:11:41,467 - openai._base_client - INFO - Retrying request to /chat/completions in 0.958451 seconds
+2026-02-27 17:11:43,283 - openai._base_client - INFO - Retrying request to /chat/completions in 1.574114 seconds
+2026-02-27 17:13:35,804 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 17:13:56,380 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 17:13:56,403 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 17:13:56,403 - app.main - INFO - Langfuse observability enabled
+2026-02-27 17:13:56,404 - app.main - INFO - APOS is ready!
+2026-02-27 17:14:30,527 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 17:14:30,535 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 17:14:30,535 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 17:14:32,072 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-27 17:14:39,884 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 17:14:39,885 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 17:14:40,063 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 17:14:40,063 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 17:15:02,596 - openai._base_client - INFO - Retrying request to /chat/completions in 0.928589 seconds
+2026-02-27 17:15:04,337 - openai._base_client - INFO - Retrying request to /chat/completions in 1.740182 seconds
+2026-02-27 17:21:37,752 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 17:22:02,961 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 17:22:02,981 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 17:22:02,981 - app.main - INFO - Langfuse observability enabled
+2026-02-27 17:22:02,983 - app.main - INFO - APOS is ready!
+2026-02-27 17:22:41,061 - openai._base_client - INFO - Retrying request to /chat/completions in 0.982583 seconds
+2026-02-27 17:22:42,473 - openai._base_client - INFO - Retrying request to /chat/completions in 1.833745 seconds
+2026-02-27 17:22:45,415 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 17:22:45,420 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 17:22:45,421 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 17:22:47,593 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-27 17:22:53,313 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 17:22:53,314 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 17:22:53,581 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 17:22:53,582 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 17:30:21,675 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 17:30:44,669 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 17:30:44,723 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 17:30:44,723 - app.main - INFO - Langfuse observability enabled
+2026-02-27 17:30:44,724 - app.main - INFO - APOS is ready!
+2026-02-27 17:30:45,198 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 17:30:45,202 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 17:30:45,203 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 17:30:46,906 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-27 17:30:54,336 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-27 17:30:54,337 - app.agents.semantic_search - INFO - Creating embeddings for 12 medicines...
+2026-02-27 17:30:54,512 - app.agents.semantic_search - INFO - Indexed 12 medicines for semantic search
+2026-02-27 17:30:54,512 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 17:31:57,668 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 17:32:23,135 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 17:32:23,208 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 17:32:23,208 - app.main - INFO - Langfuse observability enabled
+2026-02-27 17:32:23,209 - app.main - INFO - APOS is ready!
+2026-02-27 17:32:23,638 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-27 17:32:23,646 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-27 17:32:23,646 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-27 17:32:45,250 - huggingface_hub.utils._http - WARNING - '[Errno 11001] getaddrinfo failed' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json
+2026-02-27 17:32:45,251 - huggingface_hub.utils._http - WARNING - Retrying in 1s [Retry 1/5].
+2026-02-27 17:32:46,258 - app.agents.semantic_search - ERROR - Failed to load model: Cannot send a request, as the client has been closed.
+2026-02-27 17:32:46,259 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 12 medicines
+2026-02-27 17:32:48,153 - backoff - ERROR - Giving up execute_task_with_backoff(...) after 3 tries (httpx.ConnectError: [Errno 11001] getaddrinfo failed)
+2026-02-27 17:32:48,155 - langfuse - ERROR - error uploading: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 231, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 204, in upload
+    self._upload_batch(batch)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 244, in _upload_batch
+    execute_task_with_backoff(batch)
+  File "D:\Back\backend\venv\lib\site-packages\backoff\_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 242, in execute_task_with_backoff
+    raise e
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 230, in execute_task_with_backoff
+    self._client.batch_post(batch=batch, metadata=metadata)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 54, in batch_post
+    res = self.post(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 66, in post
+    res = self._session.post(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1146, in post
+    return self.request(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 828, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 915, in send
+    response = self._send_handling_auth(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 943, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 980, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1016, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 230, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-27 17:32:49,420 - backoff - ERROR - Giving up execute_task_with_backoff(...) after 3 tries (httpx.ConnectError: [Errno 11001] getaddrinfo failed)
+2026-02-27 17:32:49,422 - langfuse - ERROR - error uploading: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 231, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 204, in upload
+    self._upload_batch(batch)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 244, in _upload_batch
+    execute_task_with_backoff(batch)
+  File "D:\Back\backend\venv\lib\site-packages\backoff\_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 242, in execute_task_with_backoff
+    raise e
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 230, in execute_task_with_backoff
+    self._client.batch_post(batch=batch, metadata=metadata)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 54, in batch_post
+    res = self.post(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 66, in post
+    res = self._session.post(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1146, in post
+    return self.request(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 828, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 915, in send
+    response = self._send_handling_auth(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 943, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 980, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1016, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 230, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-27 17:33:56,768 - openai._base_client - INFO - Retrying request to /chat/completions in 0.867389 seconds
+2026-02-27 17:33:57,655 - openai._base_client - INFO - Retrying request to /chat/completions in 1.639081 seconds
+2026-02-27 17:34:00,880 - backoff - ERROR - Giving up execute_task_with_backoff(...) after 3 tries (httpx.ConnectError: [Errno 11001] getaddrinfo failed)
+2026-02-27 17:34:00,881 - langfuse - ERROR - error uploading: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 231, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 204, in upload
+    self._upload_batch(batch)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 244, in _upload_batch
+    execute_task_with_backoff(batch)
+  File "D:\Back\backend\venv\lib\site-packages\backoff\_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 242, in execute_task_with_backoff
+    raise e
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 230, in execute_task_with_backoff
+    self._client.batch_post(batch=batch, metadata=metadata)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 54, in batch_post
+    res = self.post(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 66, in post
+    res = self._session.post(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1146, in post
+    return self.request(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 828, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 915, in send
+    response = self._send_handling_auth(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 943, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 980, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1016, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 230, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-27 17:34:04,854 - backoff - ERROR - Giving up execute_task_with_backoff(...) after 3 tries (httpx.ConnectError: [Errno 11001] getaddrinfo failed)
+2026-02-27 17:34:04,855 - langfuse - ERROR - error uploading: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 231, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 204, in upload
+    self._upload_batch(batch)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 244, in _upload_batch
+    execute_task_with_backoff(batch)
+  File "D:\Back\backend\venv\lib\site-packages\backoff\_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 242, in execute_task_with_backoff
+    raise e
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 230, in execute_task_with_backoff
+    self._client.batch_post(batch=batch, metadata=metadata)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 54, in batch_post
+    res = self.post(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 66, in post
+    res = self._session.post(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1146, in post
+    return self.request(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 828, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 915, in send
+    response = self._send_handling_auth(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 943, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 980, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1016, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 230, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-27 17:34:07,943 - backoff - ERROR - Giving up execute_task_with_backoff(...) after 3 tries (httpx.ConnectError: [Errno 11001] getaddrinfo failed)
+2026-02-27 17:34:07,944 - langfuse - ERROR - error uploading: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 231, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 204, in upload
+    self._upload_batch(batch)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 244, in _upload_batch
+    execute_task_with_backoff(batch)
+  File "D:\Back\backend\venv\lib\site-packages\backoff\_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 242, in execute_task_with_backoff
+    raise e
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 230, in execute_task_with_backoff
+    self._client.batch_post(batch=batch, metadata=metadata)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 54, in batch_post
+    res = self.post(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 66, in post
+    res = self._session.post(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1146, in post
+    return self.request(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 828, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 915, in send
+    response = self._send_handling_auth(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 943, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 980, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1016, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 230, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-27 17:36:39,786 - backoff - ERROR - Giving up execute_task_with_backoff(...) after 3 tries (httpx.ConnectError: [Errno 11001] getaddrinfo failed)
+2026-02-27 17:36:39,789 - langfuse - ERROR - error uploading: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 231, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 204, in upload
+    self._upload_batch(batch)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 244, in _upload_batch
+    execute_task_with_backoff(batch)
+  File "D:\Back\backend\venv\lib\site-packages\backoff\_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 242, in execute_task_with_backoff
+    raise e
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 230, in execute_task_with_backoff
+    self._client.batch_post(batch=batch, metadata=metadata)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 54, in batch_post
+    res = self.post(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 66, in post
+    res = self._session.post(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1146, in post
+    return self.request(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 828, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 915, in send
+    response = self._send_handling_auth(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 943, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 980, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1016, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 230, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-27 20:15:01,660 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 20:15:01,688 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 20:15:01,688 - app.main - WARNING - Langfuse observability not configured
+2026-02-27 20:15:01,688 - app.main - INFO - APOS is ready!
+2026-02-27 23:34:18,241 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 23:51:32,555 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 23:51:32,590 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 23:51:32,591 - app.main - WARNING - Langfuse observability not configured
+2026-02-27 23:51:32,591 - app.main - INFO - APOS is ready!
+>>>>>>> 50c66f158abb50c67010153d69e7a83e257c3bee
+2026-02-28 00:25:00,974 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:25:00,989 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:25:00,989 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 00:25:00,990 - app.main - INFO - APOS is ready!
+2026-02-28 03:38:39,107 - app.database.mongodb - INFO -  Disconnected from MongoDB

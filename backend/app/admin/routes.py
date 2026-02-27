@@ -10,9 +10,11 @@ from bson import ObjectId
 from app.database.mongodb import get_database
 from app.auth.dependencies import require_role
 from app.auth.models import UserRole
+from app.admin.observability_routes import router as observability_router
 
 router = APIRouter()
 
+router.include_router(observability_router)
 
 # ==================== DASHBOARD ====================
 

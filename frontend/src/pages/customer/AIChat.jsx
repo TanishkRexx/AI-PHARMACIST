@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   Bot,
@@ -11,13 +11,13 @@ import {
   AlertTriangle,
   Sparkles,
   Trash2,
-  Plus
-} from 'lucide-react';
-import { customerService } from '../../api/customerService';
-import { useCart } from '../../context/CartContext';
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
+  Plus,
+} from "lucide-react";
+import { customerService } from "../../api/customerService";
+import { useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AIChat() {
   const navigate = useNavigate();
@@ -26,8 +26,8 @@ export default function AIChat() {
 
   const [messages, setMessages] = useState([
     {
-      id: '1',
-      role: 'assistant',
+      id: "1",
+      role: "assistant",
       content: `Hello! 👋 I'm your AI Pharmacist Assistant.
 
 I can help you with:
@@ -37,16 +37,20 @@ I can help you with:
 💊 **Medicine information** - "Side effects of Metformin"
 
 What can I help you with today?`,
-      suggestions: ['I have a fever', 'Price of Paracetamol', 'I need allergy medicine']
-    }
+      suggestions: [
+        "I have a fever",
+        "Price of Paracetamol",
+        "I need allergy medicine",
+      ],
+    },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [sessionId] = useState(() => uuidv4());
   const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const sendMessage = async (text = input) => {
@@ -54,36 +58,42 @@ What can I help you with today?`,
 
     const userMessage = {
       id: Date.now().toString(),
-      role: 'user',
-      content: text.trim()
+      role: "user",
+      content: text.trim(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
     setLoading(true);
 
     try {
-      const response = await customerService.sendChatMessage(text.trim(), sessionId);
+      const response = await customerService.sendChatMessage(
+        text.trim(),
+        sessionId,
+      );
 
       const assistantMessage = {
         id: (Date.now() + 1).toString(),
-        role: 'assistant',
+        role: "assistant",
         content: response.message,
         data: response.data,
         suggestions: response.suggestions,
         intent: response.intent,
-        requires_action: response.requires_action
+        requires_action: response.requires_action,
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      toast.error('Failed to send message');
-      setMessages(prev => [...prev, {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.',
-        suggestions: ['Try again', 'Browse medicines']
-      }]);
+      toast.error("Failed to send message");
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          role: "assistant",
+          content: "Sorry, I encountered an error. Please try again.",
+          suggestions: ["Try again", "Browse medicines"],
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -91,8 +101,8 @@ What can I help you with today?`,
 
   const handleAddToCart = async (medicine) => {
     const result = await addToCart(medicine.id, 1);
-    if (result.success) {
-      toast.success(`${medicine.name} added to cart!`);
+    if (!result.success) {
+      toast.error("Failed to add to cart");
     }
   };
 
@@ -102,19 +112,23 @@ What can I help you with today?`,
 
   const clearChat = () => {
     setMessages([messages[0]]);
-    toast.success('Chat cleared');
+    toast.success("Chat cleared");
   };
 
   const startListening = () => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      toast.error('Voice input not supported in this browser');
+    if (
+      !("webkitSpeechRecognition" in window) &&
+      !("SpeechRecognition" in window)
+    ) {
+      toast.error("Voice input not supported in this browser");
       return;
     }
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
-    recognition.lang = 'en-US';
+    recognition.lang = "en-US";
     recognition.interimResults = false;
 
     recognition.onstart = () => setIsListening(true);
@@ -128,7 +142,7 @@ What can I help you with today?`,
 
     recognition.onerror = () => {
       setIsListening(false);
-      toast.error('Voice recognition failed');
+      toast.error("Voice recognition failed");
     };
 
     recognition.start();
@@ -136,10 +150,10 @@ What can I help you with today?`,
 
   const renderMessageContent = (message) => {
     let content = message.content;
-    
-    content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    
-    content = content.replace(/\n/g, '<br/>');
+
+    content = content.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+    content = content.replace(/\n/g, "<br/>");
 
     return (
       <div
@@ -180,37 +194,53 @@ What can I help you with today?`,
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
             >
-              <div className={`flex gap-3 max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  message.role === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                }`}>
-                  {message.role === 'user' ? <User size={16} /> : <Bot size={16} />}
+              <div
+                className={`flex gap-3 max-w-[80%] ${message.role === "user" ? "flex-row-reverse" : ""}`}
+              >
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    message.role === "user"
+                      ? "bg-blue-600 text-white"
+                      : "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
+                  }`}
+                >
+                  {message.role === "user" ? (
+                    <User size={16} />
+                  ) : (
+                    <Bot size={16} />
+                  )}
                 </div>
 
-                <div className={`rounded-2xl px-4 py-3 ${
-                  message.role === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white border shadow-sm'
-                }`}>
+                <div
+                  className={`rounded-2xl px-4 py-3 ${
+                    message.role === "user"
+                      ? "bg-blue-600 text-white"
+                      : "bg-white border shadow-sm"
+                  }`}
+                >
                   {renderMessageContent(message)}
 
                   {message.data?.medicine && (
                     <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
                       <div className="flex items-start justify-between">
                         <div>
-                          <h4 className="font-bold text-gray-800">{message.data.medicine.name}</h4>
-                          <p className="text-sm text-gray-600">{message.data.medicine.brand}</p>
+                          <h4 className="font-bold text-gray-800">
+                            {message.data.medicine.name}
+                          </h4>
+                          <p className="text-sm text-gray-600">
+                            {message.data.medicine.brand}
+                          </p>
                           <p className="text-lg font-bold text-blue-600 mt-2">
                             ₹{message.data.medicine.price}
                           </p>
                         </div>
                         {message.data.medicine.in_stock && (
                           <button
-                            onClick={() => handleAddToCart(message.data.medicine)}
+                            onClick={() =>
+                              handleAddToCart(message.data.medicine)
+                            }
                             className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-lg text-sm font-medium hover:shadow-lg transition flex items-center gap-2"
                           >
                             <Plus size={16} />
@@ -286,8 +316,8 @@ What can I help you with today?`,
             onClick={startListening}
             className={`p-3 rounded-full transition ${
               isListening
-                ? 'bg-red-500 text-white animate-pulse'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? "bg-red-500 text-white animate-pulse"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
             }`}
           >
             {isListening ? <MicOff size={20} /> : <Mic size={20} />}
