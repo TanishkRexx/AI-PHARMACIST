@@ -54,7 +54,7 @@ export default function DistributorLayout() {
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r flex flex-col h-screen sticky top-0">
         {/* Logo */}
-        <div className="p-5 border-b">
+        <div className="p-3 border-b">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 bg-gradient-to-r from-emerald-600 to-teal-500 text-white flex items-center justify-center rounded-xl">
               <Heart size={20} />
@@ -66,18 +66,6 @@ export default function DistributorLayout() {
           </div>
         </div>
 
-        {/* Distributor Info */}
-        <div className="p-4 border-b bg-gradient-to-r from-emerald-50 to-teal-50">
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center justify-center rounded-full font-bold">
-              {user?.name?.[0]?.toUpperCase()}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-semibold text-gray-800 truncate">{user?.name}</p>
-              <p className="text-xs text-gray-500">Distribution Manager</p>
-            </div>
-          </div>
-        </div>
 
         {/* Navigation */}
         <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
@@ -134,32 +122,61 @@ export default function DistributorLayout() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Bar */}
-        <header className="bg-white border-b px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-xl font-bold text-gray-800">
-                Welcome, {user?.name?.split(' ')[0]}! 🚚
-              </h1>
-              <p className="text-sm text-gray-500">
-                {new Date().toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </p>
-            </div>
-            <button className="relative p-2 hover:bg-gray-100 rounded-lg">
-              <Bell className="w-5 h-5 text-gray-600" />
-              {pendingOrders > 0 && (
-                <span className="absolute top-0 right-0 h-4 w-4 bg-red-500 text-white text-xs flex items-center justify-center rounded-full">
-                  {pendingOrders}
-                </span>
-              )}
-            </button>
-          </div>
-        </header>
+<header className="bg-white border-b px-6 py-2">
+  <div className="flex items-center justify-between">
+
+    {/* LEFT */}
+    <div className="leading-tight">
+      <h1 className="text-lg font-bold text-gray-800">
+        Welcome, {user?.name?.split(' ')[0]}! 🚚
+      </h1>
+
+      <p className="text-xs text-gray-500">
+        {new Date().toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
+      </p>
+    </div>
+
+    {/* RIGHT */}
+    <div className="flex items-center gap-4">
+
+      {/* Notification */}
+      <button className="relative p-2 hover:bg-gray-100 rounded-lg">
+        <Bell className="w-5 h-5 text-gray-600" />
+
+        {pendingOrders > 0 && (
+          <span className="absolute top-0 right-0 h-4 w-4 bg-red-500 text-white text-xs flex items-center justify-center rounded-full">
+            {pendingOrders}
+          </span>
+        )}
+      </button>
+
+      {/* User Profile */}
+      <div className="flex items-center gap-3 bg-gray-50 px-3 py-1.5 rounded-xl border">
+
+        <div className="h-8 w-8 bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center justify-center rounded-full font-bold text-sm">
+          {user?.name?.[0]?.toUpperCase()}
+        </div>
+
+        <div className="leading-tight">
+          <p className="text-sm font-semibold text-gray-800">
+            {user?.name}
+          </p>
+          <p className="text-xs text-gray-500">
+            Distributor Manager
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</header>
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-6">

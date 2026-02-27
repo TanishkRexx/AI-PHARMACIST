@@ -36,8 +36,15 @@ export default function LoginPopup({ isOpen, onClose, openSignup, defaultRole = 
     setLoading(false);
 
     if (result.success) {
+      // Close the modal first
       onClose();
-      navigate(getDashboardPath());
+      
+      // ✅ KEY FIX: Use the user role from the login response directly
+      // Don't rely on getDashboardPath() without passing the role
+      const dashboardPath = getDashboardPath(result.user.role);
+      
+      // Navigate to the dashboard
+      navigate(dashboardPath, { replace: true });
     } else {
       setErrors({ api: result.error });
     }

@@ -14,6 +14,7 @@ from app.customer import router as customer_router
 from app.pharmacy import router as pharmacy_router
 from app.distributor import router as distributor_router
 from app.admin.routes import router as admin_router
+from app.admin.observability_routes import router as observability_router
 from app.observability.tracer import get_langfuse, flush_traces
 
 # Configure logging
@@ -95,7 +96,7 @@ app.include_router(customer_router, prefix="/api")
 app.include_router(pharmacy_router, prefix="/api")
 app.include_router(distributor_router, prefix="/api")
 app.include_router(admin_router, prefix="/api/admin", tags=["Admin"])
-
+app.include_router(observability_router, prefix="/api/admin", tags=["Admin", "Observability"])
 
 @app.get("/")
 async def root():
