@@ -9,6 +9,8 @@ from app.database.mongodb import get_database
 from app.auth.dependencies import require_role
 from app.auth.models import UserRole
 
+from app.agents.analytics_agent import get_analytics_agent
+
 router = APIRouter()
 
 
@@ -259,4 +261,63 @@ async def get_inventory_health(
             },
             "stock_value": round(total_stock_value, 2)
         }
+    }
+
+@router.get("/analytics/ai-forecast")
+async def get_ai_demand_forecast(
+    days_history: int = Query(30, ge=7, le=90),
+    days_forecast: int = Query(30, ge=7, le=90),
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """
+    AI-powered demand forecasting.
+    Uses machine learning to predict future demand.
+    """
+    analytics_agent = get_analytics_agent()
+    
+    result = analytics_agent.forecast_demand(
+        days_history=days_history,
+        days_forecast=days_forecast
+    )
+    
+    return {
+        "success": True,
+        "data": result
+    }
+
+
+@router.get("/analytics/anomalies")
+async def detect_sales_anomalies(
+    days: int = Query(30, ge=7, le=90),
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """
+    AI-powered anomaly detection in sales patterns.
+    Identifies unusual spikes or drops.
+    """
+    analytics_agent = get_analytics_agent()
+    
+    result = analytics_agent.detect_anomalies(days=days)
+    
+    return {
+        "success": True,
+        "data": result
+    }
+
+
+@router.get("/analytics/inventory-optimization")
+async def get_inventory_optimization(
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """
+    AI-powered inventory optimization suggestions.
+    Identifies overstocked and understocked items.
+    """
+    analytics_agent = get_analytics_agent()
+    
+    result = analytics_agent.get_inventory_optimization()
+    
+    return {
+        "success": True,
+        "data": result
     }

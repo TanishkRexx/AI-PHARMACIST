@@ -9,6 +9,8 @@ from app.database.mongodb import get_database
 from app.auth.dependencies import get_current_active_user, require_role
 from app.auth.models import UserRole
 
+from app.agents.recommendation_agent import get_recommendation_agent
+
 router = APIRouter()
 
 
@@ -275,4 +277,48 @@ async def get_medicines_by_category(
                 "pages": (total + limit - 1) // limit
             }
         }
+    }
+
+@router.get("/recommendations")
+async def get_personalized_recommendations(
+    limit: int = Query(5, ge=1, le=20),
+    current_user: dict = Depends(get_current_active_user)
+):
+    """
+    Get AI-powered personalized medicine recommendations.
+    Based on purchase history and health profile.
+    """
+    recommendation_agent = get_recommendation_agent()
+    
+    result = recommendation_agent.get_personalized_recommendations(
+        user_id=current_user["_id"],
+        medical_info=current_user.get("medical_info"),
+        limit=limit
+    )
+    
+    return {
+        "success": True,
+        "data": result,
+        "ai_powered": True
+    }
+
+
+@router.get("/refill-reminders")
+async def get_refill_reminders(
+    current_user: dict = Depends(get_current_active_user)
+):
+    """
+    Get AI-powered refill reminders.
+    Predicts when you need to reorder based on purchase patterns.
+    """
+    recommendation_agent = get_recommendation_agent()
+    
+    result = recommendation_agent.get_refill_reminders(
+        user_id=current_user["_id"]
+    )
+    
+    return {
+        "success": True,
+        "data": result,
+        "ai_powered": True
     }

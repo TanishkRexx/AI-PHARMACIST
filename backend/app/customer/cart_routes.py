@@ -2,7 +2,7 @@
 Customer Cart Routes - Shopping Cart Management
 """
 from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from typing import Optional, List
 from datetime import datetime
 from bson import ObjectId
@@ -16,11 +16,26 @@ router = APIRouter()
 class AddToCartRequest(BaseModel):
     medicine_id: str
     quantity: int = 1
+    
+    @validator('quantity')
+    def quantity_must_be_valid(cls, v):
+        if v < 1:
+            raise ValueError('Quantity must be at least 1')
+        if v > 100:
+            raise ValueError('Quantity cannot exceed 100 per order')
+        return v
 
 
 class UpdateCartItemRequest(BaseModel):
     quantity: int
 
+    @validator('quantity')
+    def quantity_must_be_valid(cls, v):
+        if v < 0:
+            raise ValueError('Quantity cannot be negative')
+        if v > 100:
+            raise ValueError('Quantity cannot exceed 100')
+        return v
 
 @router.get("/cart")
 async def get_cart(current_user: dict = Depends(get_current_active_user)):

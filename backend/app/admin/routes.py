@@ -193,8 +193,8 @@ async def get_user_details(
     
     try:
         user = await db["users"].find_one({"_id": ObjectId(user_id)})
-    except:
-        raise HTTPException(status_code=400, detail="Invalid user ID")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid user ID format")
     
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -239,8 +239,8 @@ async def update_user_status(
     
     try:
         user = await db["users"].find_one({"_id": ObjectId(user_id)})
-    except:
-        raise HTTPException(status_code=400, detail="Invalid user ID")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="Invalid user ID format")
     
     if not user:
         raise HTTPException(status_code=404, detail="User not found")

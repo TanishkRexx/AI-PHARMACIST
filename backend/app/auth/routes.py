@@ -12,10 +12,29 @@ from app.database.mongodb import get_database
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
+def validate_password_strength(password: str):
+    """Validate password meets security requirements"""
+    if len(password) < 8:
+        raise HTTPException(
+            status_code=400,
+            detail="Password must be at least 8 characters long"
+        )
+    if not any(c.isdigit() for c in password):
+        raise HTTPException(
+            status_code=400,
+            detail="Password must contain at least one number"
+        )
+    if not any(c.isupper() for c in password):
+        raise HTTPException(
+            status_code=400,
+            detail="Password must contain at least one uppercase letter"
+        )
 
 @router.post("/register", response_model=TokenResponse)
 async def register(user_data: UserRegister):
     """Register a new user"""
+    
+    validate_password_strength(user_data.password)
     
     db = get_database()
     users_collection = db["users"]

@@ -8,12 +8,19 @@ import uuid
 import base64
 
 from app.auth.dependencies import get_current_active_user
-from app.agents.orchestrator import PharmacyAI
 
 router = APIRouter()
 
-# Initialize AI
-pharmacy_ai = PharmacyAI()
+# Lazy initialization - don't create at import time
+_pharmacy_ai = None
+
+def get_pharmacy_ai():
+    """Get or create PharmacyAI instance (lazy loading)"""
+    global _pharmacy_ai
+    if _pharmacy_ai is None:
+        from app.agents.orchestrator import PharmacyAI
+        _pharmacy_ai = PharmacyAI()
+    return _pharmacy_ai
 
 
 class ChatMessage(BaseModel):
@@ -48,6 +55,9 @@ async def send_chat_message(
     allergies = [a.get("allergen", "") for a in medical_info.get("allergies", [])]
     
     try:
+        # Get AI instance (lazy loaded)
+        pharmacy_ai = get_pharmacy_ai()
+        
         response = await pharmacy_ai.process_message(
             message=chat_input.message,
             session_id=session_id,
@@ -93,8 +103,6 @@ async def upload_prescription(
     # Convert to base64
     base64_image = base64.b64encode(contents).decode('utf-8')
     
-    # For demo, return parsed info
-    # In production, would use GPT-4 Vision
     return {
         "success": True,
         "session_id": session_id or str(uuid.uuid4()),
@@ -116,11 +124,7 @@ async def process_voice(
 ):
     """
     Process voice input - convert to text and process.
-    Requires OpenAI Whisper in production.
     """
-    # For demo, return placeholder
-    # In production, use OpenAI Whisper API
-    
     return {
         "success": True,
         "session_id": session_id or str(uuid.uuid4()),
@@ -129,3 +133,19 @@ async def process_voice(
         "data": {},
         "suggestions": ["Speak again", "Type instead"]
     }
+
+
+@router.delete("/chat/session/{session_id}")
+async def clear_chat_session(
+    session_id: str,
+    current_user: dict = Depends(get_current_active_user)
+):
+    """
+    Clear chat session history.
+    """
+    pharmacy_ai = get_pharmacy_ai()
+    
+    if session_id in pharmacy_ai.sessions:
+        pharmacy_ai.sessions[session_id].clear()
+    
+    return {"success": True, "message": "Session cleared"}
