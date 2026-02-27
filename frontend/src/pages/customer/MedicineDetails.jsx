@@ -17,6 +17,51 @@ import { useCart } from '../../context/CartContext';
 import Loading from '../../components/common/Loading';
 import toast from 'react-hot-toast';
 
+// ============================================
+// MEDICINE IMAGE COMPONENT WITH FALLBACK
+// ============================================
+function MedicineImage({ src, alt, className = "" }) {
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Show placeholder if no src or error occurred
+  if (!src || hasError) {
+    return (
+      <div className={`flex items-center justify-center bg-gradient-to-br from-blue-100 to-cyan-100 ${className}`}>
+        <span className="text-6xl">💊</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      {/* Loading skeleton */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 animate-pulse">
+          <Loader2 className="w-8 h-8 text-blue-400 animate-spin" />
+        </div>
+      )}
+      {/* Actual image */}
+      <img
+        src={src}
+        alt={alt}
+        className={`w-full h-full object-cover transition-opacity duration-300 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setHasError(true);
+          setIsLoading(false);
+        }}
+        loading="lazy"
+      />
+    </div>
+  );
+}
+
+// ============================================
+// MAIN MEDICINE DETAILS COMPONENT
+// ============================================
 export default function MedicineDetails() {
   const { medicineId } = useParams();
   const navigate = useNavigate();
@@ -38,7 +83,6 @@ export default function MedicineDetails() {
       const response = await customerService.getMedicineDetails(medicineId);
       if (response.success) {
         setMedicine(response.data);
-        // Load alternatives (you can add this API call if available)
       }
     } catch (error) {
       toast.error('Failed to load medicine details');
@@ -87,10 +131,12 @@ export default function MedicineDetails() {
           className="lg:col-span-1"
         >
           <div className="bg-white rounded-2xl shadow-md border p-6 sticky top-6">
-            {/* Image */}
-            <div className="h-64 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center mb-6">
-              <div className="text-6xl">💊</div>
-            </div>
+            {/* ====== MEDICINE IMAGE ====== */}
+            <MedicineImage
+              src={medicine.image_url}
+              alt={medicine.name}
+              className="h-64 w-full rounded-xl mb-6"
+            />
 
             {/* Price & Stock */}
             <div className="mb-6">

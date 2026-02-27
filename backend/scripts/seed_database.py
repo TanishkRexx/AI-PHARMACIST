@@ -1,8 +1,12 @@
 """
 Database Seeder - Populate initial data
+Medicines loaded from CSV in same folder
+Auto-detects: Medicine.csv, Medicines.csv, medicines.csv
 Run: python -m scripts.seed_database
 """
 import asyncio
+import csv
+import json
 from datetime import datetime, timedelta
 from bson import ObjectId
 import random
@@ -15,6 +19,97 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.database.mongodb import connect_db, disconnect_db, get_database
 from app.auth.utils import get_password_hash
 
+
+# ============================================
+# AUTO-DETECT CSV FILE
+# ============================================
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Try multiple possible CSV filenames
+POSSIBLE_CSV_NAMES = [
+    "Medicine.csv",      # Your actual filename
+    "Medicines.csv",
+    "medicines.csv",
+    "medicine.csv",
+    "MEDICINES.csv",
+    "MEDICINE.csv"
+]
+
+CSV_FILE_PATH = None
+for csv_name in POSSIBLE_CSV_NAMES:
+    potential_path = os.path.join(SCRIPT_DIR, csv_name)
+    if os.path.exists(potential_path):
+        CSV_FILE_PATH = potential_path
+        break
+
+# Default fallback
+if not CSV_FILE_PATH:
+    CSV_FILE_PATH = os.path.join(SCRIPT_DIR, "medicines.csv")
+
+
+# ============================================
+# HELPER FUNCTIONS
+# ============================================
+
+def parse_list_field(value: str) -> list:
+    """Parse pipe-separated (|) or comma-separated list"""
+    if not value:
+        return []
+    
+    value = str(value).strip()
+    
+    # Your CSV uses pipe (|) as separator
+    if '|' in value:
+        return [item.strip() for item in value.split('|') if item.strip()]
+    
+    # Fallback to comma
+    if ',' in value:
+        return [item.strip() for item in value.split(',') if item.strip()]
+    
+    # Try JSON
+    try:
+        parsed = json.loads(value)
+        if isinstance(parsed, list):
+            return parsed
+    except:
+        pass
+    
+    return [value] if value else []
+
+
+def parse_bool(value) -> bool:
+    """Parse boolean from string"""
+    if not value:
+        return False
+    return str(value).strip().lower() in ['yes', 'true', '1', 'required', 'y']
+
+
+def parse_float(value, default=0.0) -> float:
+    """Safely parse float"""
+    if value is None or value == '':
+        return default
+    try:
+        cleaned = str(value).replace('₹', '').replace('$', '').replace(',', '').strip()
+        return float(cleaned) if cleaned else default
+    except:
+        return default
+
+
+def parse_int(value, default=0) -> int:
+    """Safely parse int"""
+    if value is None or value == '':
+        return default
+    try:
+        cleaned = str(value).replace(',', '').strip()
+        return int(float(cleaned)) if cleaned else default
+    except:
+        return default
+
+
+# ============================================
+# SEED USERS
+# ============================================
 
 async def seed_users():
     """Seed demo users"""
@@ -78,265 +173,230 @@ async def seed_users():
     return result.inserted_ids
 
 
-async def seed_medicines():
-    """Seed medicines"""
-    db = get_database()
+# ============================================
+# LOAD MEDICINES FROM CSV
+# ============================================
+
+def load_medicines_from_csv() -> list:
+    """Load all 138 medicines from Medicine.csv"""
+    medicines = []
+    skipped_rows = []
     
-    medicines = [
-        {
-            "name": "Paracetamol 500mg",
-            "generic_name": "Paracetamol",
-            "brand": "Crocin",
-            "category": "painkiller",
-            "dosage": "500mg",
-            "description": "Used for fever and mild pain relief",
-            "unit_price": 15.00,
-            "stock_quantity": 500,
-            "reorder_level": 100,
-            "prescription_required": False,
-            "contraindications": ["Liver disease", "Alcohol use"],
-            "drug_interactions": ["Warfarin"],
-            "side_effects": ["Nausea", "Allergic reaction"],
-            "max_daily_dosage": "4000mg",
-            "manufacturer": "GSK",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Amoxicillin 500mg",
-            "generic_name": "Amoxicillin",
-            "brand": "Moxikind",
-            "category": "antibiotic",
-            "dosage": "500mg",
-            "description": "Antibiotic for bacterial infections",
-            "unit_price": 85.00,
-            "stock_quantity": 200,
-            "reorder_level": 50,
-            "prescription_required": True,
-            "contraindications": ["Penicillin allergy"],
-            "drug_interactions": ["Methotrexate", "Warfarin"],
-            "side_effects": ["Diarrhea", "Rash", "Nausea"],
-            "manufacturer": "Mankind",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Metformin 500mg",
-            "generic_name": "Metformin",
-            "brand": "Glycomet",
-            "category": "antidiabetic",
-            "dosage": "500mg",
-            "description": "For Type 2 diabetes management",
-            "unit_price": 35.00,
-            "stock_quantity": 300,
-            "reorder_level": 75,
-            "prescription_required": True,
-            "contraindications": ["Kidney disease", "Liver disease"],
-            "drug_interactions": ["Alcohol"],
-            "side_effects": ["Nausea", "Diarrhea"],
-            "manufacturer": "USV",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Amlodipine 5mg",
-            "generic_name": "Amlodipine",
-            "brand": "Amlong",
-            "category": "cardiovascular",
-            "dosage": "5mg",
-            "description": "For high blood pressure",
-            "unit_price": 45.00,
-            "stock_quantity": 250,
-            "reorder_level": 60,
-            "prescription_required": True,
-            "contraindications": ["Severe hypotension"],
-            "drug_interactions": ["Simvastatin"],
-            "side_effects": ["Swelling", "Fatigue"],
-            "manufacturer": "Micro Labs",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Cetirizine 10mg",
-            "generic_name": "Cetirizine",
-            "brand": "Zyrtec",
-            "category": "other",
-            "dosage": "10mg",
-            "description": "Antihistamine for allergies",
-            "unit_price": 25.00,
-            "stock_quantity": 400,
-            "reorder_level": 80,
-            "prescription_required": False,
-            "contraindications": ["Kidney disease"],
-            "drug_interactions": ["Alcohol"],
-            "side_effects": ["Drowsiness"],
-            "manufacturer": "J&J",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Omeprazole 20mg",
-            "generic_name": "Omeprazole",
-            "brand": "Omez",
-            "category": "gastrointestinal",
-            "dosage": "20mg",
-            "description": "For acid reflux and ulcers",
-            "unit_price": 55.00,
-            "stock_quantity": 180,
-            "reorder_level": 40,
-            "prescription_required": False,
-            "contraindications": ["Liver disease"],
-            "drug_interactions": ["Clopidogrel"],
-            "side_effects": ["Headache", "Diarrhea"],
-            "manufacturer": "Dr Reddy's",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Vitamin D3 60000IU",
-            "generic_name": "Cholecalciferol",
-            "brand": "Uprise D3",
-            "category": "vitamin",
-            "dosage": "60000IU",
-            "description": "Vitamin D supplement",
-            "unit_price": 30.00,
-            "stock_quantity": 500,
-            "reorder_level": 100,
-            "prescription_required": False,
-            "contraindications": [],
-            "drug_interactions": [],
-            "side_effects": [],
-            "manufacturer": "Alkem",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Azithromycin 500mg",
-            "generic_name": "Azithromycin",
-            "brand": "Zithromax",
-            "category": "antibiotic",
-            "dosage": "500mg",
-            "description": "Antibiotic for respiratory infections",
-            "unit_price": 120.00,
-            "stock_quantity": 100,
-            "reorder_level": 30,
-            "prescription_required": True,
-            "contraindications": ["Liver disease"],
-            "drug_interactions": ["Warfarin"],
-            "side_effects": ["Diarrhea", "Nausea"],
-            "manufacturer": "Cipla",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Ibuprofen 400mg",
-            "generic_name": "Ibuprofen",
-            "brand": "Brufen",
-            "category": "painkiller",
-            "dosage": "400mg",
-            "description": "Pain relief and anti-inflammatory",
-            "unit_price": 20.00,
-            "stock_quantity": 350,
-            "reorder_level": 70,
-            "prescription_required": False,
-            "contraindications": ["Peptic ulcer", "Kidney disease"],
-            "drug_interactions": ["Aspirin", "Warfarin"],
-            "side_effects": ["Stomach pain", "Nausea"],
-            "manufacturer": "Abbott",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Losartan 50mg",
-            "generic_name": "Losartan",
-            "brand": "Cozaar",
-            "category": "cardiovascular",
-            "dosage": "50mg",
-            "description": "For high blood pressure",
-            "unit_price": 55.00,
-            "stock_quantity": 180,
-            "reorder_level": 45,
-            "prescription_required": True,
-            "contraindications": ["Pregnancy"],
-            "drug_interactions": ["Potassium supplements"],
-            "side_effects": ["Dizziness", "Fatigue"],
-            "manufacturer": "Merck",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        # Low stock items for testing
-        {
-            "name": "Ciprofloxacin 500mg",
-            "generic_name": "Ciprofloxacin",
-            "brand": "Ciplox",
-            "category": "antibiotic",
-            "dosage": "500mg",
-            "description": "Antibiotic for various infections",
-            "unit_price": 95.00,
-            "stock_quantity": 25,  # Low stock
-            "reorder_level": 40,
-            "prescription_required": True,
-            "contraindications": ["Tendon disorders"],
-            "drug_interactions": ["Theophylline"],
-            "side_effects": ["Nausea", "Headache"],
-            "manufacturer": "Cipla",
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "name": "Atorvastatin 10mg",
-            "generic_name": "Atorvastatin",
-            "brand": "Lipitor",
-            "category": "cardiovascular",
-            "dosage": "10mg",
-            "description": "For high cholesterol",
-            "unit_price": 75.00,
-            "stock_quantity": 10,  # Very low
-            "reorder_level": 50,
-            "prescription_required": True,
-            "contraindications": ["Liver disease", "Pregnancy"],
-            "drug_interactions": ["Warfarin"],
-            "side_effects": ["Muscle pain"],
-            "manufacturer": "Pfizer",
-            "is_active": True,
+    print(f"\n📂 Loading medicines from CSV...")
+    print(f"   Path: {CSV_FILE_PATH}")
+    
+    if not os.path.exists(CSV_FILE_PATH):
+        print(f"   ❌ CSV file not found!")
+        print(f"   💡 Tried these filenames:")
+        for name in POSSIBLE_CSV_NAMES:
+            print(f"      - {name}")
+        return []
+    
+    # Try different encodings
+    encodings_to_try = ['utf-8-sig', 'utf-8', 'latin-1', 'cp1252', 'iso-8859-1']
+    file_content = None
+    used_encoding = None
+    
+    for encoding in encodings_to_try:
+        try:
+            with open(CSV_FILE_PATH, 'r', encoding=encoding) as f:
+                file_content = f.read()
+                used_encoding = encoding
+                break
+        except UnicodeDecodeError:
+            continue
+    
+    if not file_content:
+        print("   ❌ Could not read CSV with any encoding!")
+        return []
+    
+    print(f"   ✅ Using encoding: {used_encoding}")
+    
+    # Parse CSV
+    import io
+    csv_file = io.StringIO(file_content)
+    csv_reader = csv.DictReader(csv_file)
+    
+    # Clean and display headers
+    headers = csv_reader.fieldnames
+    if headers:
+        headers = [h.strip().replace('\ufeff', '').replace('\ufffe', '') for h in headers]
+        print(f"   📋 CSV Columns ({len(headers)}): {', '.join(headers[:5])}...")
+    else:
+        print("   ❌ No headers found!")
+        return []
+    
+    # Process each row
+    total_rows = 0
+    
+    for row_num, row in enumerate(csv_reader, start=2):
+        total_rows += 1
+        
+        # Clean row keys (remove BOM)
+        cleaned_row = {}
+        for key, value in row.items():
+            clean_key = key.strip().replace('\ufeff', '').replace('\ufffe', '') if key else ''
+            cleaned_row[clean_key] = value.strip() if value else ''
+        row = cleaned_row
+        
+        # Get required fields - YOUR CSV COLUMNS
+        name = row.get('Medicine Name', '').strip()
+        
+        if not name:
+            skipped_rows.append(f"Row {row_num}: No name")
+            continue
+        
+        generic_name = row.get('Generic Name', name).strip()
+        brand = row.get('Brand', 'Generic').strip()
+        category = row.get('Category', 'other').strip().lower()
+        dosage = row.get('Dosage', 'N/A').strip()
+        description = row.get('Description', f"{name} - Medical product").strip()
+        
+        # Numeric fields
+        unit_price = parse_float(row.get('Unit Price', '0'), 0)
+        stock_quantity = parse_int(row.get('Stock Quantity', '100'), 100)
+        reorder_level = parse_int(row.get('Reorder Level', '50'), 50)
+        
+        # Boolean
+        prescription_required = parse_bool(row.get('Prescription Required', 'No'))
+        
+        # List fields (pipe-separated in your CSV)
+        contraindications = parse_list_field(row.get('Contraindications', ''))
+        drug_interactions = parse_list_field(row.get('Drug Interactions', ''))
+        side_effects = parse_list_field(row.get('Side Effects', ''))
+        
+        # Other fields
+        max_daily_dosage = row.get('Max Daily Dosage', '').strip()
+        manufacturer = row.get('Manufacturer', brand).strip()
+        
+        # IMAGE URL - This is what you want!
+        image_url = row.get('Image URL', '').strip()
+        
+        # Check if active (defaults to Yes)
+        is_active_str = row.get('Is Active', 'Yes').strip().lower()
+        is_active = is_active_str in ['yes', 'true', '1', 'y', '']
+        
+        # Build medicine document
+        medicine = {
+            "name": name,
+            "generic_name": generic_name,
+            "brand": brand,
+            "category": category,
+            "dosage": dosage,
+            "description": description,
+            "unit_price": unit_price,
+            "stock_quantity": stock_quantity,
+            "reorder_level": reorder_level,
+            "prescription_required": prescription_required,
+            "contraindications": contraindications,
+            "drug_interactions": drug_interactions,
+            "side_effects": side_effects,
+            "max_daily_dosage": max_daily_dosage,
+            "manufacturer": manufacturer,
+            "image_url": image_url,  # ✅ IMAGE URL FROM CSV
+            "is_active": is_active,
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow()
         }
-    ]
+        
+        medicines.append(medicine)
+        
+        # Progress indicator every 20 rows
+        if total_rows % 20 == 0:
+            print(f"   📦 Processed {total_rows} rows...")
     
+    # Print summary
+    print(f"\n   📊 CSV Processing Complete:")
+    print(f"      Total rows in CSV: {total_rows}")
+    print(f"      Successfully parsed: {len(medicines)}")
+    print(f"      Skipped rows: {len(skipped_rows)}")
+    
+    if skipped_rows:
+        print(f"\n   ⚠️ Skipped rows:")
+        for skip in skipped_rows[:5]:
+            print(f"      {skip}")
+        if len(skipped_rows) > 5:
+            print(f"      ... and {len(skipped_rows) - 5} more")
+    
+    return medicines
+
+
+# ============================================
+# SEED MEDICINES
+# ============================================
+
+async def seed_medicines():
+    """Seed medicines from CSV file"""
+    db = get_database()
+    
+    # Load from CSV
+    medicines = load_medicines_from_csv()
+    
+    if not medicines:
+        print("\n❌ No medicines loaded!")
+        print("   Please check that Medicine.csv exists in the scripts folder")
+        return []
+    
+    # Delete existing and insert new
+    print(f"\n   🗑️  Clearing existing medicines...")
     await db["medicines"].delete_many({})
+    
+    print(f"   💾 Inserting {len(medicines)} medicines...")
     result = await db["medicines"].insert_many(medicines)
-    print(f"✅ Created {len(result.inserted_ids)} medicines")
+    
+    # Calculate statistics
+    with_images = sum(1 for m in medicines if m.get('image_url'))
+    with_rx = sum(1 for m in medicines if m.get('prescription_required'))
+    categories = set(m.get('category', 'other') for m in medicines)
+    brands = set(m.get('brand', '') for m in medicines)
+    
+    print(f"\n✅ Successfully inserted {len(result.inserted_ids)} medicines!")
+    print(f"   📷 With images: {with_images}/{len(medicines)}")
+    print(f"   💊 Prescription required: {with_rx}/{len(medicines)}")
+    print(f"   📁 Categories ({len(categories)}): {', '.join(sorted(categories))}")
+    print(f"   🏷️  Brands ({len(brands)}): {len(brands)} unique brands")
+    
+    # Show sample medicines
+    print(f"\n   📋 Sample medicines loaded:")
+    for med in medicines[:5]:
+        img_icon = '📷' if med.get('image_url') else '❌'
+        rx_icon = '💊' if med.get('prescription_required') else '  '
+        print(f"      {img_icon}{rx_icon} {med['name'][:40]:40} - ₹{med['unit_price']:6.2f} - {med['brand']}")
+    if len(medicines) > 5:
+        print(f"      ... and {len(medicines) - 5} more medicines")
     
     return result.inserted_ids
 
+
+# ============================================
+# SEED SAMPLE ORDERS
+# ============================================
 
 async def seed_sample_orders(user_ids, medicine_ids):
     """Create sample orders"""
     db = get_database()
     
-    customer_id = str(user_ids[0])  # First user is customer
+    users = await db["users"].find({"role": "customer"}).to_list(1)
+    if not users:
+        print("⚠️ No customer user found, skipping order seeding")
+        return
+    
+    customer = users[0]
+    customer_id = str(customer["_id"])
     
     medicines = await db["medicines"].find({}).to_list(100)
+    
+    if not medicines:
+        print("⚠️ No medicines found, skipping order seeding")
+        return
     
     orders = []
     
     for i in range(5):
         order_date = datetime.utcnow() - timedelta(days=random.randint(1, 30))
         
-        # Pick 1-3 random medicines
-        selected = random.sample(medicines, random.randint(1, 3))
+        num_items = min(random.randint(1, 3), len(medicines))
+        selected = random.sample(medicines, num_items)
         
         items = []
         subtotal = 0
@@ -352,8 +412,9 @@ async def seed_sample_orders(user_ids, medicine_ids):
                 "quantity": qty,
                 "unit_price": med["unit_price"],
                 "subtotal": item_subtotal,
-                "dosage": med["dosage"],
-                "prescription_required": med.get("prescription_required", False)
+                "dosage": med.get("dosage", ""),
+                "prescription_required": med.get("prescription_required", False),
+                "image_url": med.get("image_url", "")  # Include image in orders
             })
         
         tax = subtotal * 0.05
@@ -365,9 +426,9 @@ async def seed_sample_orders(user_ids, medicine_ids):
         orders.append({
             "order_number": f"ORD-{order_date.strftime('%Y%m%d')}-{1000+i}",
             "customer_id": customer_id,
-            "customer_name": "Demo Customer",
-            "customer_phone": "9876543210",
-            "customer_email": "customer@demo.com",
+            "customer_name": customer.get("name", "Demo Customer"),
+            "customer_phone": customer.get("phone", "9876543210"),
+            "customer_email": customer.get("email", "customer@demo.com"),
             "items": items,
             "subtotal": round(subtotal, 2),
             "tax_amount": round(tax, 2),
@@ -375,7 +436,7 @@ async def seed_sample_orders(user_ids, medicine_ids):
             "total_amount": round(total, 2),
             "status": status,
             "payment_status": "paid",
-            "delivery_address": "123 Main Street, Mumbai 400001",
+            "delivery_address": customer.get("address", "123 Main Street, Mumbai 400001"),
             "created_at": order_date,
             "updated_at": order_date,
             "confirmed_at": order_date if status != "pending" else None,
@@ -384,44 +445,47 @@ async def seed_sample_orders(user_ids, medicine_ids):
     
     await db["orders"].delete_many({})
     result = await db["orders"].insert_many(orders)
-    print(f"✅ Created {len(result.inserted_ids)} orders")
+    print(f"✅ Created {len(result.inserted_ids)} sample orders")
 
+
+# ============================================
+# CREATE INDEXES
+# ============================================
 
 async def create_indexes():
     """Create database indexes"""
     db = get_database()
     
-    # Users
     await db["users"].create_index("email", unique=True)
     await db["users"].create_index("phone")
     await db["users"].create_index("role")
     
-    # Medicines
     await db["medicines"].create_index("name")
     await db["medicines"].create_index("generic_name")
     await db["medicines"].create_index("category")
     await db["medicines"].create_index([("name", "text"), ("generic_name", "text")])
     
-    # Orders
     await db["orders"].create_index("order_number", unique=True)
     await db["orders"].create_index("customer_id")
     await db["orders"].create_index("status")
     await db["orders"].create_index("created_at")
     
-    # Carts
     await db["carts"].create_index("user_id", unique=True)
     
-    # Procurement
     await db["procurement_orders"].create_index("po_number", unique=True)
     await db["procurement_orders"].create_index("status")
     
-    print("✅ Created indexes")
+    print("✅ Created database indexes")
 
+
+# ============================================
+# MAIN FUNCTION
+# ============================================
 
 async def main():
     """Main seeder function"""
     print("🌱 Starting database seeding...")
-    print("=" * 50)
+    print("=" * 60)
     
     await connect_db()
     
@@ -431,10 +495,11 @@ async def main():
         medicine_ids = await seed_medicines()
         await seed_sample_orders(user_ids, medicine_ids)
         
-        print("=" * 50)
+        print("\n" + "=" * 60)
         print("🎉 Database seeding completed!")
         print("")
         print("📋 Demo Credentials:")
+        print("   Admin:       admin@demo.com / admin123")
         print("   Customer:    customer@demo.com / password123")
         print("   Pharmacy:    pharmacy@demo.com / password123")
         print("   Distributor: distributor@demo.com / password123")

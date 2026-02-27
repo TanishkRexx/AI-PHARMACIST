@@ -767,18 +767,79 @@ Traceback (most recent call last):
   File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
     raise mapped_exc(message) from exc
 httpx.ConnectError: [Errno 11001] getaddrinfo failed
-2026-02-27 22:57:17,320 - app.main - INFO - Starting APOS Pharmacy System...
-2026-02-27 22:57:17,800 - app.database.mongodb - INFO - Connected to MongoDB
-2026-02-27 22:57:17,800 - app.main - INFO - Langfuse observability enabled
-2026-02-27 22:57:17,800 - app.main - INFO - APOS is ready!
-2026-02-27 23:02:56,190 - app.database.mongodb - INFO -  Disconnected from MongoDB
-2026-02-27 23:03:10,944 - app.main - INFO - Starting APOS Pharmacy System...
-2026-02-27 23:03:10,986 - app.database.mongodb - INFO - Connected to MongoDB
-2026-02-27 23:03:10,987 - app.main - INFO - Langfuse observability enabled
-2026-02-27 23:03:10,987 - app.main - INFO - APOS is ready!
-2026-02-27 23:31:32,847 - app.database.mongodb - INFO -  Disconnected from MongoDB
-2026-02-27 23:52:29,409 - app.main - INFO - Starting APOS Pharmacy System...
-2026-02-27 23:52:29,470 - app.database.mongodb - INFO - Connected to MongoDB
-2026-02-27 23:52:29,471 - app.main - INFO - Langfuse observability enabled
-2026-02-27 23:52:29,472 - app.main - INFO - APOS is ready!
-2026-02-27 23:58:14,763 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 20:15:01,660 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 20:15:01,688 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 20:15:01,688 - app.main - WARNING - Langfuse observability not configured
+2026-02-27 20:15:01,688 - app.main - INFO - APOS is ready!
+2026-02-27 23:34:18,241 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 23:51:32,555 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 23:51:32,590 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 23:51:32,591 - app.main - WARNING - Langfuse observability not configured
+2026-02-27 23:51:32,591 - app.main - INFO - APOS is ready!
+2026-02-28 00:02:43,062 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:02:43,115 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:02:43,115 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:02:43,117 - app.main - INFO - APOS is ready!
+2026-02-28 00:07:28,295 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:07:45,500 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:07:45,526 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:07:45,526 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:07:45,527 - app.main - INFO - APOS is ready!
+2026-02-28 00:20:18,095 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:20:37,553 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:20:37,597 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:20:37,598 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:20:37,598 - app.main - INFO - APOS is ready!
+2026-02-28 00:21:07,771 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:21:32,273 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:21:32,311 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:21:32,313 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:21:32,314 - app.main - INFO - APOS is ready!
+2026-02-28 00:35:00,557 - app.main - INFO -  Shutting down APOS...
+2026-02-28 00:35:00,561 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:35:36,215 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:35:36,295 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:35:36,296 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:35:36,296 - app.main - INFO - APOS is ready!
+2026-02-28 00:45:04,069 - app.main - INFO -  Shutting down APOS...
+2026-02-28 00:45:04,080 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:45:26,312 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:45:26,362 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:45:26,363 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:45:26,363 - app.main - INFO - APOS is ready!
+2026-02-28 00:45:56,472 - app.main - INFO -  Shutting down APOS...
+2026-02-28 00:45:56,474 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:46:20,756 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:46:20,803 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:46:20,803 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:46:20,803 - app.main - INFO - APOS is ready!
+2026-02-28 00:48:20,632 - app.main - INFO -  Shutting down APOS...
+2026-02-28 00:48:20,636 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:53:49,428 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:53:50,802 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:58:38,972 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:58:40,374 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 01:05:21,715 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 01:05:23,092 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 01:06:09,938 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 01:06:09,986 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 01:06:09,986 - app.main - INFO - Langfuse observability enabled
+2026-02-28 01:06:09,987 - app.main - INFO - APOS is ready!
+2026-02-28 01:54:58,963 - app.main - INFO -  Shutting down APOS...
+2026-02-28 01:54:58,969 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 01:56:23,242 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 01:56:23,597 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 01:56:23,598 - app.main - INFO - Langfuse observability enabled
+2026-02-28 01:56:23,598 - app.main - INFO - APOS is ready!
+2026-02-28 02:19:36,432 - app.main - INFO -  Shutting down APOS...
+2026-02-28 02:19:36,436 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 02:21:13,004 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 02:21:14,780 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 02:32:37,247 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 02:32:38,865 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 02:33:18,737 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 02:33:18,883 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 02:33:18,883 - app.main - INFO - Langfuse observability enabled
+2026-02-28 02:33:18,883 - app.main - INFO - APOS is ready!
+2026-02-28 02:45:11,836 - app.main - INFO -  Shutting down APOS...
+2026-02-28 02:45:11,840 - app.database.mongodb - INFO -  Disconnected from MongoDB

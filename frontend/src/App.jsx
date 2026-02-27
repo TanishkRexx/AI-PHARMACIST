@@ -20,6 +20,8 @@ import OrderTracking from './pages/customer/OrderTracking';
 import AIChat from './pages/customer/AIChat';
 import Recommendations from './pages/customer/Recommendations';
 import CustomerProfile from './pages/customer/Profile';
+import CurrentPrescription from './pages/customer/CurrentPrescription';
+import Therapy from './pages/customer/Therapy';
 
 // Pharmacy Pages
 import PharmacyLayout from './pages/pharmacy/PharmacyLayout';
@@ -103,6 +105,9 @@ function App() {
           <Route path="chat" element={<AIChat />} />
           <Route path="recommendations" element={<Recommendations />} />
           <Route path="profile" element={<CustomerProfile />} />
+          <Route path="currentPrescription" element={<CurrentPrescription />} />
+          <Route path="currentTherapy" element={<Therapy/>} />
+
         </Route>
 
         {/* ==================== PHARMACY ROUTES ==================== */}
