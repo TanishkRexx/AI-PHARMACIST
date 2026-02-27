@@ -843,3 +843,7 @@ httpx.ConnectError: [Errno 11001] getaddrinfo failed
 2026-02-28 02:33:18,883 - app.main - INFO - APOS is ready!
 2026-02-28 02:45:11,836 - app.main - INFO -  Shutting down APOS...
 2026-02-28 02:45:11,840 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 03:08:14,210 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 03:08:14,279 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 03:08:14,279 - app.main - INFO - Langfuse observability enabled
+2026-02-28 03:08:14,279 - app.main - INFO - APOS is ready!
