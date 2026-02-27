@@ -136,5 +136,25 @@ export const customerService = {
   async getRefillSuggestions() {
     const response = await api.get('/customer/refill-suggestions');
     return response.data;
-  }
+  },
+
+  async getHealthProfile() {
+    try {
+      const response = await api.get('/customer/health/profile');
+      return response.data;
+    } catch (error) {
+      console.error('Health profile error:', error);
+      throw error;
+    }
+  },
+
+  async getMedicationAdherence() {
+    try {
+      const response = await api.get('/customer/health/adherence');
+      return response.data;
+    } catch (error) {
+      console.error('Adherence tracking error:', error);
+      throw error;
+    }
+  },
 };

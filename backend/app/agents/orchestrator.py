@@ -7,6 +7,7 @@ PRODUCTION VERSION - ALL EDGE CASES HANDLED + ALL FIXES APPLIED
 ✅ Spell correction
 ✅ Context-aware responses
 ✅ Improved accuracy
+✅ Real order tracking (NEW!)
 """
 from typing import Dict, Any, List, Optional
 from openai import OpenAI
@@ -14,6 +15,9 @@ import json
 from datetime import datetime
 import time
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 try:
     from rapidfuzz import fuzz, process
@@ -88,7 +92,7 @@ class PharmacyAI:
         else:
             self.spell = None
         
-        # Navigation keywords
+        # Navigation keywords - REMOVED order-related keywords (they need real data)
         self.navigation_keywords = {
             "browse categories": "BROWSE_CATEGORIES",
             "browse medicines": "BROWSE_MEDICINES",
@@ -98,10 +102,7 @@ class PharmacyAI:
             "my cart": "VIEW_CART",
             "cart": "VIEW_CART",
             "checkout": "CHECKOUT",
-            "my orders": "VIEW_ORDERS",
-            "view orders": "VIEW_ORDERS",
-            "track order": "TRACK_ORDER",
-            "track my order": "TRACK_ORDER",
+            # REMOVED: order-related keywords - they go to _handle_order_status now
             "talk to pharmacist": "CONTACT_PHARMACIST",
             "contact pharmacist": "CONTACT_PHARMACIST",
             "speak to pharmacist": "CONTACT_PHARMACIST",
@@ -246,14 +247,15 @@ Respond naturally in conversation."""
             intent = intent_data.get("intent", "GENERAL")
             entities = intent_data.get("entities", {})
             
-            # STEP 3: ROUTE TO HANDLER
+            # STEP 3: ROUTE TO HANDLER (pass user_id for order tracking)
             response = await self._handle_intent(
                 intent=intent,
                 entities=entities,
                 message=message_clean,
                 user_allergies=user_allergies,
                 memory=memory,
-                trace=trace
+                trace=trace,
+                user_id=user_id  # Pass user_id for order tracking
             )
             
             # Update memory
@@ -283,6 +285,8 @@ Respond naturally in conversation."""
             return result
             
         except Exception as e:
+            logger.error(f"Process message error: {e}", exc_info=True)
+            
             if trace:
                 trace.update(output={"error": str(e)}, level="ERROR", metadata={"success": False})
             
@@ -302,6 +306,16 @@ Respond naturally in conversation."""
     
     def _check_navigation_intent(self, message_lower: str) -> Optional[str]:
         """Check if message is a navigation/action request"""
+        
+        # SKIP order-related queries - they need real data fetching
+        order_related_keywords = [
+            "track", "order", "orders", "delivery", "shipping", 
+            "where is my", "status", "my order"
+        ]
+        
+        if any(keyword in message_lower for keyword in order_related_keywords):
+            return None  # Let intent handler process it to fetch real data
+        
         # Exact matches first
         for keyword, intent in self.navigation_keywords.items():
             if message_lower == keyword or message_lower == keyword.replace(" ", ""):
@@ -313,11 +327,9 @@ Respond naturally in conversation."""
                 return intent
         
         # Pattern matches
-        if re.match(r'^(go to|take me to|open|show|navigate to)\s+(cart|orders|categories|medicines)', message_lower):
+        if re.match(r'^(go to|take me to|open|show|navigate to)\s+(cart|categories|medicines)', message_lower):
             if "cart" in message_lower:
                 return "VIEW_CART"
-            elif "order" in message_lower:
-                return "VIEW_ORDERS"
             elif "categor" in message_lower:
                 return "BROWSE_CATEGORIES"
             elif "medicine" in message_lower:
@@ -342,16 +354,6 @@ Respond naturally in conversation."""
                 "message": "🛒 **Your Cart**\n\nTo view your shopping cart, click the Cart icon in the menu or the 'Cart' button in the sidebar.\n\nWould you like me to help you find any medicines to add?",
                 "suggestions": ["Browse medicines", "I need painkillers", "Show categories"],
                 "data": {"action": "VIEW_CART"}
-            },
-            "VIEW_ORDERS": {
-                "message": "📦 **Your Orders**\n\nTo view your orders and track deliveries, go to 'My Orders' in the menu.\n\nIs there anything else I can help you with?",
-                "suggestions": ["Track my order", "Browse medicines", "I need help"],
-                "data": {"action": "VIEW_ORDERS"}
-            },
-            "TRACK_ORDER": {
-                "message": "📍 **Track Order**\n\nTo track your order:\n1. Go to 'My Orders'\n2. Click on the order you want to track\n3. View real-time status updates\n\nNeed help with anything else?",
-                "suggestions": ["View my orders", "Browse medicines", "Contact support"],
-                "data": {"action": "TRACK_ORDER"}
             },
             "CHECKOUT": {
                 "message": "✅ **Checkout**\n\nTo complete your purchase, go to your Cart and click 'Proceed to Checkout'.\n\nWould you like to add anything else before checking out?",
@@ -450,7 +452,6 @@ Respond naturally in conversation."""
         if len(message_lower.split()) <= 5:  # Short queries only
             if any(keyword in message_lower for keyword in price_keywords):
                 # Make sure it's not asking about a different medicine
-                # e.g., "price of aspirin" would be a new query
                 if not any(word in message_lower for word in ["of", "for"]):
                     return {
                         "intent": "PRICE_CHECK",
@@ -466,7 +467,6 @@ Respond naturally in conversation."""
         # Short query about safety = follow-up
         if len(message_lower.split()) <= 5:
             if any(keyword in message_lower for keyword in side_effect_keywords):
-                # Check if asking about same medicine or different one
                 if not any(word in message_lower for word in ["of", "for"]):
                     return {
                         "intent": "SIDE_EFFECTS",
@@ -529,8 +529,75 @@ Respond naturally in conversation."""
         if any(message_lower == g or message_lower.startswith(g + " ") or message_lower.startswith(g + "!") for g in greetings):
             return {"intent": "GREETING", "entities": {}, "confidence": 0.95}
         
+        order_keywords = [
+            # Track order variations
+            "track my order", "track order", "track orders",
+            "where is my order", "where's my order", "wheres my order",
+            "order status", "order tracking",
+            
+            # View/show order variations
+            "my order", "my orders",
+            "view order", "view orders", "view my orders",
+            "view all orders", "view all my orders",
+            "show order", "show orders", "show my orders",
+            "show all orders", "show all my orders",
+            "see my orders", "see orders", "see all orders",
+            
+            # Check order variations
+            "check order", "check orders", "check my order", "check my orders",
+            
+            # All orders variations
+            "all orders", "all my orders",
+            
+            # Delivery/shipping
+            "delivery status", "shipping status",
+            "when will my order", "when will my order arrive",
+            
+            # Other variations
+            "order history", "past orders", "previous orders",
+            "recent orders", "latest orders"
+        ]
+        
+        if any(keyword in message_lower for keyword in order_keywords):
+            return {
+                "intent": "ORDER_STATUS",
+                "entities": {"raw_query": original_message},
+                "confidence": 0.95
+            }
+        
+        # Also check for short/exact variations
+        if message_lower in ["track", "orders", "order", "my orders", "all orders", "view orders", "show orders"]:
+            return {
+                "intent": "ORDER_STATUS",
+                "entities": {"raw_query": original_message},
+                "confidence": 0.95
+            }
+        
+        reorder_keywords = [
+                "reorder", "reorder medicine", "reorder medicines",
+                "order again", "buy again", "purchase again",
+                "repeat order", "repeat my order",
+                "refill", "refill medicine", "refill medicines",
+                "reorder my medicines", "reorder my medicine",
+                "order same", "same order"
+            ]
+
+        if any(keyword in message_lower for keyword in reorder_keywords):
+                return {
+                    "intent": "REORDER",
+                    "entities": {"raw_query": original_message},
+                    "confidence": 0.95
+                }
+
+        if message_lower in ["reorder", "refill", "reorder medicines", "refill medicines"]:
+                return {
+                    "intent": "REORDER",
+                    "entities": {"raw_query": original_message},
+                    "confidence": 0.95
+                }
+        
         # ============================================================
-        # 2. SIDE EFFECTS QUERIES - High priority (BEFORE price to avoid confusion)
+        # 3. SIDE EFFECTS QUERIES - High priority (BEFORE price to avoid confusion)
         # ============================================================
         side_effect_patterns = [
             r"(?:what are (?:the )?)?side effects? (?:of |for )?(.+?)(?:\?|$)",
@@ -561,7 +628,7 @@ Respond naturally in conversation."""
                     }
         
         # ============================================================
-        # 3. PRICE QUERIES - High priority
+        # 4. PRICE QUERIES - High priority
         # ============================================================
         price_patterns = [
             r"(?:what(?:'s| is)(?: the)? )?price (?:of |for )?(.+?)(?:\?|$)",
@@ -587,7 +654,7 @@ Respond naturally in conversation."""
                     }
         
         # ============================================================
-        # 4. STOCK/AVAILABILITY QUERIES
+        # 5. STOCK/AVAILABILITY QUERIES
         # ============================================================
         stock_patterns = [
             r"do you have (.+?)(?:\?|$)",
@@ -611,7 +678,7 @@ Respond naturally in conversation."""
                     }
         
         # ============================================================
-        # 5. DOSAGE QUERIES
+        # 6. DOSAGE QUERIES
         # ============================================================
         dosage_patterns = [
             r"(?:what(?:'s| is)(?: the)? )?dosage (?:of |for )?(.+?)(?:\?|$)",
@@ -633,7 +700,7 @@ Respond naturally in conversation."""
                     }
         
         # ============================================================
-        # 6. SYMPTOM DETECTION - Use word boundaries
+        # 7. SYMPTOM DETECTION - Use word boundaries
         # ============================================================
         detected_symptoms = []
         recommended_medicines = []
@@ -659,7 +726,7 @@ Respond naturally in conversation."""
             }
         
         # ============================================================
-        # 7. BUY/ORDER INTENT
+        # 8. BUY/ORDER INTENT
         # ============================================================
         buy_patterns = [
             r"(?:i )?(?:want|need|require) (.+?)(?:\?|$)",
@@ -682,7 +749,7 @@ Respond naturally in conversation."""
                     }
         
         # ============================================================
-        # 8. DRUG INTERACTION QUERIES
+        # 9. DRUG INTERACTION QUERIES
         # ============================================================
         interaction_keywords = ["interaction", "interact", "mix", "combine", "together with", "take with", "along with", "with each other"]
         if any(word in message_lower for word in interaction_keywords):
@@ -691,13 +758,6 @@ Respond naturally in conversation."""
                 "entities": {"raw_query": original_message},
                 "confidence": 0.85
             }
-        
-        # ============================================================
-        # 9. ORDER TRACKING
-        # ============================================================
-        tracking_keywords = ["track", "where is my order", "order status", "delivery status", "my order", "shipping status"]
-        if any(word in message_lower for word in tracking_keywords):
-            return {"intent": "ORDER_STATUS", "entities": {}, "confidence": 0.9}
         
         # ============================================================
         # 10. THANK YOU / GOODBYE
@@ -831,7 +891,7 @@ Respond naturally in conversation."""
             # Exact match = highest score
             if query_lower == med_name_lower:
                 score = 100
-            # Query matches first word of medicine name (e.g., "Ibuprofen" matches "Ibuprofen 400mg")
+            # Query matches first word of medicine name
             elif med_name_lower.split()[0].lower() == query_lower:
                 score = 98
             # First word of query matches first word of medicine
@@ -846,9 +906,8 @@ Respond naturally in conversation."""
             # Query is contained in medicine name
             elif query_lower in med_name_lower:
                 score = 85
-            # Check word overlap (excluding dosage numbers)
+            # Check word overlap
             else:
-                # Filter out numbers and "mg" from comparison
                 clean_query_words = {w for w in query_words if not w.replace('mg', '').isdigit() and len(w) > 2}
                 clean_med_words = {w for w in med_words if not w.replace('mg', '').isdigit() and len(w) > 2}
                 
@@ -928,18 +987,18 @@ RESPOND IN VALID JSON:
             return self._pattern_based_classification(message)
     
     async def _handle_intent(
-    self,
-    intent: str,
-    entities: Dict,
-    message: str,
-    user_allergies: List[str],
-    memory: ConversationMemory,
-    trace=None
+        self,
+        intent: str,
+        entities: Dict,
+        message: str,
+        user_allergies: List[str],
+        memory: ConversationMemory,
+        trace=None,
+        user_id: Optional[str] = None  # NEW: Added user_id parameter
     ) -> Dict[str, Any]:
-        """Handle different intents with proper async support - FIXED"""
+        """Handle different intents with proper async support"""
     
         try:
-            # Route based on intent using if/elif to avoid lambda issues
             if intent == "BUY_MEDICINE" or intent == "PRICE_CHECK" or intent == "CHECK_STOCK":
                 return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
             
@@ -959,8 +1018,11 @@ RESPOND IN VALID JSON:
                 return await self._handle_find_alternatives(entities, message, user_allergies, memory, trace)
             
             elif intent == "ORDER_STATUS":
-                return self._handle_order_status()
+                return await self._handle_order_status(user_id=user_id, trace=trace)
             
+            elif intent == "REORDER":
+                return await self._handle_reorder(user_id=user_id, trace=trace)
+        
             elif intent == "GREETING":
                 return self._handle_greeting()
             
@@ -971,24 +1033,17 @@ RESPOND IN VALID JSON:
                 return await self._handle_general(entities, message, user_allergies, memory, trace)
             
             else:
-                # Unknown intent - treat as general
                 return await self._handle_general(entities, message, user_allergies, memory, trace)
         
         except Exception as e:
-            # Better error logging
-            print(f"❌ ERROR in _handle_intent:")
-            print(f"   Intent: {intent}")
-            print(f"   Message: {message}")
-            print(f"   Error: {str(e)}")
-            import traceback
-            traceback.print_exc()
+            logger.error(f"Handle intent error: {e}", exc_info=True)
             
             return {
                 "message": "I'm having trouble processing that request. Let me help you differently.\n\nYou can:\n• Browse our medicine catalog\n• Tell me your symptoms\n• Ask about a specific medicine",
                 "suggestions": ["Browse medicines", "I have symptoms", "Help"],
                 "data": {"error": str(e), "intent": intent}
             }
-        
+    
     async def _handle_medicine_search(
         self,
         entities: Dict,
@@ -1172,7 +1227,6 @@ Would you like to add this to your cart?"""
                 match = re.search(pattern, raw_query.lower())
                 if match:
                     extracted_name = match.group(1).strip()
-                    # Clean noise words
                     noise = ['the', 'of', 'for', 'about', 'what', 'are', 'is', 'any']
                     words = extracted_name.split()
                     cleaned = [w for w in words if w not in noise]
@@ -1182,7 +1236,7 @@ Would you like to add this to your cart?"""
                         medicine_names = [extracted_name.title()]
                         break
         
-        # If still no medicine name, check context as last resort
+        # If still no medicine name, check context
         if not medicine_names:
             last_medicine = memory.get_context("last_medicine")
             if last_medicine:
@@ -1202,14 +1256,13 @@ Would you like to add this to your cart?"""
         if was_corrected:
             query = corrected
         
-        # Search with better matching
+        # Search
         search = self.medicine_agent.search_medicines(query, limit=10)
         
         if search.get("found") and search["medicines"]:
             medicines = search["medicines"]
             best_match, best_score = self._find_best_medicine_match(query, medicines)
             
-            # Only use match if score is good enough
             if best_match and best_score >= 65:
                 med_details = self.medicine_agent.get_medicine_details(best_match["id"])
                 
@@ -1217,7 +1270,6 @@ Would you like to add this to your cart?"""
                     med = med_details["medicine"]
                     side_effects = med.get("side_effects", [])
                     
-                    # Update context
                     memory.set_context("last_medicine", med)
                     memory.set_context("last_intent", "SIDE_EFFECTS")
                     
@@ -1237,16 +1289,15 @@ Would you like to add this to your cart?"""
                             "data": {"medicine": med}
                         }
             
-            # Match score too low - suggest alternatives
+            # Match score too low
             return {
                 "message": f"❌ I couldn't find exact information about **'{medicine_names[0]}'** side effects.\n\n🔍 **Did you mean:**\n" + "\n".join([f"• {m['name']}" for m in medicines[:4]]) + "\n\nPlease try with the exact medicine name.",
                 "suggestions": [f"{m['name']} side effects" for m in medicines[:3]],
                 "data": {"searched_for": medicine_names[0], "suggestions": [m['name'] for m in medicines[:4]]}
             }
         
-        # Nothing found
         return {
-            "message": f"❌ I couldn't find **'{medicine_names[0]}'** in our database.\n\n🔍 **Suggestions:**\n• Check the spelling\n• Try the generic name (e.g., 'Paracetamol' instead of brand name)\n• Browse our medicine catalog",
+            "message": f"❌ I couldn't find **'{medicine_names[0]}'** in our database.\n\n🔍 **Suggestions:**\n• Check the spelling\n• Try the generic name\n• Browse our medicine catalog",
             "suggestions": ["Browse medicines", "Search by category", "Help"],
             "data": {"searched_for": medicine_names[0], "found": False}
         }
@@ -1344,13 +1395,24 @@ Would you like to add this to your cart?"""
                 "suggestions": ["Browse medicines", "I need painkillers", "Search medicine"],
                 "data": {}
             }
+
+        if not medicine.get("in_stock", True):
+            return {
+                "message": f"Sorry, **{medicine.get('name')}** is currently out of stock.\n\nWould you like me to find alternatives?",
+                "suggestions": ["Find alternatives", "Browse medicines", "Notify when available"],
+                "data": {"medicine": medicine, "action": "OUT_OF_STOCK"}
+            }
         
         return {
-            "message": f"✅ **{medicine.get('name')}** has been added to your cart!\n\n🛒 **Cart updated:**\n• {medicine.get('name')} - ₹{medicine.get('price', 0)}\n\n**What would you like to do next?**",
-            "suggestions": ["View cart", "Continue shopping", "Checkout"],
-            "data": {"medicine": medicine, "action": "ADDED_TO_CART"},
-            "requires_action": True
+        "message": f"🛒 Got it! What else can I help you with?",
+        "suggestions": ["View cart", "Continue shopping", "Checkout", "Track order"],
+        "data": {
+            "medicine": medicine,
+            "action": "ADD_TO_CART"
+        },
+        "requires_action": True
         }
+
     
     async def _handle_find_alternatives(
         self,
@@ -1403,13 +1465,143 @@ Would you like to add this to your cart?"""
             "data": {"original_medicine": medicine}
         }
     
-    def _handle_order_status(self) -> Dict[str, Any]:
-        """Handle order status queries"""
-        return {
-            "message": "📦 **Track Your Order**\n\nTo check your order status:\n\n1. Go to **'My Orders'** in the menu\n2. Click on the order you want to track\n3. View real-time status and delivery updates\n\n📍 **Order Statuses:**\n• Confirmed → Processing → Shipped → Out for Delivery → Delivered\n\nNeed help with a specific order? Contact our support team.",
-            "suggestions": ["View my orders", "Contact support", "Browse medicines"],
-            "data": {"action": "VIEW_ORDERS"}
-        }
+    # ==================== NEW: ORDER STATUS HANDLER ====================
+    
+    async def _handle_order_status(
+        self,
+        user_id: Optional[str] = None,
+        trace=None
+    ) -> Dict[str, Any]:
+        """
+        Handle order status queries - FETCHES REAL ORDER DATA
+        """
+        
+        # If no user_id, ask them to login
+        if not user_id:
+            return {
+                "message": "📦 **Track Your Order**\n\nPlease log in to view your orders.\n\nOnce logged in, I can show you:\n• Current order status\n• Delivery tracking\n• Order history",
+                "suggestions": ["Login", "Browse medicines", "Help"],
+                "data": {"action": "REQUIRE_LOGIN"}
+            }
+        
+        try:
+            # Fetch user's recent orders
+            from app.database.mongodb import get_sync_collection
+            
+            orders_collection = get_sync_collection("orders")
+            
+            # Get recent orders (last 5)
+            recent_orders = list(orders_collection.find({
+                "customer_id": user_id
+            }).sort("created_at", -1).limit(5))
+            
+            # No orders found
+            if not recent_orders:
+                return {
+                    "message": "📦 **Your Orders**\n\nYou don't have any orders yet! 🛒\n\n💡 **Get started:**\n• Browse our medicine catalog\n• Search for medicines\n• Tell me your symptoms\n\nI'm here to help you find what you need!",
+                    "suggestions": ["Browse medicines", "I have symptoms", "View categories"],
+                    "data": {"action": "NO_ORDERS", "has_orders": False}
+                }
+            
+            # Build order list
+            order_list = []
+            orders_text = ""
+            
+            status_emoji = {
+                "pending": "🕐",
+                "confirmed": "✅",
+                "processing": "📦",
+                "dispatched": "🚚",
+                "shipped": "🚚",
+                "out_for_delivery": "🏃",
+                "delivered": "✅",
+                "cancelled": "❌"
+            }
+            
+            status_messages = {
+                "pending": "Awaiting confirmation",
+                "confirmed": "Order confirmed",
+                "processing": "Being prepared",
+                "dispatched": "On the way",
+                "shipped": "Shipped",
+                "out_for_delivery": "Out for delivery",
+                "delivered": "Delivered successfully",
+                "cancelled": "Order cancelled"
+            }
+            
+            for i, order in enumerate(recent_orders[:3]):
+                status = order.get("status", "pending")
+                emoji = status_emoji.get(status, "📦")
+                status_text = status_messages.get(status, status.title())
+                
+                order_date = ""
+                if order.get("created_at"):
+                    order_date = order["created_at"].strftime("%b %d, %Y")
+                
+                tracking = order.get("tracking_number")
+                
+                order_data = {
+                    "id": str(order["_id"]),
+                    "order_number": order.get("order_number", f"ORD-{i+1}"),
+                    "status": status,
+                    "status_text": status_text,
+                    "total": order.get("total_amount", 0),
+                    "date": order_date,
+                    "tracking_number": tracking,
+                    "items_count": len(order.get("items", [])),
+                    "emoji": emoji
+                }
+                order_list.append(order_data)
+                
+                # Build text for this order
+                tracking_line = f"\n   📍 Tracking: `{tracking}`" if tracking else ""
+                orders_text += f"\n\n{emoji} **Order #{order_data['order_number']}**\n"
+                orders_text += f"   Status: {status_text}\n"
+                orders_text += f"   Items: {order_data['items_count']} | Total: ₹{order_data['total']}\n"
+                orders_text += f"   Date: {order_date}{tracking_line}"
+            
+            # Count orders by status
+            pending_count = sum(1 for o in recent_orders if o.get("status") in ["pending", "confirmed", "processing"])
+            shipping_count = sum(1 for o in recent_orders if o.get("status") in ["dispatched", "shipped", "out_for_delivery"])
+            delivered_count = sum(1 for o in recent_orders if o.get("status") == "delivered")
+            
+            # Build status summary
+            summary = ""
+            if shipping_count > 0:
+                summary = f"\n\n🚚 **{shipping_count} order(s) on the way!**"
+            elif pending_count > 0:
+                summary = f"\n\n🕐 **{pending_count} order(s) being processed**"
+            
+            # Final message
+            total_orders = len(recent_orders)
+            message = f"📦 **Your Recent Orders**\n\nShowing {min(3, total_orders)} of {total_orders} order(s):{orders_text}{summary}\n\n💡 **Tip:** Click on any order to view full details and live tracking!"
+            
+            return {
+                "message": message,
+                "suggestions": ["View all orders", "Reorder medicines", "Browse more"],
+                "data": {
+                    "action": "SHOW_ORDERS",
+                    "orders": order_list,
+                    "total_orders": total_orders,
+                    "summary": {
+                        "pending": pending_count,
+                        "shipping": shipping_count,
+                        "delivered": delivered_count
+                    }
+                },
+                "requires_action": True
+            }
+        
+        except Exception as e:
+            logger.error(f"Order fetch error: {e}")
+            
+            return {
+                "message": "📦 **Track Your Order**\n\nI'm having trouble fetching your orders right now.\n\n**You can still track your orders:**\n1. Go to **'My Orders'** in the menu\n2. Click on the order to view details\n3. Check delivery status in real-time\n\n📞 **Need help?** Contact support: support@gomed.com",
+                "suggestions": ["Try again", "Browse medicines", "Contact support"],
+                "data": {"action": "VIEW_ORDERS_ERROR", "error": str(e)}
+            }
+    
+    # ==================== END: ORDER STATUS HANDLER ====================
     
     def _handle_greeting(self) -> Dict[str, Any]:
         """Handle greeting messages"""
@@ -1499,3 +1691,129 @@ What can I help you with today?""",
             "suggestions": ["I have symptoms", "Browse medicines", "Help", "Track order"],
             "data": {}
         }
+
+    async def _handle_reorder(
+        self,
+        user_id: Optional[str] = None,
+        trace=None
+    ) -> Dict[str, Any]:
+        """
+        Handle reorder/refill requests - Shows recent medicines for quick reorder
+        """
+        
+        # If no user_id, ask them to login
+        if not user_id:
+            return {
+                "message": "🔄 **Reorder Medicines**\n\nPlease log in to view your previous orders and reorder medicines.\n\nOnce logged in, I can show you:\n• Your frequently ordered medicines\n• Quick reorder options\n• Refill suggestions",
+                "suggestions": ["Login", "Browse medicines", "Help"],
+                "data": {"action": "REQUIRE_LOGIN"}
+            }
+        
+        try:
+            from app.database.mongodb import get_sync_collection
+            from bson import ObjectId
+            from collections import Counter
+            
+            orders_collection = get_sync_collection("orders")
+            medicines_collection = get_sync_collection("medicines")
+            
+            # Get user's recent orders
+            recent_orders = list(orders_collection.find({
+                "customer_id": user_id,
+                "status": {"$in": ["delivered", "confirmed", "processing", "dispatched"]}
+            }).sort("created_at", -1).limit(10))
+            
+            # No orders found
+            if not recent_orders:
+                return {
+                    "message": "🔄 **Reorder Medicines**\n\nYou don't have any previous orders to reorder from.\n\n💡 **Get started:**\n• Browse our medicine catalog\n• Search for medicines\n• Tell me your symptoms\n\nOnce you place an order, you can quickly reorder from here!",
+                    "suggestions": ["Browse medicines", "I have symptoms", "View categories"],
+                    "data": {"action": "NO_ORDERS", "has_orders": False}
+                }
+            
+            # Extract all medicines from orders and count frequency
+            medicine_counts = Counter()
+            medicine_details = {}
+            
+            for order in recent_orders:
+                for item in order.get("items", []):
+                    med_id = item.get("medicine_id")
+                    med_name = item.get("medicine_name", "Unknown")
+                    quantity = item.get("quantity", 1)
+                    
+                    medicine_counts[med_id] += quantity
+                    
+                    if med_id not in medicine_details:
+                        medicine_details[med_id] = {
+                            "id": med_id,
+                            "name": med_name,
+                            "last_ordered_price": item.get("unit_price", 0),
+                            "last_quantity": quantity
+                        }
+            
+            # Get top 5 most ordered medicines
+            top_medicines = []
+            for med_id, count in medicine_counts.most_common(5):
+                med_info = medicine_details.get(med_id, {})
+                
+                # Get current stock and price from database
+                try:
+                    current_med = medicines_collection.find_one({"_id": ObjectId(med_id)})
+                    if current_med:
+                        med_info["current_price"] = current_med.get("unit_price", med_info.get("last_ordered_price", 0))
+                        med_info["in_stock"] = current_med.get("stock_quantity", 0) > 0
+                        med_info["stock_quantity"] = current_med.get("stock_quantity", 0)
+                    else:
+                        med_info["current_price"] = med_info.get("last_ordered_price", 0)
+                        med_info["in_stock"] = False
+                        med_info["stock_quantity"] = 0
+                except:
+                    med_info["current_price"] = med_info.get("last_ordered_price", 0)
+                    med_info["in_stock"] = True
+                    med_info["stock_quantity"] = 0
+                
+                med_info["total_ordered"] = count
+                top_medicines.append(med_info)
+            
+            # Build response message
+            if top_medicines:
+                medicines_text = ""
+                for i, med in enumerate(top_medicines, 1):
+                    stock_icon = "✅" if med.get("in_stock") else "❌"
+                    medicines_text += f"\n\n{i}. **{med['name']}**\n"
+                    medicines_text += f"   💰 ₹{med['current_price']} | {stock_icon} {'In Stock' if med.get('in_stock') else 'Out of Stock'}\n"
+                    medicines_text += f"   📊 Ordered {med['total_ordered']} times"
+                
+                message = f"🔄 **Reorder Your Medicines**\n\nHere are your frequently ordered medicines:{medicines_text}\n\n💡 **Tip:** Click on any medicine name to add it to your cart, or tell me which one you'd like to reorder!"
+                
+                # Create suggestions from medicine names
+                suggestions = [med["name"] for med in top_medicines[:3] if med.get("in_stock")]
+                if len(suggestions) < 3:
+                    suggestions.extend(["Browse medicines", "Track order"])
+                suggestions = suggestions[:4]
+                
+                return {
+                    "message": message,
+                    "suggestions": suggestions,
+                    "data": {
+                        "action": "SHOW_REORDER",
+                        "medicines": top_medicines,
+                        "total_unique_medicines": len(medicine_counts)
+                    },
+                    "requires_action": True
+                }
+            else:
+                return {
+                    "message": "🔄 **Reorder Medicines**\n\nI couldn't find any medicines from your previous orders.\n\n💡 **Try:**\n• Browse our medicine catalog\n• Search for a specific medicine\n• Tell me your symptoms",
+                    "suggestions": ["Browse medicines", "I have symptoms", "Help"],
+                    "data": {"action": "NO_MEDICINES"}
+                }
+        
+        except Exception as e:
+            logger.error(f"Reorder error: {e}")
+            
+            return {
+                "message": "🔄 **Reorder Medicines**\n\nI'm having trouble fetching your order history right now.\n\n**You can still reorder:**\n1. Go to **'My Orders'** in the menu\n2. Click on a previous order\n3. Click **'Reorder'** to add items to cart\n\nOr browse our medicine catalog to find what you need!",
+                "suggestions": ["Browse medicines", "Track order", "Help"],
+                "data": {"action": "REORDER_ERROR", "error": str(e)}
+            }

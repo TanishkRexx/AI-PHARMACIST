@@ -28,9 +28,14 @@ export function AuthProvider({ children }) {
   const login = useCallback(async (email, password) => {
     try {
       const data = await authService.login(email, password);
+      
+      // Update state
       setUser(data.user);
       setIsAuthenticated(true);
+      
       toast.success(`Welcome back, ${data.user.name}!`);
+      
+      // Return user data for immediate use in navigation
       return { success: true, user: data.user };
     } catch (error) {
       const message = error.response?.data?.detail || 'Login failed';
@@ -42,8 +47,10 @@ export function AuthProvider({ children }) {
   const register = useCallback(async (userData) => {
     try {
       const data = await authService.register(userData);
+      
       setUser(data.user);
       setIsAuthenticated(true);
+      
       toast.success('Account created successfully!');
       return { success: true, user: data.user };
     } catch (error) {
@@ -74,8 +81,11 @@ export function AuthProvider({ children }) {
     }
   }, [user]);
 
-  const getDashboardPath = useCallback(() => {
-    if (!user) return '/';
+  // ✅ KEY FIX: Accept optional userRole parameter for immediate use after login
+  const getDashboardPath = useCallback((userRole = null) => {
+    const role = userRole || user?.role;
+    
+    if (!role) return '/';
     
     const paths = {
       customer: '/customer/dashboard',
@@ -84,7 +94,7 @@ export function AuthProvider({ children }) {
       admin: '/admin/dashboard'
     };
 
-    return paths[user.role] || '/';
+    return paths[role] || '/';
   }, [user]);
 
   const value = {

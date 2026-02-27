@@ -2,7 +2,6 @@
 Langfuse Tracer - Monitor AI Agent Interactions
 """
 from langfuse import Langfuse
-# from langfuse.decorators import observe, langfuse_context
 from typing import Optional, Dict, Any, List
 from datetime import datetime
 import functools
@@ -27,12 +26,12 @@ def get_langfuse() -> Optional[Langfuse]:
                     secret_key=settings.LANGFUSE_SECRET_KEY,
                     host=settings.LANGFUSE_HOST
                 )
-                print("✅ Langfuse observability initialized")
+                print("Langfuse observability initialized")
             except Exception as e:
-                print(f"⚠️ Failed to initialize Langfuse: {e}")
+                print(f"Failed to initialize Langfuse: {e}")
                 _langfuse_client = None
         else:
-            print("⚠️ Langfuse keys not configured - observability disabled")
+            print("Langfuse keys not configured - observability disabled")
     
     return _langfuse_client
 
@@ -51,7 +50,8 @@ def create_trace(
         return None
     
     try:
-        trace = langfuse.start_trace(
+        # FIXED: Use trace() instead of start_trace()
+        trace = langfuse.trace(
             name=name,
             user_id=user_id,
             session_id=session_id,
@@ -81,12 +81,14 @@ class TracedAgent:
             return None
         
         try:
-            span = trace.start_span(
+            # FIXED: Use span() instead of start_span()
+            span = trace.span(
                 name=name,
                 input=input_data
             )
             return span
-        except:
+        except Exception as e:
+            print(f"⚠️ Failed to create span: {e}")
             return None
     
     def end_span(self, span, output_data: Any = None, level: str = "DEFAULT"):
@@ -95,12 +97,14 @@ class TracedAgent:
             return
         
         try:
-            span.end(
+            # FIXED: Use update() and end() separately
+            span.update(
                 output=output_data,
                 level=level  # "DEBUG", "DEFAULT", "WARNING", "ERROR"
             )
-        except:
-            pass
+            span.end()
+        except Exception as e:
+            print(f"⚠️ Failed to end span: {e}")
     
     def log_llm_call(
         self,
@@ -118,7 +122,8 @@ class TracedAgent:
             return
         
         try:
-            trace.start_generation(
+            # FIXED: Use generation() instead of start_generation()
+            generation = trace.generation(
                 name=f"{self.agent_name}_llm_call",
                 model=model,
                 input=prompt,
@@ -132,9 +137,10 @@ class TracedAgent:
                     "cost": cost,
                     "duration_ms": duration_ms
                 }
-            ).end()
-        except:
-            pass
+            )
+            generation.end()
+        except Exception as e:
+            print(f"Failed to log LLM call: {e}")
     
     def log_event(self, trace, name: str, data: Any = None):
         """Log an event"""
@@ -142,13 +148,13 @@ class TracedAgent:
             return
         
         try:
-            trace.start_span(
+            # FIXED: Use event() instead of span with type="event"
+            event = trace.event(
                 name=name,
-                input=data,
-                type="event"
-            ).end()
-        except:
-            pass
+                input=data
+            )
+        except Exception as e:
+            print(f"⚠️ Failed to log event: {e}")
 
 
 def trace_agent_call(agent_name: str):
@@ -164,47 +170,54 @@ def trace_agent_call(agent_name: str):
             if langfuse is None:
                 return await func(*args, **kwargs)
             
-            # Create trace
-            trace = langfuse.start_trace(
-                name=f"{agent_name}.{func.__name__}",
-                metadata={
-                    "agent": agent_name,
-                    "method": func.__name__
-                }
-            )
-            
-            # Create span for this call
-            span = trace.start_span(
-                name=func.__name__,
-                input={"args": str(args[1:]), "kwargs": str(kwargs)}
-            )
+            trace = None
+            span = None
             
             try:
+                # FIXED: Use trace() instead of start_trace()
+                trace = langfuse.trace(
+                    name=f"{agent_name}.{func.__name__}",
+                    metadata={
+                        "agent": agent_name,
+                        "method": func.__name__
+                    }
+                )
+                
+                # FIXED: Use span() instead of start_span()
+                span = trace.span(
+                    name=func.__name__,
+                    input={"args": str(args[1:]) if len(args) > 1 else "", "kwargs": str(kwargs)}
+                )
+                
                 # Execute function
                 result = await func(*args, **kwargs)
                 
                 # End span with success
-                span.end(
-                    output=result if isinstance(result, (dict, str, list)) else str(result),
-                    level="DEFAULT"
-                )
+                if span:
+                    span.update(
+                        output=result if isinstance(result, (dict, str, list)) else str(result),
+                        level="DEFAULT"
+                    )
+                    span.end()
                 
                 return result
                 
             except Exception as e:
                 # End span with error
-                span.end(
-                    output={"error": str(e)},
-                    level="ERROR"
-                )
+                if span:
+                    span.update(
+                        output={"error": str(e)},
+                        level="ERROR"
+                    )
+                    span.end()
                 raise
             finally:
                 # Flush to ensure data is sent
-                try:
-                    trace.end()
-                except:
-                    pass
-                langfuse.flush()
+                if langfuse:
+                    try:
+                        langfuse.flush()
+                    except Exception as e:
+                        print(f"Failed to flush langfuse: {e}")
         
         @functools.wraps(func)
         def sync_wrapper(*args, **kwargs):
@@ -213,32 +226,44 @@ def trace_agent_call(agent_name: str):
             if langfuse is None:
                 return func(*args, **kwargs)
             
-            trace = langfuse.start_trace(
-                name=f"{agent_name}.{func.__name__}",
-                metadata={
-                    "agent": agent_name,
-                    "method": func.__name__
-                }
-            )
-            
-            span = trace.start_span(
-                name=func.__name__,
-                input={"args": str(args[1:]), "kwargs": str(kwargs)}
-            )
+            trace = None
+            span = None
             
             try:
+                # FIXED: Use trace() instead of start_trace()
+                trace = langfuse.trace(
+                    name=f"{agent_name}.{func.__name__}",
+                    metadata={
+                        "agent": agent_name,
+                        "method": func.__name__
+                    }
+                )
+                
+                # FIXED: Use span() instead of start_span()
+                span = trace.span(
+                    name=func.__name__,
+                    input={"args": str(args[1:]) if len(args) > 1 else "", "kwargs": str(kwargs)}
+                )
+                
                 result = func(*args, **kwargs)
-                span.end(output=result if isinstance(result, (dict, str, list)) else str(result))
+                
+                if span:
+                    span.update(output=result if isinstance(result, (dict, str, list)) else str(result))
+                    span.end()
+                
                 return result
+                
             except Exception as e:
-                span.end(output={"error": str(e)}, level="ERROR")
+                if span:
+                    span.update(output={"error": str(e)}, level="ERROR")
+                    span.end()
                 raise
             finally:
-                try:
-                    trace.end()
-                except:
-                    pass
-                langfuse.flush()
+                if langfuse:
+                    try:
+                        langfuse.flush()
+                    except Exception as e:
+                        print(f"Failed to flush langfuse: {e}")
         
         # Return appropriate wrapper based on function type
         import asyncio
@@ -253,4 +278,7 @@ def flush_traces():
     """Flush all pending traces to Langfuse"""
     langfuse = get_langfuse()
     if langfuse:
-        langfuse.flush()
+        try:
+            langfuse.flush()
+        except Exception as e:
+            print(f"Failed to flush traces: {e}")

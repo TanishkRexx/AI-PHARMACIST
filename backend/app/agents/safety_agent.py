@@ -55,19 +55,34 @@ class SafetyAgent:
         return get_sync_collection(name)
 
     def _log_operation(self, name: str, input_data: Any, output_data: Any, duration_ms: int):
-        """Log operation to Langfuse"""
+        """Enhanced logging with scores"""
         if self.langfuse:
             try:
                 trace = self.langfuse.trace(name=f"safety_agent.{name}")
-                trace.span(
+                span = trace.span(
                     name=name,
                     input=input_data,
                     output=output_data,
-                    metadata={"duration_ms": duration_ms, "ai_powered": True}
+                    metadata={
+                        "duration_ms": duration_ms,
+                        "ai_powered": True,
+                        "agent": "SafetyAgent"
+                    }
                 )
+                
+                # Add score for quality tracking
+                if isinstance(output_data, dict):
+                    risk_scores = {"low": 1.0, "medium": 0.6, "high": 0.3, "critical": 0.0}
+                    risk_level = output_data.get("risk_level", "low")
+                    trace.score(
+                        name="safety_score",
+                        value=risk_scores.get(risk_level, 0.5),
+                        comment=f"Risk level: {risk_level}"
+                    )
+                
                 self.langfuse.flush()
-            except:
-                pass
+            except Exception as e:
+                logger.debug(f"Langfuse logging error: {e}")
     
     def check_drug_safety(
         self, 
