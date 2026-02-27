@@ -772,3 +772,7 @@ httpx.ConnectError: [Errno 11001] getaddrinfo failed
 2026-02-27 20:15:01,688 - app.main - WARNING - Langfuse observability not configured
 2026-02-27 20:15:01,688 - app.main - INFO - APOS is ready!
 2026-02-27 23:34:18,241 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 23:51:32,555 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 23:51:32,590 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 23:51:32,591 - app.main - WARNING - Langfuse observability not configured
+2026-02-27 23:51:32,591 - app.main - INFO - APOS is ready!
