@@ -783,9 +783,195 @@ httpx.ConnectError: [Errno 11001] getaddrinfo failed
 2026-02-27 23:51:32,590 - app.database.mongodb - INFO - Connected to MongoDB
 2026-02-27 23:51:32,591 - app.main - WARNING - Langfuse observability not configured
 2026-02-27 23:51:32,591 - app.main - INFO - APOS is ready!
+<<<<<<< HEAD
 >>>>>>> 50c66f158abb50c67010153d69e7a83e257c3bee
 2026-02-28 00:25:00,974 - app.main - INFO - Starting APOS Pharmacy System...
 2026-02-28 00:25:00,989 - app.database.mongodb - INFO - Connected to MongoDB
 2026-02-28 00:25:00,989 - app.main - WARNING - Langfuse observability not configured
 2026-02-28 00:25:00,990 - app.main - INFO - APOS is ready!
 2026-02-28 03:38:39,107 - app.database.mongodb - INFO -  Disconnected from MongoDB
+=======
+2026-02-28 00:02:43,062 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:02:43,115 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:02:43,115 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:02:43,117 - app.main - INFO - APOS is ready!
+2026-02-28 00:07:28,295 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:07:45,500 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:07:45,526 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:07:45,526 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:07:45,527 - app.main - INFO - APOS is ready!
+2026-02-28 00:20:18,095 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:20:37,553 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:20:37,597 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:20:37,598 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:20:37,598 - app.main - INFO - APOS is ready!
+2026-02-28 00:21:07,771 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:21:32,273 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:21:32,311 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:21:32,313 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:21:32,314 - app.main - INFO - APOS is ready!
+2026-02-28 00:35:00,557 - app.main - INFO -  Shutting down APOS...
+2026-02-28 00:35:00,561 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:35:36,215 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:35:36,295 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:35:36,296 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:35:36,296 - app.main - INFO - APOS is ready!
+2026-02-28 00:45:04,069 - app.main - INFO -  Shutting down APOS...
+2026-02-28 00:45:04,080 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:45:26,312 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:45:26,362 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:45:26,363 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:45:26,363 - app.main - INFO - APOS is ready!
+2026-02-28 00:45:56,472 - app.main - INFO -  Shutting down APOS...
+2026-02-28 00:45:56,474 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:46:20,756 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 00:46:20,803 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:46:20,803 - app.main - INFO - Langfuse observability enabled
+2026-02-28 00:46:20,803 - app.main - INFO - APOS is ready!
+2026-02-28 00:48:20,632 - app.main - INFO -  Shutting down APOS...
+2026-02-28 00:48:20,636 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:53:49,428 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:53:50,802 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 00:58:38,972 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 00:58:40,374 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 01:05:21,715 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 01:05:23,092 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 01:06:09,938 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 01:06:09,986 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 01:06:09,986 - app.main - INFO - Langfuse observability enabled
+2026-02-28 01:06:09,987 - app.main - INFO - APOS is ready!
+2026-02-28 01:54:58,963 - app.main - INFO -  Shutting down APOS...
+2026-02-28 01:54:58,969 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 01:56:23,242 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 01:56:23,597 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 01:56:23,598 - app.main - INFO - Langfuse observability enabled
+2026-02-28 01:56:23,598 - app.main - INFO - APOS is ready!
+2026-02-28 02:19:36,432 - app.main - INFO -  Shutting down APOS...
+2026-02-28 02:19:36,436 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 02:21:13,004 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 02:21:14,780 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 02:32:37,247 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 02:32:38,865 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 02:33:18,737 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 02:33:18,883 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 02:33:18,883 - app.main - INFO - Langfuse observability enabled
+2026-02-28 02:33:18,883 - app.main - INFO - APOS is ready!
+2026-02-28 02:45:11,836 - app.main - INFO -  Shutting down APOS...
+2026-02-28 02:45:11,840 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 03:08:14,210 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 03:08:14,279 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 03:08:14,279 - app.main - INFO - Langfuse observability enabled
+2026-02-28 03:08:14,279 - app.main - INFO - APOS is ready!
+>>>>>>> 38609e2f1518f4ba2cdca682af39cd4192c9f515
+2026-02-28 03:46:37,957 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 03:46:37,986 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 03:46:37,987 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 03:46:37,987 - app.main - INFO - APOS is ready!
+2026-02-28 03:52:24,229 - app.main - INFO -  Shutting down APOS...
+2026-02-28 03:52:24,232 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 03:52:51,518 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 03:52:52,565 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 03:53:06,568 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 03:53:06,584 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 03:53:06,584 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 03:53:06,585 - app.main - INFO - APOS is ready!
+2026-02-28 03:56:19,541 - app.main - INFO -  Shutting down APOS...
+2026-02-28 03:56:19,543 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 03:56:31,850 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 03:56:31,870 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 03:56:31,870 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 03:56:31,871 - app.main - INFO - APOS is ready!
+2026-02-28 04:01:49,055 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-28 04:01:49,055 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-28 04:01:53,608 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-28 04:01:53,612 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-28 04:01:53,612 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-02-28 04:01:54,738 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-02-28 04:01:54,739 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-02-28 04:15:16,078 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 04:15:31,164 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 04:15:53,882 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 04:16:04,959 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 04:16:15,603 - app.main - INFO -  Shutting down APOS...
+2026-02-28 04:16:15,606 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 04:16:28,450 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 04:16:28,474 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 04:16:28,474 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 04:16:28,474 - app.main - INFO - APOS is ready!
+2026-02-28 04:16:40,749 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-28 04:16:40,749 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-28 04:16:45,642 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-28 04:16:45,646 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-28 04:16:45,647 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-02-28 04:16:46,603 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-02-28 04:16:46,603 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-02-28 04:16:46,627 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 04:16:53,990 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 04:18:01,600 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 04:18:03,570 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "C:\Users\ASUS\Desktop\AI-PHARMACIST\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 04:19:22,828 - app.main - INFO -  Shutting down APOS...
+2026-02-28 04:19:22,830 - app.database.mongodb - INFO -  Disconnected from MongoDB

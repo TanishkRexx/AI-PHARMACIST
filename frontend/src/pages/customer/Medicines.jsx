@@ -19,6 +19,51 @@ import EmptyState from '../../components/common/EmptyState';
 import Pagination from '../../components/common/Pagination';
 import toast from 'react-hot-toast';
 
+// ============================================
+// MEDICINE IMAGE COMPONENT WITH FALLBACK
+// ============================================
+function MedicineImage({ src, alt, className = "" }) {
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Show placeholder if no src or error occurred
+  if (!src || hasError) {
+    return (
+      <div className={`flex items-center justify-center bg-gradient-to-br from-blue-100 to-cyan-100 ${className}`}>
+        <span className="text-4xl">💊</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      {/* Loading skeleton */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 animate-pulse">
+          <Loader2 className="w-6 h-6 text-blue-400 animate-spin" />
+        </div>
+      )}
+      {/* Actual image */}
+      <img
+        src={src}
+        alt={alt}
+        className={`w-full h-full object-contain transition-opacity duration-300 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setHasError(true);
+          setIsLoading(false);
+        }}
+        loading="lazy"
+      />
+    </div>
+  );
+}
+
+// ============================================
+// MAIN MEDICINES COMPONENT
+// ============================================
 export default function Medicines() {
   const navigate = useNavigate();
   const { addToCart, cart } = useCart();
@@ -109,6 +154,7 @@ export default function Medicines() {
 
   return (
     <div className="space-y-8 p-2">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Medicines</h1>
@@ -147,6 +193,7 @@ export default function Medicines() {
         </div>
       </div>
 
+      {/* Search */}
       <SearchBar
         placeholder="Search medicines by name, symptoms, or condition..."
         value={search}
@@ -154,6 +201,7 @@ export default function Medicines() {
         onSearch={handleSearch}
       />
 
+      {/* Categories */}
       <div className="flex items-center gap-3 overflow-x-auto pb-2">
         <Filter className="text-gray-400 flex-shrink-0" size={20} />
         {categories.map((cat) => (
@@ -172,11 +220,13 @@ export default function Medicines() {
         ))}
       </div>
 
+      {/* Results Count */}
       <p className="text-sm text-gray-500">
         Showing {medicines.length} medicines
         {search && ` for "${search}"`}
       </p>
 
+      {/* Medicine Grid */}
       {loading ? (
         <Loading text="Loading medicines..." />
       ) : medicines.length === 0 ? (
@@ -203,88 +253,95 @@ export default function Medicines() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
                   whileHover={{ y: -4 }}
-                  className="bg-white rounded-2xl shadow-md border p-5 hover:shadow-xl transition cursor-pointer"
+                  className="bg-white rounded-2xl shadow-md border overflow-hidden hover:shadow-xl transition cursor-pointer"
                   onClick={() => navigate(`/customer/medicines/${medicine.id}`)}
                 >
-                  <div className="h-32 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center mb-4">
-                    <div className="text-4xl">💊</div>
-                  </div>
+                  {/* ====== MEDICINE IMAGE ====== */}
+                  <MedicineImage
+                    src={medicine.image_url}
+                    alt={medicine.name}
+                    className="h-40 w-full"
+                  />
 
-                  <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-medium">
-                    {medicine.category}
-                  </span>
+                  {/* Content */}
+                  <div className="p-5">
+                    <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-medium">
+                      {medicine.category}
+                    </span>
 
-                  <h3 className="font-bold text-gray-800 mt-2 line-clamp-2">
-                    {medicine.name}
-                  </h3>
+                    <h3 className="font-bold text-gray-800 mt-2 line-clamp-2">
+                      {medicine.name}
+                    </h3>
 
-                  <p className="text-xs text-gray-500 mt-1">
-                    {medicine.generic_name}
-                  </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {medicine.generic_name}
+                    </p>
 
-                  <p className="text-xs text-gray-600 mt-1">
-                    {medicine.brand}
-                  </p>
+                    <p className="text-xs text-gray-600 mt-1">
+                      {medicine.brand}
+                    </p>
 
-                  <div className="mt-3 flex items-center justify-between">
-                    <div>
-                      <span className="text-lg font-bold text-gray-800">
-                        ₹{medicine.price}
-                      </span>
-                      <span className="text-xs text-gray-500 ml-1">/ unit</span>
-                    </div>
-                    {medicine.prescription_required && (
-                      <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full font-medium">
-                        Rx
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="mt-2">
-                    {medicine.in_stock ? (
-                      <p className="text-xs text-green-600 font-medium">
-                        ✓ In Stock ({medicine.stock} available)
-                      </p>
-                    ) : (
-                      <p className="text-xs text-red-600 font-medium">
-                        ✗ Out of Stock
-                      </p>
-                    )}
-                  </div>
-
-                  <div
-                    className="mt-4"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {qty === 0 ? (
-                      <button
-                        onClick={() => handleAddToCart(medicine)}
-                        disabled={!medicine.in_stock || isAdding}
-                        className="w-full py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl text-sm font-semibold hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                      >
-                        {isAdding ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            Adding...
-                          </>
-                        ) : (
-                          <>
-                            <ShoppingCart size={16} />
-                            Add to Cart
-                          </>
-                        )}
-                      </button>
-                    ) : (
-                      <div className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-4 py-2">
-                        <button className="text-blue-600 hover:text-blue-700">
-                          <Minus size={16} />
-                        </button>
-                        <span className="font-semibold text-blue-600">{qty}</span>
-                        <button className="text-blue-600 hover:text-blue-700">
-                          <Plus size={16} />
-                        </button>
+                    <div className="mt-3 flex items-center justify-between">
+                      <div>
+                        <span className="text-lg font-bold text-gray-800">
+                          ₹{medicine.price}
+                        </span>
+                        <span className="text-xs text-gray-500 ml-1">/ unit</span>
                       </div>
-                    )}
+                      {medicine.prescription_required && (
+                        <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full font-medium">
+                          Rx
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="mt-2">
+                      {medicine.in_stock ? (
+                        <p className="text-xs text-green-600 font-medium">
+                          ✓ In Stock ({medicine.stock} available)
+                        </p>
+                      ) : (
+                        <p className="text-xs text-red-600 font-medium">
+                          ✗ Out of Stock
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Add to Cart Button */}
+                    <div
+                      className="mt-4"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {qty === 0 ? (
+                        <button
+                          onClick={() => handleAddToCart(medicine)}
+                          disabled={!medicine.in_stock || isAdding}
+                          className="w-full py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl text-sm font-semibold hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                          {isAdding ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                              Adding...
+                            </>
+                          ) : (
+                            <>
+                              <ShoppingCart size={16} />
+                              Add to Cart
+                            </>
+                          )}
+                        </button>
+                      ) : (
+                        <div className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-4 py-2">
+                          <button className="text-blue-600 hover:text-blue-700">
+                            <Minus size={16} />
+                          </button>
+                          <span className="font-semibold text-blue-600">{qty}</span>
+                          <button className="text-blue-600 hover:text-blue-700">
+                            <Plus size={16} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </motion.div>
               );

@@ -17,6 +17,51 @@ import { useCart } from '../../context/CartContext';
 import Loading from '../../components/common/Loading';
 import toast from 'react-hot-toast';
 
+// ============================================
+// MEDICINE IMAGE COMPONENT WITH FALLBACK
+// ============================================
+function MedicineImage({ src, alt, className = "" }) {
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Show placeholder if no src or error occurred
+  if (!src || hasError) {
+    return (
+      <div className={`flex items-center justify-center bg-gradient-to-br from-blue-100 to-cyan-100 ${className}`}>
+        <span className="text-6xl">💊</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      {/* Loading skeleton */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 animate-pulse">
+          <Loader2 className="w-8 h-8 text-blue-400 animate-spin" />
+        </div>
+      )}
+      {/* Actual image */}
+      <img
+        src={src}
+        alt={alt}
+        className={`w-full h-full object-contain transition-opacity duration-300 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setHasError(true);
+          setIsLoading(false);
+        }}
+        loading="lazy"
+      />
+    </div>
+  );
+}
+
+// ============================================
+// MAIN MEDICINE DETAILS COMPONENT
+// ============================================
 export default function MedicineDetails() {
   const { medicineId } = useParams();
   const navigate = useNavigate();
@@ -38,7 +83,6 @@ export default function MedicineDetails() {
       const response = await customerService.getMedicineDetails(medicineId);
       if (response.success) {
         setMedicine(response.data);
-        // Load alternatives (you can add this API call if available)
       }
     } catch (error) {
       toast.error('Failed to load medicine details');
@@ -86,14 +130,16 @@ export default function MedicineDetails() {
           animate={{ opacity: 1, x: 0 }}
           className="lg:col-span-1"
         >
-          <div className="bg-white rounded-2xl shadow-md border p-6 sticky top-6">
-            {/* Image */}
-            <div className="h-64 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center mb-6">
-              <div className="text-6xl">💊</div>
-            </div>
+          <div className="bg-white rounded-2xl shadow-md border p-4 fixed top-28 w-[320px]">
+            {/* ====== MEDICINE IMAGE ====== */}
+            <MedicineImage
+              src={medicine.image_url}
+              alt={medicine.name}
+              className="h-48 w-full rounded-xl mb-6"
+            />
 
             {/* Price & Stock */}
-            <div className="mb-6">
+            <div className="mb-4">
               <div className="flex items-baseline gap-2 mb-2">
                 <span className="text-3xl font-bold text-gray-800">₹{medicine.price}</span>
                 <span className="text-gray-500">/ unit</span>
@@ -107,7 +153,7 @@ export default function MedicineDetails() {
 
             {/* Prescription Badge */}
             {medicine.prescription_required && (
-              <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-xl">
+              <div className="mb-4 p-2 bg-red-50 border border-red-200 rounded-xl">
                 <p className="text-red-600 text-sm font-medium">
                   🔴 Prescription Required
                 </p>
@@ -116,7 +162,7 @@ export default function MedicineDetails() {
 
             {/* Quantity Selector */}
             {medicine.in_stock && (
-              <div className="mb-6">
+              <div className="mb-4">
                 <label className="text-sm text-gray-600 mb-2 block">Quantity</label>
                 <div className="flex items-center gap-3 bg-gray-100 rounded-xl px-4 py-3">
                   <button
@@ -174,7 +220,7 @@ export default function MedicineDetails() {
           className="lg:col-span-2 space-y-6"
         >
           {/* Basic Info */}
-          <div className="bg-white rounded-2xl shadow-md border p-6">
+          <div className="bg-white rounded-2xl shadow-md border p-4">
             <div className="mb-4">
               <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
                 {medicine.category}

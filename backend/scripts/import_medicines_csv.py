@@ -1,7 +1,6 @@
 """
 Database Seeder - Populate initial data
-Medicines loaded from CSV in same folder
-Auto-detects: Medicine.csv, Medicines.csv, medicines.csv
+Medicines loaded from medicines.csv in same folder
 Run: python -m scripts.seed_database
 """
 import asyncio
@@ -21,31 +20,11 @@ from app.auth.utils import get_password_hash
 
 
 # ============================================
-# AUTO-DETECT CSV FILE
+# GET CSV PATH (Same folder as this script)
 # ============================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Try multiple possible CSV filenames
-POSSIBLE_CSV_NAMES = [
-    "Medicine.csv",      # Your actual filename
-    "Medicines.csv",
-    "medicines.csv",
-    "medicine.csv",
-    "MEDICINES.csv",
-    "MEDICINE.csv"
-]
-
-CSV_FILE_PATH = None
-for csv_name in POSSIBLE_CSV_NAMES:
-    potential_path = os.path.join(SCRIPT_DIR, csv_name)
-    if os.path.exists(potential_path):
-        CSV_FILE_PATH = potential_path
-        break
-
-# Default fallback
-if not CSV_FILE_PATH:
-    CSV_FILE_PATH = os.path.join(SCRIPT_DIR, "medicines.csv")
+CSV_FILE_PATH = os.path.join(SCRIPT_DIR, "Medicines.csv")
 
 
 # ============================================
@@ -53,21 +32,13 @@ if not CSV_FILE_PATH:
 # ============================================
 
 def parse_list_field(value: str) -> list:
-    """Parse pipe-separated (|) or comma-separated list"""
+    """Parse a comma-separated or JSON list field"""
     if not value:
         return []
     
     value = str(value).strip()
     
-    # Your CSV uses pipe (|) as separator
-    if '|' in value:
-        return [item.strip() for item in value.split('|') if item.strip()]
-    
-    # Fallback to comma
-    if ',' in value:
-        return [item.strip() for item in value.split(',') if item.strip()]
-    
-    # Try JSON
+    # Try JSON parsing first
     try:
         parsed = json.loads(value)
         if isinstance(parsed, list):
@@ -75,7 +46,8 @@ def parse_list_field(value: str) -> list:
     except:
         pass
     
-    return [value] if value else []
+    # Fall back to comma-separated
+    return [item.strip() for item in value.split(',') if item.strip()]
 
 
 def parse_bool(value) -> bool:
@@ -87,9 +59,10 @@ def parse_bool(value) -> bool:
 
 def parse_float(value, default=0.0) -> float:
     """Safely parse float"""
-    if value is None or value == '':
+    if value is None:
         return default
     try:
+        # Remove currency symbols and commas
         cleaned = str(value).replace('₹', '').replace('$', '').replace(',', '').strip()
         return float(cleaned) if cleaned else default
     except:
@@ -98,13 +71,27 @@ def parse_float(value, default=0.0) -> float:
 
 def parse_int(value, default=0) -> int:
     """Safely parse int"""
-    if value is None or value == '':
+    if value is None:
         return default
     try:
         cleaned = str(value).replace(',', '').strip()
         return int(float(cleaned)) if cleaned else default
     except:
         return default
+
+
+def get_field(row: dict, *field_names, default=""):
+    """Get field value trying multiple possible column names"""
+    for field in field_names:
+        # Try exact match
+        if field in row and row[field]:
+            return str(row[field]).strip()
+        # Try case-insensitive match
+        for key in row.keys():
+            if key.lower().strip() == field.lower().strip():
+                if row[key]:
+                    return str(row[key]).strip()
+    return default
 
 
 # ============================================
@@ -174,26 +161,70 @@ async def seed_users():
 
 
 # ============================================
+# DIAGNOSE CSV FILE
+# ============================================
+
+def diagnose_csv():
+    """Diagnose CSV file for issues"""
+    print("\n🔍 Diagnosing CSV file...")
+    print(f"   Path: {CSV_FILE_PATH}")
+    
+    if not os.path.exists(CSV_FILE_PATH):
+        print("   ❌ File not found!")
+        return False
+    
+    # Check file size
+    file_size = os.path.getsize(CSV_FILE_PATH)
+    print(f"   📦 File size: {file_size} bytes")
+    
+    # Try different encodings
+    encodings_to_try = ['utf-8-sig', 'utf-8', 'latin-1', 'cp1252', 'iso-8859-1']
+    
+    for encoding in encodings_to_try:
+        try:
+            with open(CSV_FILE_PATH, 'r', encoding=encoding) as f:
+                # Read first few bytes to check for BOM
+                first_bytes = f.read(10)
+                f.seek(0)
+                
+                # Try to read as CSV
+                reader = csv.DictReader(f)
+                headers = reader.fieldnames
+                
+                if headers:
+                    print(f"   ✅ Encoding '{encoding}' works!")
+                    print(f"   📋 Found {len(headers)} columns:")
+                    for i, h in enumerate(headers):
+                        print(f"      {i+1}. '{h}'")
+                    
+                    # Count rows
+                    row_count = sum(1 for _ in reader)
+                    print(f"   📊 Total data rows: {row_count}")
+                    
+                    return encoding
+        except Exception as e:
+            print(f"   ⚠️ Encoding '{encoding}' failed: {e}")
+    
+    return None
+
+
+# ============================================
 # LOAD MEDICINES FROM CSV
 # ============================================
 
 def load_medicines_from_csv() -> list:
-    """Load all 138 medicines from Medicine.csv"""
+    """Load medicines from medicines.csv in the same folder"""
     medicines = []
     skipped_rows = []
     
-    print(f"\n📂 Loading medicines from CSV...")
-    print(f"   Path: {CSV_FILE_PATH}")
+    print(f"\n📂 Loading medicines from: {CSV_FILE_PATH}")
     
     if not os.path.exists(CSV_FILE_PATH):
         print(f"   ❌ CSV file not found!")
-        print(f"   💡 Tried these filenames:")
-        for name in POSSIBLE_CSV_NAMES:
-            print(f"      - {name}")
         return []
     
     # Try different encodings
-    encodings_to_try = ['utf-8-sig', 'utf-8', 'latin-1', 'cp1252', 'iso-8859-1']
+    encodings_to_try = ['utf-8-sig', 'utf-8', 'latin-1', 'cp1252']
     file_content = None
     used_encoding = None
     
@@ -212,18 +243,19 @@ def load_medicines_from_csv() -> list:
     
     print(f"   ✅ Using encoding: {used_encoding}")
     
-    # Parse CSV
+    # Parse CSV from string
     import io
     csv_file = io.StringIO(file_content)
     csv_reader = csv.DictReader(csv_file)
     
-    # Clean and display headers
+    # Print headers
     headers = csv_reader.fieldnames
     if headers:
-        headers = [h.strip().replace('\ufeff', '').replace('\ufffe', '') for h in headers]
-        print(f"   📋 CSV Columns ({len(headers)}): {', '.join(headers[:5])}...")
+        # Clean headers (remove BOM and whitespace)
+        headers = [h.strip().replace('\ufeff', '') for h in headers]
+        print(f"   📋 Columns found: {headers}")
     else:
-        print("   ❌ No headers found!")
+        print("   ❌ No headers found in CSV!")
         return []
     
     # Process each row
@@ -232,49 +264,165 @@ def load_medicines_from_csv() -> list:
     for row_num, row in enumerate(csv_reader, start=2):
         total_rows += 1
         
-        # Clean row keys (remove BOM)
+        # Clean row keys
         cleaned_row = {}
         for key, value in row.items():
-            clean_key = key.strip().replace('\ufeff', '').replace('\ufffe', '') if key else ''
-            cleaned_row[clean_key] = value.strip() if value else ''
+            clean_key = key.strip().replace('\ufeff', '') if key else ''
+            cleaned_row[clean_key] = value
         row = cleaned_row
         
-        # Get required fields - YOUR CSV COLUMNS
-        name = row.get('Medicine Name', '').strip()
+        # Get name using flexible field matching
+        name = get_field(
+            row,
+            'name', 'Name', 'NAME',
+            'medicine_name', 'Medicine Name', 'MEDICINE NAME',
+            'medicine', 'Medicine', 'MEDICINE',
+            'product_name', 'Product Name',
+            'item_name', 'Item Name',
+            'drug_name', 'Drug Name'
+        )
         
         if not name:
-            skipped_rows.append(f"Row {row_num}: No name")
+            skipped_rows.append(f"Row {row_num}: No name found - {dict(list(row.items())[:3])}")
             continue
         
-        generic_name = row.get('Generic Name', name).strip()
-        brand = row.get('Brand', 'Generic').strip()
-        category = row.get('Category', 'other').strip().lower()
-        dosage = row.get('Dosage', 'N/A').strip()
-        description = row.get('Description', f"{name} - Medical product").strip()
+        # Parse all fields
+        generic_name = get_field(
+            row,
+            'generic_name', 'Generic Name', 'GENERIC NAME',
+            'generic', 'Generic', 'GENERIC',
+            'salt', 'Salt', 'composition', 'Composition',
+            default=name
+        )
         
-        # Numeric fields
-        unit_price = parse_float(row.get('Unit Price', '0'), 0)
-        stock_quantity = parse_int(row.get('Stock Quantity', '100'), 100)
-        reorder_level = parse_int(row.get('Reorder Level', '50'), 50)
+        brand = get_field(
+            row,
+            'brand', 'Brand', 'BRAND',
+            'brand_name', 'Brand Name',
+            'company', 'Company',
+            default="Generic"
+        )
         
-        # Boolean
-        prescription_required = parse_bool(row.get('Prescription Required', 'No'))
+        category = get_field(
+            row,
+            'category', 'Category', 'CATEGORY',
+            'type', 'Type', 'TYPE',
+            'medicine_type', 'Medicine Type',
+            'drug_type', 'Drug Type',
+            default="other"
+        ).lower()
         
-        # List fields (pipe-separated in your CSV)
-        contraindications = parse_list_field(row.get('Contraindications', ''))
-        drug_interactions = parse_list_field(row.get('Drug Interactions', ''))
-        side_effects = parse_list_field(row.get('Side Effects', ''))
+        dosage = get_field(
+            row,
+            'dosage', 'Dosage', 'DOSAGE',
+            'strength', 'Strength', 'STRENGTH',
+            'dose', 'Dose',
+            'mg', 'MG',
+            default="N/A"
+        )
         
-        # Other fields
-        max_daily_dosage = row.get('Max Daily Dosage', '').strip()
-        manufacturer = row.get('Manufacturer', brand).strip()
+        description = get_field(
+            row,
+            'description', 'Description', 'DESCRIPTION',
+            'desc', 'Desc',
+            'details', 'Details',
+            'about', 'About',
+            'use', 'Use', 'uses', 'Uses',
+            default=f"{name} - Medical product"
+        )
         
-        # IMAGE URL - This is what you want!
-        image_url = row.get('Image URL', '').strip()
+        # Parse numeric fields
+        unit_price = parse_float(get_field(
+            row,
+            'unit_price', 'Unit Price', 'UNIT PRICE',
+            'price', 'Price', 'PRICE',
+            'mrp', 'MRP',
+            'cost', 'Cost',
+            'rate', 'Rate',
+            default="0"
+        ), 0)
         
-        # Check if active (defaults to Yes)
-        is_active_str = row.get('Is Active', 'Yes').strip().lower()
-        is_active = is_active_str in ['yes', 'true', '1', 'y', '']
+        stock_quantity = parse_int(get_field(
+            row,
+            'stock_quantity', 'Stock Quantity', 'STOCK QUANTITY',
+            'stock', 'Stock', 'STOCK',
+            'quantity', 'Quantity', 'QUANTITY',
+            'qty', 'Qty', 'QTY',
+            'available', 'Available',
+            default="100"
+        ), 100)
+        
+        reorder_level = parse_int(get_field(
+            row,
+            'reorder_level', 'Reorder Level', 'REORDER LEVEL',
+            'min_stock', 'Min Stock', 'MIN STOCK',
+            'reorder', 'Reorder',
+            'minimum', 'Minimum',
+            default="50"
+        ), 50)
+        
+        # Parse prescription required
+        prescription_required = parse_bool(get_field(
+            row,
+            'prescription_required', 'Prescription Required', 'PRESCRIPTION REQUIRED',
+            'prescription', 'Prescription', 'PRESCRIPTION',
+            'rx_required', 'Rx Required', 'RX REQUIRED',
+            'rx', 'Rx', 'RX',
+            default="No"
+        ))
+        
+        # Parse list fields
+        contraindications = parse_list_field(get_field(
+            row,
+            'contraindications', 'Contraindications', 'CONTRAINDICATIONS',
+            'contra', 'warnings', 'Warnings',
+            default=""
+        ))
+        
+        drug_interactions = parse_list_field(get_field(
+            row,
+            'drug_interactions', 'Drug Interactions', 'DRUG INTERACTIONS',
+            'interactions', 'Interactions',
+            default=""
+        ))
+        
+        side_effects = parse_list_field(get_field(
+            row,
+            'side_effects', 'Side Effects', 'SIDE EFFECTS',
+            'sideeffects', 'SideEffects',
+            'effects', 'Effects',
+            default=""
+        ))
+        
+        max_daily_dosage = get_field(
+            row,
+            'max_daily_dosage', 'Max Daily Dosage', 'MAX DAILY DOSAGE',
+            'max_dosage', 'Max Dosage',
+            'daily_limit', 'Daily Limit',
+            default=""
+        )
+        
+        manufacturer = get_field(
+            row,
+            'manufacturer', 'Manufacturer', 'MANUFACTURER',
+            'mfg', 'Mfg', 'MFG',
+            'company', 'Company',
+            'maker', 'Maker',
+            default=brand if brand != "Generic" else "Generic"
+        )
+        
+        # Get image URL
+        image_url = get_field(
+            row,
+            'image_url', 'Image URL', 'IMAGE URL',
+            'image', 'Image', 'IMAGE',
+            'img_url', 'Img URL', 'IMG URL',
+            'img', 'Img', 'IMG',
+            'photo', 'Photo', 'PHOTO',
+            'picture', 'Picture', 'PICTURE',
+            'url', 'URL',
+            default=""
+        )
         
         # Build medicine document
         medicine = {
@@ -293,30 +441,29 @@ def load_medicines_from_csv() -> list:
             "side_effects": side_effects,
             "max_daily_dosage": max_daily_dosage,
             "manufacturer": manufacturer,
-            "image_url": image_url,  # ✅ IMAGE URL FROM CSV
-            "is_active": is_active,
+            "image_url": image_url,
+            "is_active": True,
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow()
         }
         
         medicines.append(medicine)
-        
-        # Progress indicator every 20 rows
-        if total_rows % 20 == 0:
-            print(f"   📦 Processed {total_rows} rows...")
     
     # Print summary
-    print(f"\n   📊 CSV Processing Complete:")
+    print(f"\n   📊 CSV Processing Summary:")
     print(f"      Total rows in CSV: {total_rows}")
     print(f"      Successfully parsed: {len(medicines)}")
     print(f"      Skipped rows: {len(skipped_rows)}")
     
-    if skipped_rows:
-        print(f"\n   ⚠️ Skipped rows:")
-        for skip in skipped_rows[:5]:
+    if skipped_rows and len(skipped_rows) <= 10:
+        print(f"\n   ⚠️ Skipped rows details:")
+        for skip in skipped_rows:
             print(f"      {skip}")
-        if len(skipped_rows) > 5:
-            print(f"      ... and {len(skipped_rows) - 5} more")
+    elif skipped_rows:
+        print(f"\n   ⚠️ First 10 skipped rows:")
+        for skip in skipped_rows[:10]:
+            print(f"      {skip}")
+        print(f"      ... and {len(skipped_rows) - 10} more")
     
     return medicines
 
@@ -329,41 +476,40 @@ async def seed_medicines():
     """Seed medicines from CSV file"""
     db = get_database()
     
-    # Load from CSV
+    # First diagnose the CSV
+    diagnose_csv()
+    
+    # Load medicines
     medicines = load_medicines_from_csv()
     
     if not medicines:
-        print("\n❌ No medicines loaded!")
-        print("   Please check that Medicine.csv exists in the scripts folder")
+        print("\n❌ No medicines loaded! Please check your medicines.csv file")
+        print("\n📝 Make sure your CSV has one of these column names for medicine name:")
+        print("   name, Name, NAME, medicine_name, Medicine Name, medicine, Medicine")
         return []
     
     # Delete existing and insert new
-    print(f"\n   🗑️  Clearing existing medicines...")
     await db["medicines"].delete_many({})
-    
-    print(f"   💾 Inserting {len(medicines)} medicines...")
     result = await db["medicines"].insert_many(medicines)
     
-    # Calculate statistics
+    # Print statistics
     with_images = sum(1 for m in medicines if m.get('image_url'))
     with_rx = sum(1 for m in medicines if m.get('prescription_required'))
     categories = set(m.get('category', 'other') for m in medicines)
-    brands = set(m.get('brand', '') for m in medicines)
     
     print(f"\n✅ Successfully inserted {len(result.inserted_ids)} medicines!")
     print(f"   📷 With images: {with_images}/{len(medicines)}")
     print(f"   💊 Prescription required: {with_rx}/{len(medicines)}")
-    print(f"   📁 Categories ({len(categories)}): {', '.join(sorted(categories))}")
-    print(f"   🏷️  Brands ({len(brands)}): {len(brands)} unique brands")
+    print(f"   📁 Categories: {', '.join(sorted(categories))}")
     
     # Show sample medicines
     print(f"\n   📋 Sample medicines loaded:")
     for med in medicines[:5]:
-        img_icon = '📷' if med.get('image_url') else '❌'
+        img_icon = '📷' if med.get('image_url') else '  '
         rx_icon = '💊' if med.get('prescription_required') else '  '
-        print(f"      {img_icon}{rx_icon} {med['name'][:40]:40} - ₹{med['unit_price']:6.2f} - {med['brand']}")
+        print(f"      {img_icon}{rx_icon} {med['name']} - ₹{med['unit_price']}")
     if len(medicines) > 5:
-        print(f"      ... and {len(medicines) - 5} more medicines")
+        print(f"      ... and {len(medicines) - 5} more")
     
     return result.inserted_ids
 
@@ -414,7 +560,7 @@ async def seed_sample_orders(user_ids, medicine_ids):
                 "subtotal": item_subtotal,
                 "dosage": med.get("dosage", ""),
                 "prescription_required": med.get("prescription_required", False),
-                "image_url": med.get("image_url", "")  # Include image in orders
+                "image_url": med.get("image_url", "")
             })
         
         tax = subtotal * 0.05

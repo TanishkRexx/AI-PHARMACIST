@@ -99,10 +99,13 @@ export default function LandingPage() {
       animate={{ opacity: 1, x: 0 }}
       className="flex items-center gap-3 relative z-10"
     >
-      <div className="flex h-9 w-9 items-center justify-center rounded-lg 
-      bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow">
-        <Heart className="h-4 w-4" />
-      </div>
+  <div className="h-9 w-9 overflow-hidden">
+    <img
+      src="/mainlogo.png"
+      alt="GoMed Logo"
+      className="h-full w-full object-contain"
+    />
+  </div>
 
       <span className="text-lg font-semibold text-gray-800 tracking-tight">
         GoMed

@@ -9,7 +9,7 @@ import {
   Sparkles,
   User,
   LogOut,
-  Heart,
+   Heart,
   Bell,
   NotepadText,
   SquareActivity
@@ -44,9 +44,13 @@ export default function CustomerLayout() {
       <aside className="w-64 bg-white border-r flex flex-col h-screen sticky top-0">
         <div className="p-4 border-b">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 bg-gradient-to-r from-blue-600 to-cyan-500 text-white flex items-center justify-center rounded-xl">
-              <Heart size={20} />
-            </div>
+<div className="h-10 w-10 rounded-xl overflow-hidden">
+  <img
+    src="/mainlogo.png"
+    alt="GoMed Logo"
+    className="h-full w-full object-contain"
+  />
+</div>
             <div>
               <h2 className="font-bold text-gray-800">GoMed</h2>
               <p className="text-xs text-gray-500">Patient Portal</p>

@@ -136,8 +136,9 @@ What can I help you with today?`,
 
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
-      setInput(transcript);
-      sendMessage(transcript);
+        // Put speech text into input box only
+  setInput((prev) => prev ? prev + " " + transcript : transcript);
+      
     };
 
     recognition.onerror = () => {

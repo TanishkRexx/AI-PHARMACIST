@@ -17,7 +17,6 @@ from app.admin.routes import router as admin_router
 from app.admin.observability_routes import router as observability_router
 from app.observability.tracer import get_langfuse, flush_traces
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -32,8 +31,7 @@ async def lifespan(app: FastAPI):
     logger.info("Starting APOS Pharmacy System...")
     await connect_db()
     
-    # Initialize observability
-    langfuse = get_langfuse()  # NEW!
+    langfuse = get_langfuse()
     if langfuse:
         logger.info("Langfuse observability enabled")
     else:
@@ -44,8 +42,8 @@ async def lifespan(app: FastAPI):
     yield
     
     # Shutdown
-    logger.info("🔌 Shutting down APOS...")
-    flush_traces()  # Flush any pending traces
+    logger.info(" Shutting down APOS...")
+    flush_traces() 
     await disconnect_db()
 
 
@@ -84,7 +82,7 @@ app = FastAPI(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure for production
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
