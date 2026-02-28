@@ -16,6 +16,8 @@ from app.distributor import router as distributor_router
 from app.admin.routes import router as admin_router
 from app.admin.observability_routes import router as observability_router
 from app.observability.tracer import get_langfuse, flush_traces
+from app.customer.therapy_routes import start_scheduler
+
 
 # Configure logging
 logging.basicConfig(
@@ -97,6 +99,11 @@ app.include_router(pharmacy_router, prefix="/api")
 app.include_router(distributor_router, prefix="/api")
 app.include_router(admin_router, prefix="/api/admin", tags=["Admin"])
 app.include_router(observability_router, prefix="/api/admin", tags=["Admin", "Observability"])
+
+
+@app.on_event("startup")
+async def startup_event():
+    start_scheduler()
 
 @app.get("/")
 async def root():

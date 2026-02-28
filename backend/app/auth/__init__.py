@@ -11,5 +11,5 @@ __all__ = [
     "get_current_active_user",
     "create_access_token",
     "verify_password",
-    "get_password_hash"
+    "get_password_hash",
 ]

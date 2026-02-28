@@ -80,8 +80,7 @@ def require_role(allowed_roles: list):
         return current_user
     
     return role_checker
-
-
+    
 # Pre-built role dependencies
 require_customer = require_role([UserRole.CUSTOMER])
 require_pharmacy = require_role([UserRole.PHARMACY])

@@ -35,3 +35,8 @@ python-dateutil==2.8.2
 
 rapidfuzz==3.5.2
 pyspellchecker==0.7.2
+
+
+# schedular
+
+opencv-python

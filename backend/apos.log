@@ -767,3 +767,127 @@ Traceback (most recent call last):
   File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
     raise mapped_exc(message) from exc
 httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-27 22:12:13,369 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 22:12:13,879 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 22:12:13,880 - app.main - WARNING - Langfuse observability not configured
+2026-02-27 22:12:13,880 - app.main - INFO - APOS is ready!
+2026-02-27 22:15:51,030 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-27 22:16:16,264 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 22:16:16,299 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 22:16:16,300 - app.main - WARNING - Langfuse observability not configured
+2026-02-27 22:16:16,300 - app.main - INFO - APOS is ready!
+2026-02-27 22:53:52,142 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-27 22:53:52,619 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-27 22:53:52,620 - app.main - WARNING - Langfuse observability not configured
+2026-02-27 22:53:52,620 - app.main - INFO - APOS is ready!
+2026-02-28 04:08:30,993 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 04:23:38,967 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 04:23:39,592 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 04:23:39,592 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 04:23:39,592 - app.main - INFO - APOS is ready!
+2026-02-28 06:44:41,232 - app.agents.semantic_search - WARNING - NumPy not installed. Semantic search disabled.
+2026-02-28 06:50:20,601 - app.agents.semantic_search - WARNING - NumPy not installed. Semantic search disabled.
+2026-02-28 06:54:37,897 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 06:54:38,257 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 06:54:38,257 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 06:54:38,257 - app.main - INFO - APOS is ready!
+2026-02-28 07:04:22,705 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:05:40,566 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:05:40,768 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:05:40,768 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:05:40,768 - app.main - INFO - APOS is ready!
+2026-02-28 07:09:24,816 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:10:35,944 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:10:36,147 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:10:36,148 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:10:36,148 - app.main - INFO - APOS is ready!
+2026-02-28 07:14:47,239 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:15:54,853 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:15:55,088 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:15:55,089 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:15:55,090 - app.main - INFO - APOS is ready!
+2026-02-28 07:20:01,752 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:21:31,228 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:21:31,533 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:21:31,534 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:21:31,534 - app.main - INFO - APOS is ready!
+2026-02-28 07:22:01,672 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:23:12,391 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:23:13,002 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:23:13,003 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:23:13,003 - app.main - INFO - APOS is ready!
+2026-02-28 07:23:43,083 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:24:40,536 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:24:40,758 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:24:40,759 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:24:40,760 - app.main - INFO - APOS is ready!
+2026-02-28 07:28:49,964 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:30:17,147 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:30:17,364 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:30:17,402 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:30:17,403 - app.main - INFO - APOS is ready!
+2026-02-28 07:34:04,010 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:35:14,165 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:35:14,368 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:35:14,368 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:35:14,369 - app.main - INFO - APOS is ready!
+2026-02-28 07:44:13,622 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:45:08,639 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:45:08,868 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:45:08,869 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:45:08,869 - app.main - INFO - APOS is ready!
+2026-02-28 07:54:21,550 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:55:48,318 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:55:48,531 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:55:48,531 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 07:55:48,531 - app.main - INFO - APOS is ready!
+2026-02-28 07:59:28,707 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 08:00:09,955 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 08:00:10,123 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 08:00:10,124 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 08:00:10,124 - app.main - INFO - APOS is ready!
+2026-02-28 08:04:34,816 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 08:05:21,435 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 08:05:21,484 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 08:05:21,484 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 08:05:21,485 - app.main - INFO - APOS is ready!
+2026-02-28 08:20:33,147 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 08:22:01,063 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 08:22:01,271 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 08:22:01,272 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 08:22:01,272 - app.main - INFO - APOS is ready!
+2026-02-28 08:23:47,823 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 08:24:19,083 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 08:24:19,146 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 08:24:19,147 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 08:24:19,147 - app.main - INFO - APOS is ready!
+2026-02-28 08:41:46,498 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 08:43:41,291 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 08:43:41,469 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 08:43:41,469 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 08:43:41,469 - app.main - INFO - APOS is ready!
+2026-02-28 08:46:50,638 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 08:47:55,857 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 08:47:56,010 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 08:47:56,011 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 08:47:56,011 - app.main - INFO - APOS is ready!
+2026-02-28 08:51:56,292 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 08:52:42,980 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 08:52:43,147 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 08:52:43,148 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 08:52:43,148 - app.main - INFO - APOS is ready!
+2026-02-28 09:00:02,601 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 09:02:05,349 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 09:02:05,549 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 09:02:05,550 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 09:02:05,550 - app.main - INFO - APOS is ready!
+2026-02-28 09:07:06,646 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 09:08:18,750 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 09:08:18,962 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 09:08:18,962 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 09:08:18,962 - app.main - INFO - APOS is ready!
+2026-02-28 09:19:28,976 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 09:20:26,356 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 09:20:26,543 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 09:20:26,545 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 09:20:26,545 - app.main - INFO - APOS is ready!
