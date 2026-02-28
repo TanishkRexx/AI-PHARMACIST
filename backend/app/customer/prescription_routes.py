@@ -35,8 +35,8 @@ def serialize_doc(doc):
 
 @router.post("/upload-prescription")
 async def upload_prescription(
-    file: UploadFile = File(...),
-    user_id :str
+    user_id :str,
+    file: UploadFile = File(...)
 ):
     """
     Upload prescription image/pdf locally and process with OCR.

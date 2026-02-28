@@ -37,7 +37,7 @@ export default function Cart() {
   const requiresPrescription = cart.items?.some(item => item.prescription_required);
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="space-y-8 p-2">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Shopping Cart</h1>
         <p className="text-sm text-gray-500">

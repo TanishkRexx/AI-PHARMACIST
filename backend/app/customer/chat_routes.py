@@ -1,18 +1,25 @@
 """
-Customer Chat Routes - AI Chat Interface
+Customer Chat Routes - AI Chat Interface with Voice Support
 """
-from fastapi import APIRouter, HTTPException, Depends, UploadFile, File
+from fastapi import APIRouter, HTTPException, Depends, UploadFile, File, Form
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import Optional, List
 import uuid
 import base64
+import io
+import logging
 
 from app.auth.dependencies import get_current_active_user
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter()
 
-# Lazy initialization - don't create at import time
+# Lazy initialization
 _pharmacy_ai = None
+_voice_service = None
+
 
 def get_pharmacy_ai():
     """Get or create PharmacyAI instance (lazy loading)"""
@@ -23,9 +30,25 @@ def get_pharmacy_ai():
     return _pharmacy_ai
 
 
+def get_voice_service():
+    """Get or create VoiceService instance (lazy loading)"""
+    global _voice_service
+    if _voice_service is None:
+        from app.services.voice_service import VoiceService
+        _voice_service = VoiceService()
+    return _voice_service
+
+
 class ChatMessage(BaseModel):
     message: str
     session_id: Optional[str] = None
+
+
+class VoiceChatRequest(BaseModel):
+    audio_base64: str
+    audio_format: str = "webm"
+    session_id: Optional[str] = None
+    return_audio: bool = True  # Whether to return TTS audio
 
 
 class ChatResponse(BaseModel):
@@ -39,23 +62,33 @@ class ChatResponse(BaseModel):
     timestamp: str
 
 
+class VoiceChatResponse(BaseModel):
+    success: bool
+    session_id: str
+    transcribed_text: str
+    intent: str
+    message: str
+    audio_base64: Optional[str] = None  # TTS audio response
+    data: dict
+    suggestions: List[str]
+    requires_action: bool
+    timestamp: str
+
+
 @router.post("/chat/message", response_model=ChatResponse)
 async def send_chat_message(
     chat_input: ChatMessage,
     current_user: dict = Depends(get_current_active_user)
 ):
     """
-    Send a message to AI pharmacist and get response.
-    Requires authentication.
+    Send a text message to AI pharmacist and get response.
     """
     session_id = chat_input.session_id or str(uuid.uuid4())
     
-    # Get user allergies for safety checks
     medical_info = current_user.get("medical_info", {})
     allergies = [a.get("allergen", "") for a in medical_info.get("allergies", [])]
     
     try:
-        # Get AI instance (lazy loaded)
         pharmacy_ai = get_pharmacy_ai()
         
         response = await pharmacy_ai.process_message(
@@ -77,8 +110,8 @@ async def send_chat_message(
         )
     
     except Exception as e:
+        logger.error(f"Chat error: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"AI processing error: {str(e)}")
-
 
 @router.post("/chat/prescription")
 async def upload_prescription(
@@ -86,10 +119,7 @@ async def upload_prescription(
     session_id: Optional[str] = None,
     current_user: dict = Depends(get_current_active_user)
 ):
-    """
-    Upload prescription image for AI parsing.
-    """
-    # Validate file type
+    """Upload prescription image for AI parsing."""
     allowed_types = ["image/jpeg", "image/png", "image/jpg", "application/pdf"]
     if file.content_type not in allowed_types:
         raise HTTPException(
@@ -97,10 +127,7 @@ async def upload_prescription(
             detail="Invalid file type. Allowed: JPEG, PNG, PDF"
         )
     
-    # Read file
     contents = await file.read()
-    
-    # Convert to base64
     base64_image = base64.b64encode(contents).decode('utf-8')
     
     return {
@@ -114,7 +141,6 @@ async def upload_prescription(
         },
         "suggestions": ["View parsed medicines", "Continue shopping"]
     }
-
 
 @router.post("/chat/voice")
 async def process_voice(
@@ -134,15 +160,12 @@ async def process_voice(
         "suggestions": ["Speak again", "Type instead"]
     }
 
-
 @router.delete("/chat/session/{session_id}")
 async def clear_chat_session(
     session_id: str,
     current_user: dict = Depends(get_current_active_user)
 ):
-    """
-    Clear chat session history.
-    """
+    """Clear chat session history."""
     pharmacy_ai = get_pharmacy_ai()
     
     if session_id in pharmacy_ai.sessions:

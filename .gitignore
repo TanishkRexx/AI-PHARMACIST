@@ -2,5 +2,9 @@
 myenv/
 __pycache__/
 node_modules/
+<<<<<<< HEAD
 
 *.log 
+=======
+*.log
+>>>>>>> 58627f15ca4fd16e6d2ae785a2a5303334b15fc9

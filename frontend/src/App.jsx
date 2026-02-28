@@ -20,6 +20,8 @@ import OrderTracking from './pages/customer/OrderTracking';
 import AIChat from './pages/customer/AIChat';
 import Recommendations from './pages/customer/Recommendations';
 import CustomerProfile from './pages/customer/Profile';
+import CurrentPrescription from './pages/customer/CurrentPrescription';
+import Therapy from './pages/customer/Therapy';
 
 // Pharmacy Pages
 import PharmacyLayout from './pages/pharmacy/PharmacyLayout';
@@ -32,6 +34,8 @@ import Procurement from './pages/pharmacy/Procurement';
 import CreateProcurement from './pages/pharmacy/CreateProcurement';
 import Analytics from './pages/pharmacy/Analytics';
 import AIForecasting from './pages/pharmacy/AIForecasting';
+import EditMedicine from './pages/pharmacy/EditMedicine';
+import ProcurementDetails from './pages/pharmacy/ProcurementDetails';
 
 // Distributor Pages
 import DistributorLayout from './pages/distributor/DistributorLayout';
@@ -103,6 +107,9 @@ function App() {
           <Route path="chat" element={<AIChat />} />
           <Route path="recommendations" element={<Recommendations />} />
           <Route path="profile" element={<CustomerProfile />} />
+          <Route path="currentPrescription" element={<CurrentPrescription />} />
+          <Route path="currentTherapy" element={<Therapy/>} />
+
         </Route>
 
         {/* ==================== PHARMACY ROUTES ==================== */}
@@ -118,12 +125,14 @@ function App() {
           <Route path="dashboard" element={<PharmacyDashboard />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="inventory/add" element={<AddMedicine />} />
+          <Route path="inventory/edit/:medicineId" element={<EditMedicine />} />
           <Route path="orders" element={<PharmacyOrders />} />
           <Route path="orders/:orderId" element={<PharmacyOrderDetails />} />
           <Route path="procurement" element={<Procurement />} />
           <Route path="procurement/create" element={<CreateProcurement />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="ai-forecasting" element={<AIForecasting />} />
+          <Route path="procurement/:poId" element={<ProcurementDetails />} />
         </Route>
 
         {/* ==================== DISTRIBUTOR ROUTES ==================== */}

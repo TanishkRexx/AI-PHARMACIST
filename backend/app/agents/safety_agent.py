@@ -2,14 +2,12 @@
 Safety Agent - AI-powered drug safety checks
 Enhanced with comprehensive safety analysis
 """
+import logging
 from typing import Dict, Any, List, Optional
 from openai import OpenAI
 import json
 import time
-import logging
-
 from app.config import settings
-# from app.database.mongodb import get_sync_collection
 from app.observability.tracer import get_langfuse
 
 logger = logging.getLogger(__name__)
@@ -17,6 +15,12 @@ logger = logging.getLogger(__name__)
 
 class SafetyAgent:
     """
+    Safety Agent handles:
+    - Drug interaction checks
+    - Allergy checks
+    - Dosage validation
+    - Prescription verification
+    
     AI-powered Safety Agent for drug safety checks.
     
     Features:
@@ -26,6 +30,7 @@ class SafetyAgent:
     - Prescription verification using AI
     - Dosage validation
     - Age-appropriate medication checks
+
     """
     
     def __init__(self):

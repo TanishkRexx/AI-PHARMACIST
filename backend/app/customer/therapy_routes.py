@@ -159,7 +159,7 @@ async def therapy_plan( plan : TherapySchema, patient_id: str):
 @router.put("/update-therapy")
 async def update_therapy_plan(
     plan: TherapySchema,
-    patient_id: str = Depends(get_patient)
+    patient_id: str 
 ):
     db = get_database()
     therapies_col = db["therapies"]
