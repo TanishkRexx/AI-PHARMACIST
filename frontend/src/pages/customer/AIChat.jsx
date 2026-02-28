@@ -18,11 +18,13 @@ import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
+import MiniCartPopup from "./MiniCartPopup";
 
 export default function AIChat() {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const messagesEndRef = useRef(null);
+  const [showCartPopup, setShowCartPopup] = useState(false);
 
   const [messages, setMessages] = useState([
     {
@@ -136,8 +138,9 @@ What can I help you with today?`,
 
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
-      setInput(transcript);
-      sendMessage(transcript);
+        // Put speech text into input box only
+  setInput((prev) => prev ? prev + " " + transcript : transcript);
+      
     };
 
     recognition.onerror = () => {
@@ -176,15 +179,29 @@ What can I help you with today?`,
               <p className="text-xs opacity-80">Powered by GPT-4</p>
             </div>
           </div>
-          <button
-            onClick={clearChat}
-            className="p-2 hover:bg-white/10 rounded-lg transition"
-            title="Clear chat"
-          >
-            <Trash2 size={18} />
-          </button>
+          
+    {/* RIGHT SIDE */}
+    <div className="flex items-center gap-2 relative">
+      <button
+        onClick={() => setShowCartPopup(!showCartPopup)}
+        className="p-2 hover:bg-white/10 rounded-lg transition"
+      >
+        <ShoppingCart size={18} />
+      </button>
+
+      <button
+        onClick={clearChat}
+        className="p-2 hover:bg-white/10 rounded-lg transition"
+      >
+        <Trash2 size={18} />
+      </button>
+    </div>
         </div>
       </div>
+      <MiniCartPopup
+        isOpen={showCartPopup}
+         onClose={() => setShowCartPopup(false)}
+      />
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         <AnimatePresence>

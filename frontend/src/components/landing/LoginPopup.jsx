@@ -74,9 +74,13 @@ export default function LoginPopup({ isOpen, onClose, openSignup, defaultRole = 
           </button>
 
           <div className="flex flex-col items-center mb-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white">
-              <Heart className="h-6 w-6" />
-            </div>
+<div className="h-10 w-10 rounded-xl overflow-hidden">
+  <img
+    src="/mainlogo.png"
+    alt="GoMed Logo"
+    className="h-full w-full object-contain"
+  />
+</div>
             <h2 className="mt-4 text-xl font-bold text-gray-800">Welcome Back</h2>
             <p className="text-sm text-gray-500">Sign in to your account</p>
           </div>

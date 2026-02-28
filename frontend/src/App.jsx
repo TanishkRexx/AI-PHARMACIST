@@ -22,6 +22,7 @@ import Recommendations from './pages/customer/Recommendations';
 import CustomerProfile from './pages/customer/Profile';
 import CurrentPrescription from './pages/customer/CurrentPrescription';
 import Therapy from './pages/customer/Therapy';
+import UploadPrescription from './pages/customer/UploadPrescription';
 
 // Pharmacy Pages
 import PharmacyLayout from './pages/pharmacy/PharmacyLayout';
@@ -109,6 +110,7 @@ function App() {
           <Route path="profile" element={<CustomerProfile />} />
           <Route path="currentPrescription" element={<CurrentPrescription />} />
           <Route path="currentTherapy" element={<Therapy/>} />
+          <Route path="uploadPrescription" element={<UploadPrescription/>}/>
 
         </Route>
 

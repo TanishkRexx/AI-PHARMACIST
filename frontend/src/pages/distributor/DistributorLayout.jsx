@@ -56,9 +56,13 @@ export default function DistributorLayout() {
         {/* Logo */}
         <div className="p-3 border-b">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 bg-gradient-to-r from-emerald-600 to-teal-500 text-white flex items-center justify-center rounded-xl">
-              <Heart size={20} />
-            </div>
+<div className="h-10 w-10 rounded-xl overflow-hidden">
+  <img
+    src="/logo.png"
+    alt="GoMed Logo"
+    className="h-full w-full object-contain"
+  />
+</div>
             <div>
               <h2 className="font-bold text-gray-800">GoMed</h2>
               <p className="text-xs text-gray-500">Distributor Portal</p>

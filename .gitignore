@@ -3,8 +3,12 @@ myenv/
 __pycache__/
 node_modules/
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 *.log 
 =======
 *.log
 >>>>>>> 58627f15ca4fd16e6d2ae785a2a5303334b15fc9
+=======
+*.log
+>>>>>>> dc908635416b7f784a80e46d02f8265447eaf667

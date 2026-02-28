@@ -47,7 +47,7 @@ function MedicineImage({ src, alt, className = "" }) {
       <img
         src={src}
         alt={alt}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${
+        className={`w-full h-full object-contain transition-opacity duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
         }`}
         onLoad={() => setIsLoading(false)}
@@ -165,7 +165,7 @@ export default function Medicines() {
 
         <div className="flex items-center gap-3">
           <button
-            onClick={() => navigate('/customer/chat')}
+            onClick={() => navigate('/customer/uploadPrescription')}
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition cursor-pointer"
           >
             <Upload size={18} />
