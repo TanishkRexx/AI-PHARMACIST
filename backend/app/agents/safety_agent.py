@@ -6,6 +6,7 @@ import logging
 from typing import Dict, Any, List, Optional
 from openai import OpenAI
 import json
+import time
 from app.config import settings
 from app.observability.tracer import get_langfuse
 

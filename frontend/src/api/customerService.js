@@ -1,15 +1,14 @@
-import api from './axios';
+import api from "./axios";
 
 export const customerService = {
-  
   async getMedicines(params = {}) {
-    const response = await api.get('/customer/medicines', { params });
+    const response = await api.get("/customer/medicines", { params });
     return response.data;
   },
 
   async searchMedicines(query, options = {}) {
-    const response = await api.get('/customer/medicines/search', {
-      params: { q: query, ...options }
+    const response = await api.get("/customer/medicines/search", {
+      params: { q: query, ...options },
     });
     return response.data;
   },
@@ -20,39 +19,40 @@ export const customerService = {
   },
 
   async getCategories() {
-    const response = await api.get('/customer/categories');
+    const response = await api.get("/customer/categories");
     return response.data;
   },
 
   async getMedicinesByCategory(category, params = {}) {
-    const response = await api.get(`/customer/medicines/category/${category}`, { params });
+    const response = await api.get(`/customer/medicines/category/${category}`, {
+      params,
+    });
     return response.data;
   },
 
-  
   async sendChatMessage(message, sessionId = null) {
-    const response = await api.post('/customer/chat/message', {
+    const response = await api.post("/customer/chat/message", {
       message,
-      session_id: sessionId
+      session_id: sessionId,
     });
     return response.data;
   },
 
   async uploadPrescription(file, sessionId = null) {
     const formData = new FormData();
-    formData.append('file', file);
-    if (sessionId) formData.append('session_id', sessionId);
-    
-    const response = await api.post('/customer/chat/prescription', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
+    formData.append("file", file);
+    if (sessionId) formData.append("session_id", sessionId);
+
+    const response = await api.post("/customer/chat/prescription", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
   },
 
   async sendVoiceMessage(audioBase64, sessionId = null) {
-    const response = await api.post('/customer/chat/voice', {
+    const response = await api.post("/customer/chat/voice", {
       audio_base64: audioBase64,
-      session_id: sessionId
+      session_id: sessionId,
     });
     return response.data;
   },
@@ -62,23 +62,22 @@ export const customerService = {
     return response.data;
   },
 
-  
   async getCart() {
-    const response = await api.get('/customer/cart');
+    const response = await api.get("/customer/cart");
     return response.data;
   },
 
   async addToCart(medicineId, quantity = 1) {
-    const response = await api.post('/customer/cart/add', {
+    const response = await api.post("/customer/cart/add", {
       medicine_id: medicineId,
-      quantity
+      quantity,
     });
     return response.data;
   },
 
   async updateCartItem(medicineId, quantity) {
     const response = await api.put(`/customer/cart/update/${medicineId}`, {
-      quantity
+      quantity,
     });
     return response.data;
   },
@@ -89,13 +88,12 @@ export const customerService = {
   },
 
   async clearCart() {
-    const response = await api.delete('/customer/cart/clear');
+    const response = await api.delete("/customer/cart/clear");
     return response.data;
   },
 
-  
   async placeOrder(orderData) {
-    const response = await api.post('/customer/orders', orderData);
+    const response = await api.post("/customer/orders", orderData);
     return response.data;
   },
 
@@ -105,8 +103,8 @@ export const customerService = {
   },
 
   async getOrders(page = 1, limit = 10) {
-    const response = await api.get('/customer/orders', {
-      params: { page, limit }
+    const response = await api.get("/customer/orders", {
+      params: { page, limit },
     });
     return response.data;
   },
@@ -120,40 +118,40 @@ export const customerService = {
     const response = await api.get(`/customer/orders/${orderId}/track`);
     return response.data;
   },
-  
+
   async getRecommendations(limit = 5) {
-    const response = await api.get('/customer/recommendations', {
-      params: { limit }
+    const response = await api.get("/customer/recommendations", {
+      params: { limit },
     });
     return response.data;
   },
 
   async getRefillReminders() {
-    const response = await api.get('/customer/refill-reminders');
+    const response = await api.get("/customer/refill-reminders");
     return response.data;
   },
 
   async getRefillSuggestions() {
-    const response = await api.get('/customer/refill-suggestions');
+    const response = await api.get("/customer/refill-suggestions");
     return response.data;
   },
 
   async getHealthProfile() {
     try {
-      const response = await api.get('/customer/health/profile');
+      const response = await api.get("/customer/health/profile");
       return response.data;
     } catch (error) {
-      console.error('Health profile error:', error);
+      console.error("Health profile error:", error);
       throw error;
     }
   },
 
   async getMedicationAdherence() {
     try {
-      const response = await api.get('/customer/health/adherence');
+      const response = await api.get("/customer/health/adherence");
       return response.data;
     } catch (error) {
-      console.error('Adherence tracking error:', error);
+      console.error("Adherence tracking error:", error);
       throw error;
     }
   },
