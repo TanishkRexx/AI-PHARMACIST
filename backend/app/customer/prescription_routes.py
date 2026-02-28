@@ -1,289 +1,227 @@
-from pydantic import BaseModel, Field
-from typing import Optional
 from datetime import datetime
-from bson import ObjectId
-import traceback
-from fastapi import APIRouter, UploadFile, File, HTTPException, Form
-from fastapi.responses import FileResponse
-import os
-import uuid
-import shutil
+from typing import List, Optional
 
+from fastapi import APIRouter, UploadFile, File, HTTPException, Form
+from pydantic import BaseModel
 from app.database.mongodb import get_database
-from app.agents.ocr import process_prescription_sync
+
+from google import genai
+from google.genai import types
+from app.config import settings
+
+from bson import ObjectId
+
 
 
 router = APIRouter()
 
-UPLOAD_DIR = "uploads/prescriptions"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+# ---------------- Gemini Setup ----------------
+
+GEMINI_API_KEY = settings.GEMINI_API_KEY
+
+client = genai.Client(api_key=GEMINI_API_KEY)
+
+# ---------------- Pydantic Schemas ----------------
+
+
+class Medication(BaseModel):
+    name: Optional[str]
+    dosage: Optional[str]
+    frequency: Optional[str]
+    total_quantity: Optional[str]
+    indications: Optional[str]
+    instructions: Optional[str]
+
+
+class Patient(BaseModel):
+    name: Optional[str]
+
+
+class Doctor(BaseModel):
+    name: Optional[str]
+    qualification: Optional[str]
+    license_number: Optional[str]
+
+
+class Hospital(BaseModel):
+    name: Optional[str]
+    phone: Optional[str]
+
+
+class PrescriptionData(BaseModel):
+    patient: Optional[Patient]
+    doctor: Optional[Doctor]
+    hospital: Optional[Hospital]
+    prescription_date: Optional[str]
+    follow_up_date: Optional[str]
+    diagnosis: Optional[str]
+    advice: Optional[str]
+    medicines: List[Medication] = []
+
+
+# ---------------- OCR Function ----------------
+
+
+async def read_prescription_ocr(file: UploadFile = File(...)):
+
+    contents = await file.read()
+    
+    # This configuration forces Gemini to return structured JSON
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
+        contents=[
+            types.Part.from_bytes(data=contents, mime_type="image/jpeg"),
+            "Extract the medical details from this prescription."
+        ],
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=PrescriptionData,
+        ),
+    )
+    return response.parsed
+
+
+# ---------------- Route ----------------
 
 
 @router.post("/upload-prescription")
-async def upload_prescription(
-    user_id: str = Form(...),
+async def process_prescription(
+    patient_id: str = Form(...),
     file: UploadFile = File(...)
 ):
-    """
-    Upload prescription image/pdf locally and process with OCR.
-    """
-    patient_id = user_id
 
-    # ✅ Validate file type
-    allowed_types = ["image/jpeg", "image/png", "image/jpg", "application/pdf"]
-    if file.content_type not in allowed_types:
-        raise HTTPException(
-            status_code=400,
-            detail="Only image (jpg/png) or pdf files are allowed"
-        )
-
-    # ✅ Validate file size (max 10MB)
-    MAX_FILE_SIZE = 10 * 1024 * 1024
-    content = await file.read()
-    
-    if len(content) > MAX_FILE_SIZE:
-        raise HTTPException(
-            status_code=400,
-            detail="File size exceeds 10MB limit"
-        )
-
-    # 📁 Generate unique file name
-    original_filename = file.filename or "prescription"
-    ext = original_filename.split(".")[-1].lower()
-    
-    if ext not in ["jpg", "jpeg", "png", "pdf"]:
-        ext = "jpg"
-    
-    unique_filename = f"{uuid.uuid4()}.{ext}"
-    file_path = os.path.join(UPLOAD_DIR, unique_filename)
-
-    # 💾 Save file locally
+    # -------- OCR (wrapped to catch Gemini 503 and other AI errors) --------
     try:
-        with open(file_path, "wb") as f:
-            f.write(content)
-        print(f"✅ File saved: {file_path}")
+        result = await read_prescription_ocr(file)
     except Exception as e:
+        error_msg = str(e)
+
+        # Gemini 503 — model overloaded
+        if "503" in error_msg or "UNAVAILABLE" in error_msg or "high demand" in error_msg.lower():
+            raise HTTPException(
+                status_code=503,
+                detail="The AI model is currently overloaded. Please wait a moment and try uploading again."
+            )
+
+        # Gemini 429 — rate limit
+        if "429" in error_msg or "quota" in error_msg.lower() or "rate" in error_msg.lower():
+            raise HTTPException(
+                status_code=429,
+                detail="Too many requests to the AI model. Please wait a few seconds and try again."
+            )
+
+        # Any other OCR / AI failure
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to save file: {str(e)}"
+            detail=f"Failed to read prescription: {error_msg}"
         )
 
-    file_type = "pdf" if file.content_type == "application/pdf" else "image"
+    # -------- Insert Prescription --------
 
-    # ✅ Step 1: Process with OCR
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or "AIzaSyB-WiUZT4LPR_a24Z4cOI9molOQZaJQO2c"
-    print(f"🔑 API Key exists: {bool(GEMINI_API_KEY)}")
-    print(f"🔑 API Key (first 10 chars): {GEMINI_API_KEY[:10]}...")
+    prescription_data = {
+        "patient_id": patient_id,
+        "prescription_filename": file.filename,
+        "original_filename": file.filename,
+        "prescription_file_type": file.content_type,
+        "patient_name": result.patient.name if result.patient else None,
+        "issued_date": result.prescription_date,
+        "expired_date": result.follow_up_date,
+        "diagnosis": result.diagnosis,
+        "doctors_note": result.advice,
+        "created_at": datetime.now(),
+        "updated_at": datetime.now()
+    }
 
-    try:
-        print("🔄 Starting OCR processing...")
-        result = process_prescription_sync(file_path, api_key=GEMINI_API_KEY)
-        print(f"✅ OCR Result: {result}")
-    except Exception as e:
-        print(f"❌ OCR Error: {str(e)}")
-        print(f"❌ Traceback: {traceback.format_exc()}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"OCR processing failed: {str(e)}"
-        )
+    db = get_database()
 
-    # ✅ Step 2: Database connection
-    try:
-        print("🔄 Getting database connection...")
-        db = get_database()
-        print(f"✅ Database connected: {db}")
-    except Exception as e:
-        print(f"❌ Database Error: {str(e)}")
-        print(f"❌ Traceback: {traceback.format_exc()}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"Database connection failed: {str(e)}"
-        )
+    insert_result = await db["prescriptions"].insert_one(prescription_data)
+    prescription_id = insert_result.inserted_id
 
-    # ✅ Step 3: Insert prescription record
-    try:
-        print("🔄 Inserting prescription...")
-        prescription_data = {
-            "patient_id": patient_id,
-            "prescription_file_url": file_path,
-            "prescription_filename": unique_filename,
-            "original_filename": original_filename,
-            "prescription_file_type": file_type,
-            "patient_name": result.get('patient', {}).get('name') if result.get('patient') else None,
-            "issued_date": result.get('prescription_date'),
-            "expired_date": result.get('follow_up_date'),
-            "diagnosis": result.get('diagnosis'),
-            "doctors_note": result.get('advice'),
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        }
-        print(f"📝 Prescription data: {prescription_data}")
+    # -------- Insert Doctor --------
 
-        insert_result = await db["prescriptions"].insert_one(prescription_data)
-        prescription_id = insert_result.inserted_id
-        print(f"✅ Prescription inserted: {prescription_id}")
-    except Exception as e:
-        print(f"❌ Prescription Insert Error: {str(e)}")
-        print(f"❌ Traceback: {traceback.format_exc()}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"Failed to insert prescription: {str(e)}"
-        )
+    doctor = result.doctor
+    hospital = result.hospital
 
-    # ✅ Step 4: Insert doctor record
-    try:
-        print("🔄 Inserting doctor info...")
-        doctor_data = result.get('doctor') or {}
-        hospital_data = result.get('hospital') or {}
+    doc_prescription_info = {
+        "prescription_id": prescription_id,
+        "name": doctor.name if doctor else None,
+        "qualification": doctor.qualification if doctor else None,
+        "clinic_name": hospital.name if hospital else None,
+        "clinic_no": hospital.phone if hospital else None,
+        "license_number": doctor.license_number if doctor else None,
+        "created_at": datetime.now(),
+        "updated_at": datetime.now()
+    }
 
-        doc_prescription_info = {
+    await db["doctor_prescription"].insert_one(doc_prescription_info)
+
+    # -------- Insert Medicines --------
+
+    for med in result.medicines or []:
+        medicine_info = {
             "prescription_id": prescription_id,
-            "name": doctor_data.get('name') if doctor_data else None,
-            "qualification": doctor_data.get('qualification') if doctor_data else None,
-            "clinic_name": hospital_data.get('name') if hospital_data else None,
-            "clinic_no": hospital_data.get('phone') if hospital_data else None,
-            "license_number": doctor_data.get('license_number') if doctor_data else None,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
+            "medicine_name": med.name,
+            "dosage": med.dosage,
+            "frequency": med.frequency,
+            "quantity": med.total_quantity,
+            "indications": med.indications,
+            "instructions": med.instructions,
+            "created_at": datetime.now(),
+            "updated_at": datetime.now()
         }
-        print(f"📝 Doctor data: {doc_prescription_info}")
 
-        await db['doctor_prescription'].insert_one(doc_prescription_info)
-        print("✅ Doctor info inserted")
-    except Exception as e:
-        print(f"❌ Doctor Insert Error: {str(e)}")
-        print(f"❌ Traceback: {traceback.format_exc()}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"Failed to insert doctor info: {str(e)}"
-        )
+        await db["medicines_prescription"].insert_one(medicine_info)
 
-    # ✅ Step 5: Insert medicines
-    try:
-        print("🔄 Inserting medicines...")
-        medicines = result.get('medicines') or []
-        print(f"📝 Medicines count: {len(medicines)}")
-
-        for i, med in enumerate(medicines):
-            medicine_info = {
-                "prescription_id": prescription_id,
-                "medicine_name": med.get('name') if med else None,
-                "dosage": med.get('dosage') if med else None,
-                "frequency": med.get('frequency') if med else None,
-                "quantity": med.get('total_quantity') if med else None,
-                "indications": med.get('indications') if med else None,
-                "instructions": med.get('instructions') if med else None,
-                "created_at": datetime.utcnow(),
-                "updated_at": datetime.utcnow()
-            }
-            await db['prescribed_medicine'].insert_one(medicine_info)
-            print(f"✅ Medicine {i+1} inserted")
-        
-        print("✅ All medicines inserted")
-    except Exception as e:
-        print(f"❌ Medicine Insert Error: {str(e)}")
-        print(f"❌ Traceback: {traceback.format_exc()}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"Failed to insert medicines: {str(e)}"
-        )
-
-    print("✅ All operations completed successfully!")
-    
     return {
-        "success": True,
-        "message": "Prescription uploaded successfully",
+        "message": "Prescription processed successfully",
         "prescription_id": str(prescription_id),
-        "file_type": file_type,
-        "filename": unique_filename,
-        "file_path": file_path,
-        "file_size": len(content),
-        "ocr_result": result
+        "data": result
     }
+    
+    
+    
+@router.get('/show-prescription')
+async def show_prescription(patient_id: str):
 
+    db = get_database()
 
-
-# ✅ Optional: Route to serve/download uploaded prescription image
-@router.get("/prescription-info")
-async def get_prescription_image(
-    filename: str,
-    patient_id: str
-):
-    """
-    Serve prescription image from local storage.
-    """
-    file_path = os.path.join(UPLOAD_DIR, filename)
-
-    if not os.path.exists(file_path):
-        raise HTTPException(
-            status_code=404,
-            detail="File not found"
-        )
-
-    # Determine media type
-    ext = filename.split(".")[-1].lower()
-    media_types = {
-        "jpg": "image/jpeg",
-        "jpeg": "image/jpeg",
-        "png": "image/png",
-        "pdf": "application/pdf"
-    }
-    media_type = media_types.get(ext, "application/octet-stream")
-
-    return FileResponse(
-        path=file_path,
-        media_type=media_type,
-        filename=filename
+    prescription = await db["prescriptions"].find_one(
+        {"patient_id": patient_id},
+        sort=[("created_at", -1)]
     )
 
+    if not prescription:
+        return {"message": "No prescription found"}
 
-# ✅ Optional: Delete prescription and its image
-@router.delete("/prescription/{prescription_id}")
-async def delete_prescription(
-    prescription_id: str,
-    patient_id: str 
-):
-    """
-    Delete prescription and its associated image file.
-    """
-    db = get_database()
-    patient_id = patient["_id"]
+    prescription_id_obj = prescription["_id"]      # Keep as ObjectId for querying
+    prescription["_id"] = str(prescription_id_obj) # Convert only for response
 
-    try:
-        presc_obj_id = ObjectId(prescription_id)
-    except Exception:
-        raise HTTPException(
-            status_code=400,
-            detail="Invalid prescription ID"
-        )
-
-    # Find prescription
-    prescription = await db["prescriptions"].find_one({
-        "_id": presc_obj_id,
-        "patient_id": patient_id
+    doc_info = await db['doctor_prescription'].find_one({
+        "prescription_id": prescription_id_obj  # Use ObjectId here
     })
 
-    if not prescription:
-        raise HTTPException(
-            status_code=404,
-            detail="Prescription not found"
-        )
+    if doc_info:
+        doc_info["_id"] = str(doc_info["_id"])
+        doc_info["prescription_id"] = str(doc_info["prescription_id"])
 
-    # Delete local file
-    file_path = prescription.get("prescription_file_url")
-    if file_path and os.path.exists(file_path):
-        try:
-            os.remove(file_path)
-            print(f"✅ File deleted: {file_path}")
-        except Exception as e:
-            print(f"⚠️ Failed to delete file: {e}")
+    medicine_info = await db['medicines_prescription'].find({
+        "prescription_id": prescription_id_obj  # Use ObjectId here
+    }).to_list(length=1000)
 
-    # Delete from database
-    await db["prescriptions"].delete_one({"_id": presc_obj_id})
-    await db["doctor_prescription"].delete_many({"prescription_id": presc_obj_id})
-    await db["prescribed_medicine"].delete_many({"prescription_id": presc_obj_id})
+    for med in medicine_info:
+        med["_id"] = str(med["_id"])
+        med["prescription_id"] = str(med["prescription_id"])
 
     return {
-        "success": True,
-        "message": "Prescription deleted successfully"
+        "prescription": prescription,
+        "doc_info": doc_info,
+        "medicine_info": medicine_info
     }
+
+@router.put('/update-prescription')
+async def update_prescription(patient_id:str):
+    pass
+        
+    
+    

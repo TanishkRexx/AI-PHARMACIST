@@ -1646,3 +1646,329 @@ fastapi.exceptions.HTTPException: 500: TTS generation failed
 2026-02-28 18:27:17,871 - app.main - INFO - APOS is ready!
 2026-02-28 18:31:19,788 - app.main - INFO -  Shutting down APOS...
 2026-02-28 18:31:19,830 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 19:22:08,579 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 19:22:08,621 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 19:22:08,622 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 19:22:08,622 - app.main - INFO - APOS is ready!
+2026-02-28 19:25:56,520 - app.main - INFO -  Shutting down APOS...
+2026-02-28 19:25:56,523 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 19:28:52,503 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 19:28:52,544 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 19:28:52,544 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 19:28:52,544 - app.main - INFO - APOS is ready!
+2026-02-28 19:30:06,630 - app.main - INFO -  Shutting down APOS...
+2026-02-28 19:30:06,632 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 19:30:19,081 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 19:30:19,116 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 19:30:19,117 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 19:30:19,117 - app.main - INFO - APOS is ready!
+2026-02-28 19:32:00,361 - app.main - INFO -  Shutting down APOS...
+2026-02-28 19:32:00,363 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 19:32:11,738 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 19:32:11,758 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 19:32:11,758 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 19:32:11,758 - app.main - INFO - APOS is ready!
+2026-02-28 19:34:24,307 - app.main - INFO -  Shutting down APOS...
+2026-02-28 19:34:24,309 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 19:34:35,562 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 19:34:35,580 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 19:34:35,582 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 19:34:35,582 - app.main - INFO - APOS is ready!
+2026-02-28 19:34:35,586 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 19:34:57,577 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-02-28 19:38:34,937 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 19:38:35,544 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 19:38:53,895 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 19:38:54,439 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 19:40:07,783 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 19:40:08,235 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 21:26:32,729 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:26:33,667 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 21:28:25,151 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:28:26,551 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 21:35:07,363 - app.main - INFO -  Shutting down APOS...
+2026-02-28 21:35:07,365 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 21:35:18,728 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 21:35:18,743 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 21:35:18,743 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 21:35:18,743 - app.main - INFO - APOS is ready!
+2026-02-28 21:35:34,463 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:35:35,388 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 21:38:47,055 - app.main - INFO -  Shutting down APOS...
+2026-02-28 21:38:47,057 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 21:38:56,739 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 21:38:56,786 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 21:38:56,786 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 21:38:56,786 - app.main - INFO - APOS is ready!
+2026-02-28 21:39:04,552 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:39:05,010 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 21:40:36,128 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:40:36,642 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 21:43:09,323 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 21:43:09,359 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 21:43:09,359 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 21:43:09,359 - app.main - INFO - APOS is ready!
+2026-02-28 21:43:56,323 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:43:56,863 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-02-28 21:48:30,680 - app.main - INFO -  Shutting down APOS...
+2026-02-28 21:48:30,682 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 21:48:39,894 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 21:48:39,911 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 21:48:39,911 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 21:48:39,911 - app.main - INFO - APOS is ready!
+2026-02-28 21:49:35,084 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:49:35,618 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-02-28 21:50:23,497 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:50:24,157 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-02-28 21:53:32,311 - app.main - INFO -  Shutting down APOS...
+2026-02-28 21:53:32,313 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 21:53:43,554 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 21:53:43,596 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 21:53:43,597 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 21:53:43,597 - app.main - INFO - APOS is ready!
+2026-02-28 21:53:47,923 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 21:53:48,556 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 403 Forbidden"
+2026-02-28 21:58:08,543 - app.main - INFO -  Shutting down APOS...
+2026-02-28 21:58:08,544 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 21:58:19,651 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 21:58:19,690 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 21:58:19,691 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 21:58:19,691 - app.main - INFO - APOS is ready!
+2026-02-28 22:01:14,978 - app.main - INFO -  Shutting down APOS...
+2026-02-28 22:01:14,979 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 22:01:24,935 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 22:01:24,970 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 22:01:24,971 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 22:01:24,971 - app.main - INFO - APOS is ready!
+2026-02-28 22:01:41,764 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 22:01:42,382 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-02-28 22:03:53,030 - app.main - INFO -  Shutting down APOS...
+2026-02-28 22:03:53,032 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 22:04:02,421 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 22:04:02,435 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 22:04:02,435 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 22:04:02,435 - app.main - INFO - APOS is ready!
+2026-02-28 22:04:23,620 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 22:04:25,308 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-02-28 22:07:07,716 - app.main - INFO -  Shutting down APOS...
+2026-02-28 22:07:07,718 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 22:07:16,223 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 22:07:16,262 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 22:07:16,262 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 22:07:16,262 - app.main - INFO - APOS is ready!
+2026-02-28 22:08:04,231 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 22:08:04,636 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-02-28 22:12:09,268 - app.main - INFO -  Shutting down APOS...
+2026-02-28 22:12:09,270 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 22:12:17,612 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 22:12:17,627 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 22:12:17,627 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 22:12:17,627 - app.main - INFO - APOS is ready!
+2026-02-28 22:46:32,964 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 22:46:33,478 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-02-28 22:52:02,701 - app.main - INFO -  Shutting down APOS...
+2026-02-28 22:52:02,702 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 22:52:13,636 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 22:52:13,653 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 22:52:13,653 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 22:52:13,653 - app.main - INFO - APOS is ready!
+2026-02-28 22:52:43,864 - app.main - INFO -  Shutting down APOS...
+2026-02-28 22:52:43,866 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 22:52:54,925 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 22:52:54,945 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 22:52:54,946 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 22:52:54,946 - app.main - INFO - APOS is ready!
+2026-02-28 22:53:25,136 - app.main - INFO -  Shutting down APOS...
+2026-02-28 22:53:25,137 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 22:53:35,043 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 22:53:35,064 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 22:53:35,065 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 22:53:35,065 - app.main - INFO - APOS is ready!
+2026-02-28 22:53:44,899 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 22:53:45,528 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent "HTTP/1.1 404 Not Found"
+2026-02-28 22:56:15,612 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 22:56:15,626 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 22:56:15,626 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 22:56:15,626 - app.main - INFO - APOS is ready!
+2026-02-28 23:21:50,464 - app.main - INFO -  Shutting down APOS...
+2026-02-28 23:21:50,466 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 23:22:00,668 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 23:22:00,691 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 23:22:00,691 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 23:22:00,691 - app.main - INFO - APOS is ready!
+2026-02-28 23:24:48,528 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 23:25:00,207 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-02-28 23:26:06,471 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 23:26:33,116 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-02-28 23:28:20,784 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-02-28 23:28:38,699 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-03-01 00:08:51,715 - app.main - INFO -  Shutting down APOS...
+2026-03-01 00:08:51,717 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 00:09:06,722 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 00:09:06,743 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 00:09:06,743 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 00:09:06,743 - app.main - INFO - APOS is ready!
+2026-03-01 00:11:23,812 - app.main - INFO -  Shutting down APOS...
+2026-03-01 00:11:23,813 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 00:11:37,962 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 00:11:37,986 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 00:11:37,987 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 00:11:37,987 - app.main - INFO - APOS is ready!
+2026-03-01 00:39:37,454 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 00:39:47,711 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-03-01 00:40:58,064 - app.main - INFO -  Shutting down APOS...
+2026-03-01 00:40:58,066 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 00:41:10,109 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 00:41:10,128 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 00:41:10,129 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 00:41:10,129 - app.main - INFO - APOS is ready!
+2026-03-01 00:43:32,011 - app.main - INFO -  Shutting down APOS...
+2026-03-01 00:43:32,013 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 00:43:43,190 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 00:43:43,210 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 00:43:43,211 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 00:43:43,211 - app.main - INFO - APOS is ready!
+2026-03-01 00:43:43,214 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 00:44:08,321 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-03-01 00:56:47,149 - app.main - INFO -  Shutting down APOS...
+2026-03-01 00:56:47,151 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 00:56:56,415 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 00:56:56,454 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 00:56:56,454 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 00:56:56,455 - app.main - INFO - APOS is ready!
+2026-03-01 01:03:17,082 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:03:17,083 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:03:25,693 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:03:25,707 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:03:25,707 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:03:25,707 - app.main - INFO - APOS is ready!
+2026-03-01 01:07:58,082 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:07:58,084 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:08:08,762 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:08:08,777 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:08:08,778 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:08:08,778 - app.main - INFO - APOS is ready!
+2026-03-01 01:10:56,381 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:10:56,382 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:11:08,094 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:11:08,130 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:11:08,130 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:11:08,130 - app.main - INFO - APOS is ready!
+2026-03-01 01:14:49,621 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:14:49,623 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:15:00,279 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:15:00,293 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:15:00,294 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:15:00,294 - app.main - INFO - APOS is ready!
+2026-03-01 01:17:08,609 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:17:08,610 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:17:18,237 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:17:18,252 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:17:18,253 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:17:18,253 - app.main - INFO - APOS is ready!
+2026-03-01 01:27:11,176 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:27:11,179 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:27:24,239 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:27:24,293 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:27:24,294 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:27:24,294 - app.main - INFO - APOS is ready!
+2026-03-01 01:29:20,123 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:29:20,124 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:29:31,484 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:29:31,504 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:29:31,504 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:29:31,504 - app.main - INFO - APOS is ready!
+2026-03-01 01:32:05,429 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:32:05,430 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:32:17,083 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:32:17,100 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:32:17,101 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:32:17,101 - app.main - INFO - APOS is ready!
+2026-03-01 01:33:21,293 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:33:21,295 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:33:32,980 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:33:33,004 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:33:33,005 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:33:33,005 - app.main - INFO - APOS is ready!
+2026-03-01 01:33:36,962 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 01:33:51,600 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-03-01 01:34:54,894 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:34:54,896 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:35:06,353 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:35:06,392 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:35:06,392 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:35:06,393 - app.main - INFO - APOS is ready!
+2026-03-01 01:35:34,208 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 01:35:53,154 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-03-01 01:37:33,930 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:37:33,932 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:37:44,735 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:37:44,753 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:37:44,753 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:37:44,753 - app.main - INFO - APOS is ready!
+2026-03-01 01:41:57,194 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:41:57,195 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:42:08,950 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:42:08,981 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:42:08,982 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:42:08,982 - app.main - INFO - APOS is ready!
+2026-03-01 01:45:29,576 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:45:29,577 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:45:39,696 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:45:39,713 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:45:39,713 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:45:39,713 - app.main - INFO - APOS is ready!
+2026-03-01 01:49:28,795 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:49:28,795 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:49:39,035 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:49:39,077 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:49:39,077 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:49:39,077 - app.main - INFO - APOS is ready!
+2026-03-01 01:55:26,427 - app.main - INFO -  Shutting down APOS...
+2026-03-01 01:55:26,429 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 01:55:36,408 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 01:55:36,450 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 01:55:36,451 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 01:55:36,451 - app.main - INFO - APOS is ready!
+2026-03-01 01:59:43,120 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 02:00:30,342 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-03-01 02:09:17,652 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 02:09:43,073 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-03-01 04:03:32,918 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:03:32,924 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:03:49,548 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:03:49,604 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:03:49,605 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 04:03:49,605 - app.main - INFO - APOS is ready!
+2026-03-01 04:10:57,456 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:10:57,457 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:14:16,872 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:14:16,888 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:14:16,888 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 04:14:16,888 - app.main - INFO - APOS is ready!
+2026-03-01 04:23:09,182 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 04:23:16,928 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-03-01 04:27:51,441 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 04:27:54,321 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-03-01 04:32:29,850 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:32:29,853 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:32:39,962 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:32:39,992 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:32:39,992 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 04:32:39,992 - app.main - INFO - APOS is ready!
+2026-03-01 04:32:46,777 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 04:33:16,420 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-03-01 04:37:32,138 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:37:32,139 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:38:03,296 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:38:03,334 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:38:03,334 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 04:38:03,334 - app.main - INFO - APOS is ready!
+2026-03-01 04:38:33,524 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:38:33,525 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:38:43,931 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:38:43,946 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:38:43,947 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 04:38:43,947 - app.main - INFO - APOS is ready!
+2026-03-01 04:39:14,116 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:39:14,117 - app.database.mongodb - INFO -  Disconnected from MongoDB
