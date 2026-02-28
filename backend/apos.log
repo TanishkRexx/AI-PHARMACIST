@@ -1972,3 +1972,11 @@ fastapi.exceptions.HTTPException: 500: TTS generation failed
 2026-03-01 04:38:43,947 - app.main - INFO - APOS is ready!
 2026-03-01 04:39:14,116 - app.main - INFO -  Shutting down APOS...
 2026-03-01 04:39:14,117 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:39:39,758 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:39:39,773 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:39:39,773 - app.main - WARNING - Langfuse observability not configured
+2026-03-01 04:39:39,773 - app.main - INFO - APOS is ready!
+2026-03-01 04:39:58,171 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 04:40:36,020 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-03-01 04:53:50,686 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:53:50,688 - app.database.mongodb - INFO -  Disconnected from MongoDB

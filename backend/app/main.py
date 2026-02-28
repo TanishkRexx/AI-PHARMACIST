@@ -106,6 +106,7 @@ app.include_router(observability_router, prefix="/api/admin", tags=["Admin", "Ob
 async def startup_event():
     start_scheduler()
 
+
 @app.get("/")
 async def root():
     """Root endpoint"""
