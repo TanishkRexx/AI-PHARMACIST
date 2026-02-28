@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, removeItem } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
   Search,
@@ -66,7 +66,7 @@ function MedicineImage({ src, alt, className = "" }) {
 // ============================================
 export default function Medicines() {
   const navigate = useNavigate();
-  const { addToCart, cart } = useCart();
+  const { addToCart, updateQuantity ,removeItem, cart } = useCart();
 
   const [medicines, setMedicines] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -76,6 +76,7 @@ export default function Medicines() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [addingToCart, setAddingToCart] = useState({});
+  
 
   const limit = 20;
 
@@ -141,6 +142,7 @@ export default function Medicines() {
   const handleSearch = (query) => {
     setSearch(query);
     setPage(1);
+    
   };
 
   const handleCategoryChange = (cat) => {
@@ -332,11 +334,11 @@ export default function Medicines() {
                         </button>
                       ) : (
                         <div className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-4 py-2">
-                          <button className="text-blue-600 hover:text-blue-700">
+                          <button onClick={()=> { if(qty === 1){removeItem(medicine.id)}else{updateQuantity(medicine.id, qty -1)}}} className="text-blue-600 hover:text-blue-700">
                             <Minus size={16} />
                           </button>
                           <span className="font-semibold text-blue-600">{qty}</span>
-                          <button className="text-blue-600 hover:text-blue-700">
+                          <button onClick={()=> addToCart(medicine.id , 1)} className="text-blue-600 hover:text-blue-700">
                             <Plus size={16} />
                           </button>
                         </div>

@@ -22,7 +22,7 @@ import MiniCartPopup from "./MiniCartPopup";
 
 export default function AIChat() {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { cart , addToCart } = useCart();
   const messagesEndRef = useRef(null);
   const [showCartPopup, setShowCartPopup] = useState(false);
 
@@ -181,13 +181,24 @@ What can I help you with today?`,
           </div>
           
     {/* RIGHT SIDE */}
-    <div className="flex items-center gap-2 relative">
-      <button
-        onClick={() => setShowCartPopup(!showCartPopup)}
-        className="p-2 hover:bg-white/10 rounded-lg transition"
-      >
-        <ShoppingCart size={18} />
-      </button>
+    <div className="flex items-center gap-2">
+  {/* Cart with badge */}
+      <div className="relative">
+        <button
+         onClick={() => setShowCartPopup(!showCartPopup)}
+          className="p-2 hover:bg-white/10 rounded-lg transition"
+       >
+          <ShoppingCart size={18} />
+       </button>
+
+        {cart?.items?.length > 0 && (
+         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+            {cart.items.length}
+          </span>
+        )}
+       </div>
+
+      
 
       <button
         onClick={clearChat}
@@ -201,6 +212,7 @@ What can I help you with today?`,
       <MiniCartPopup
         isOpen={showCartPopup}
          onClose={() => setShowCartPopup(false)}
+      
       />
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">

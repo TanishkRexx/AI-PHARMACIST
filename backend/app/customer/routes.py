@@ -104,7 +104,7 @@ async def list_medicines(
 
 @router.get("/medicines/search")
 async def search_medicines(
-    q: str = Query(..., min_length=2, description="Search query"),
+    q: str = Query(..., min_length=1, description="Search query"),
     category: Optional[str] = None,
     in_stock: bool = True,
     limit: int = Query(20, ge=1, le=50)
