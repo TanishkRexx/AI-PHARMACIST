@@ -995,10 +995,13 @@ RESPOND IN VALID JSON:
         user_allergies: List[str],
         memory: ConversationMemory,
         trace=None,
-        user_id: Optional[str] = None  # NEW: Added user_id parameter
+        user_id: Optional[str] = None
     ) -> Dict[str, Any]:
         """Handle different intents with proper async support"""
-    
+
+        # ADD THIS FOR DEBUGGING - Remove in production
+        logger.info(f"Handling intent: {intent}, entities: {entities}")
+        
         try:
             if intent == "BUY_MEDICINE" or intent == "PRICE_CHECK" or intent == "CHECK_STOCK":
                 return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
@@ -1037,7 +1040,10 @@ RESPOND IN VALID JSON:
                 return await self._handle_general(entities, message, user_allergies, memory, trace)
         
         except Exception as e:
-            logger.error(f"Handle intent error: {e}", exc_info=True)
+            # ADD DETAILED LOGGING
+            logger.error(f"Handle intent error for intent={intent}: {e}", exc_info=True)
+            import traceback
+            traceback.print_exc()  # This will show the full stack trace
             
             return {
                 "message": "I'm having trouble processing that request. Let me help you differently.\n\nYou can:\n• Browse our medicine catalog\n• Tell me your symptoms\n• Ask about a specific medicine",
@@ -1057,9 +1063,14 @@ RESPOND IN VALID JSON:
         🔥 IMPROVED medicine search with fuzzy matching and spell correction
         """
         
+        # ADD DEBUGGING
+        logger.info(f"Medicine search - entities: {entities}, message: {message}")
+        
         symptoms = entities.get("symptoms", [])
         recommended = entities.get("recommended_medicines", [])
         medicine_names = entities.get("medicine_names", [])
+        
+        logger.info(f"Symptoms: {symptoms}, Recommended: {recommended}, Medicine names: {medicine_names}")
         
         # Build search queries in priority order
         search_queries = []
@@ -1079,11 +1090,23 @@ RESPOND IN VALID JSON:
             if cleaned and len(cleaned) >= 3:
                 search_queries.append(cleaned)
         
+        logger.info(f"Search queries: {search_queries}")
+        
+        # If we have symptoms but no search queries, use recommended medicines
+        if not search_queries and symptoms:
+            # Get medicines for symptoms
+            for symptom in symptoms:
+                if symptom in self.symptom_medicine_map:
+                    search_queries.extend(self.symptom_medicine_map[symptom][:3])
+            search_queries = list(dict.fromkeys(search_queries))  # Remove duplicates
+            logger.info(f"Added symptom-based queries: {search_queries}")
+        
         # Try each query with spell correction
         best_result = None
         best_score = 0
         corrected_query = None
         searched_term = None
+        all_results = []
         
         for query in search_queries:
             if not query or len(query) < 2:
@@ -1097,33 +1120,84 @@ RESPOND IN VALID JSON:
                 corrected_query = f"{query} → {corrected}"
                 query = corrected
             
-            # Search medicine
-            search_result = self.medicine_agent.search_medicines(query, limit=10)
-            
-            if search_result.get("found") and search_result.get("medicines"):
-                medicines = search_result["medicines"]
-                match, score = self._find_best_medicine_match(query, medicines)
+            try:
+                # Search medicine - WRAP IN TRY-EXCEPT
+                logger.info(f"Searching for: {query}")
+                search_result = self.medicine_agent.search_medicines(query, limit=10)
+                logger.info(f"Search result: {search_result}")
                 
-                if match and score > best_score:
-                    best_result = match
-                    best_score = score
-                
-                if best_score >= 90:  # Good enough match
-                    break
+                if search_result.get("found") and search_result.get("medicines"):
+                    medicines = search_result["medicines"]
+                    all_results.extend(medicines)
+                    match, score = self._find_best_medicine_match(query, medicines)
+                    
+                    if match and score > best_score:
+                        best_result = match
+                        best_score = score
+                    
+                    if best_score >= 90:  # Good enough match
+                        break
+            except Exception as e:
+                logger.error(f"Search error for query '{query}': {e}", exc_info=True)
+                continue
         
         # If found a medicine
         if best_result and best_score >= 60:
             memory.set_context("last_medicine", best_result)
             memory.set_context("last_intent", "MEDICINE_SEARCH")
             
-            # Check safety
-            safety_result = self.safety_agent.check_drug_safety(
-                best_result["name"],
-                user_allergies=user_allergies or []
-            )
+            try:
+                # Check safety - WRAP IN TRY-EXCEPT
+                safety_result = self.safety_agent.check_drug_safety(
+                    best_result["name"],
+                    user_allergies=user_allergies or []
+                )
+            except Exception as e:
+                logger.error(f"Safety check error: {e}", exc_info=True)
+                safety_result = {"warnings": [], "alerts": [], "safe": True}
             
             # Build response
             return self._build_medicine_response(best_result, safety_result, symptoms, corrected_query)
+        
+        # If we have symptoms, show recommendations even without exact match
+        if symptoms and recommended:
+            # Show symptom-based recommendations
+            rec_list = "\n".join([f"• **{med}**" for med in recommended[:5]])
+            
+            return {
+                "message": f"💊 For **{', '.join(symptoms)}**, I recommend:\n\n{rec_list}\n\n🔍 Click on any medicine to see details and pricing!",
+                "suggestions": recommended[:3] + ["Browse categories"],
+                "data": {
+                    "symptoms": symptoms,
+                    "recommendations": recommended,
+                    "found": False,
+                    "action": "SHOW_RECOMMENDATIONS"
+                }
+            }
+        
+        # If we have any results, show them
+        if all_results:
+            # Remove duplicates
+            seen = set()
+            unique_results = []
+            for med in all_results:
+                if med.get("name") not in seen:
+                    seen.add(med.get("name"))
+                    unique_results.append(med)
+            
+            if unique_results:
+                memory.set_context("last_medicine", unique_results[0])
+                memory.set_context("last_intent", "MEDICINE_SEARCH")
+                
+                try:
+                    safety_result = self.safety_agent.check_drug_safety(
+                        unique_results[0]["name"],
+                        user_allergies=user_allergies or []
+                    )
+                except:
+                    safety_result = {"warnings": [], "alerts": [], "safe": True}
+                
+                return self._build_medicine_response(unique_results[0], safety_result, symptoms, corrected_query)
         
         # No results found
         symptom_text = f" for **{', '.join(symptoms)}**" if symptoms else ""

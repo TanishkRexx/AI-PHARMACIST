@@ -34,6 +34,8 @@ import Procurement from './pages/pharmacy/Procurement';
 import CreateProcurement from './pages/pharmacy/CreateProcurement';
 import Analytics from './pages/pharmacy/Analytics';
 import AIForecasting from './pages/pharmacy/AIForecasting';
+import EditMedicine from './pages/pharmacy/EditMedicine';
+import ProcurementDetails from './pages/pharmacy/ProcurementDetails';
 
 // Distributor Pages
 import DistributorLayout from './pages/distributor/DistributorLayout';
@@ -123,12 +125,14 @@ function App() {
           <Route path="dashboard" element={<PharmacyDashboard />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="inventory/add" element={<AddMedicine />} />
+          <Route path="inventory/edit/:medicineId" element={<EditMedicine />} />
           <Route path="orders" element={<PharmacyOrders />} />
           <Route path="orders/:orderId" element={<PharmacyOrderDetails />} />
           <Route path="procurement" element={<Procurement />} />
           <Route path="procurement/create" element={<CreateProcurement />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="ai-forecasting" element={<AIForecasting />} />
+          <Route path="procurement/:poId" element={<ProcurementDetails />} />
         </Route>
 
         {/* ==================== DISTRIBUTOR ROUTES ==================== */}

@@ -847,3 +847,391 @@ httpx.ConnectError: [Errno 11001] getaddrinfo failed
 2026-02-28 03:08:14,279 - app.database.mongodb - INFO - Connected to MongoDB
 2026-02-28 03:08:14,279 - app.main - INFO - Langfuse observability enabled
 2026-02-28 03:08:14,279 - app.main - INFO - APOS is ready!
+2026-02-28 04:20:57,178 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-28 04:20:57,291 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-28 04:20:57,292 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-28 04:20:58,626 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-28 04:21:09,191 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-28 04:21:09,198 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-02-28 04:21:12,077 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-02-28 04:21:12,077 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-02-28 04:21:14,022 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "D:\Back\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 05:42:41,203 - app.main - INFO -  Shutting down APOS...
+2026-02-28 05:42:41,224 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 05:44:01,038 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 05:44:01,426 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 05:44:01,426 - app.main - INFO - Langfuse observability enabled
+2026-02-28 05:44:01,426 - app.main - INFO - APOS is ready!
+2026-02-28 05:47:08,689 - app.main - INFO -  Shutting down APOS...
+2026-02-28 05:47:08,691 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 05:47:26,073 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 05:47:26,128 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 05:47:26,128 - app.main - INFO - Langfuse observability enabled
+2026-02-28 05:47:26,129 - app.main - INFO - APOS is ready!
+2026-02-28 05:53:45,214 - app.main - INFO -  Shutting down APOS...
+2026-02-28 05:53:45,215 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 05:54:07,331 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 05:54:07,380 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 05:54:07,385 - app.main - INFO - Langfuse observability enabled
+2026-02-28 05:54:07,386 - app.main - INFO - APOS is ready!
+2026-02-28 06:06:14,776 - app.main - INFO -  Shutting down APOS...
+2026-02-28 06:06:14,779 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 06:06:31,713 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 06:06:31,752 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 06:06:31,755 - app.main - INFO - Langfuse observability enabled
+2026-02-28 06:06:31,756 - app.main - INFO - APOS is ready!
+2026-02-28 06:26:20,902 - app.main - INFO -  Shutting down APOS...
+2026-02-28 06:26:20,906 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 06:26:35,584 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 06:26:35,621 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 06:26:35,624 - app.main - INFO - Langfuse observability enabled
+2026-02-28 06:26:35,628 - app.main - INFO - APOS is ready!
+2026-02-28 06:31:23,521 - app.main - INFO -  Shutting down APOS...
+2026-02-28 06:31:23,523 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 06:31:44,803 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 06:31:44,831 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 06:31:44,831 - app.main - INFO - Langfuse observability enabled
+2026-02-28 06:31:44,831 - app.main - INFO - APOS is ready!
+2026-02-28 06:36:17,372 - app.agents.analytics_agent - WARNING - Failed to log to Langfuse: 'StatefulTraceClient' object has no attribute 'end'
+2026-02-28 06:36:19,135 - app.agents.analytics_agent - WARNING - Failed to log to Langfuse: 'StatefulTraceClient' object has no attribute 'end'
+2026-02-28 06:45:46,311 - app.main - INFO -  Shutting down APOS...
+2026-02-28 06:45:46,312 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 06:46:01,257 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 06:46:01,311 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 06:46:01,311 - app.main - INFO - Langfuse observability enabled
+2026-02-28 06:46:01,312 - app.main - INFO - APOS is ready!
+2026-02-28 06:47:40,274 - app.agents.analytics_agent - WARNING - Failed to log to Langfuse: 'StatefulTraceClient' object has no attribute 'end'
+2026-02-28 06:47:43,239 - app.agents.analytics_agent - WARNING - Failed to log to Langfuse: 'StatefulTraceClient' object has no attribute 'end'
+2026-02-28 07:03:13,203 - app.main - INFO -  Shutting down APOS...
+2026-02-28 07:03:13,207 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:03:46,666 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:03:46,735 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:03:46,736 - app.main - INFO - Langfuse observability enabled
+2026-02-28 07:03:46,737 - app.main - INFO - APOS is ready!
+2026-02-28 07:04:30,469 - app.agents.analytics_agent - ERROR - Category performance error: unrecognized option to $unwind stage: preserveNullAndEmptyCount, full error: {'ok': 0.0, 'errmsg': 'unrecognized option to $unwind stage: preserveNullAndEmptyCount', 'code': 28811, 'codeName': 'Location28811'}
+2026-02-28 07:04:35,939 - app.agents.analytics_agent - ERROR - AI summary error: 'NoneType' object has no attribute 'get'
+2026-02-28 07:04:46,399 - app.main - INFO -  Shutting down APOS...
+2026-02-28 07:04:46,402 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:05:03,199 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:05:03,223 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:05:03,226 - app.main - INFO - Langfuse observability enabled
+2026-02-28 07:05:03,227 - app.main - INFO - APOS is ready!
+2026-02-28 07:05:31,231 - app.agents.analytics_agent - ERROR - Category performance error: unrecognized option to $unwind stage: preserveNullAndEmptyCount, full error: {'ok': 0.0, 'errmsg': 'unrecognized option to $unwind stage: preserveNullAndEmptyCount', 'code': 28811, 'codeName': 'Location28811'}
+2026-02-28 07:05:37,052 - app.agents.analytics_agent - ERROR - Category performance error: unrecognized option to $unwind stage: preserveNullAndEmptyCount, full error: {'ok': 0.0, 'errmsg': 'unrecognized option to $unwind stage: preserveNullAndEmptyCount', 'code': 28811, 'codeName': 'Location28811'}
+2026-02-28 07:05:46,110 - app.agents.analytics_agent - ERROR - AI summary error: 'NoneType' object has no attribute 'get'
+2026-02-28 07:05:51,484 - app.agents.analytics_agent - ERROR - AI summary error: 'NoneType' object has no attribute 'get'
+2026-02-28 07:06:03,011 - app.agents.analytics_agent - ERROR - Category performance error: unrecognized option to $unwind stage: preserveNullAndEmptyCount, full error: {'ok': 0.0, 'errmsg': 'unrecognized option to $unwind stage: preserveNullAndEmptyCount', 'code': 28811, 'codeName': 'Location28811'}
+2026-02-28 07:06:11,430 - app.agents.analytics_agent - ERROR - Category performance error: unrecognized option to $unwind stage: preserveNullAndEmptyCount, full error: {'ok': 0.0, 'errmsg': 'unrecognized option to $unwind stage: preserveNullAndEmptyCount', 'code': 28811, 'codeName': 'Location28811'}
+2026-02-28 07:06:20,285 - app.agents.analytics_agent - ERROR - AI summary error: 'NoneType' object has no attribute 'get'
+2026-02-28 07:06:25,329 - app.agents.analytics_agent - ERROR - AI summary error: 'NoneType' object has no attribute 'get'
+2026-02-28 07:07:01,661 - app.agents.analytics_agent - ERROR - Category performance error: unrecognized option to $unwind stage: preserveNullAndEmptyCount, full error: {'ok': 0.0, 'errmsg': 'unrecognized option to $unwind stage: preserveNullAndEmptyCount', 'code': 28811, 'codeName': 'Location28811'}
+2026-02-28 07:07:06,624 - app.agents.analytics_agent - ERROR - Category performance error: unrecognized option to $unwind stage: preserveNullAndEmptyCount, full error: {'ok': 0.0, 'errmsg': 'unrecognized option to $unwind stage: preserveNullAndEmptyCount', 'code': 28811, 'codeName': 'Location28811'}
+2026-02-28 07:07:15,885 - app.agents.analytics_agent - ERROR - AI summary error: 'NoneType' object has no attribute 'get'
+2026-02-28 07:07:20,671 - app.agents.analytics_agent - ERROR - AI summary error: 'NoneType' object has no attribute 'get'
+2026-02-28 07:11:23,709 - app.main - INFO -  Shutting down APOS...
+2026-02-28 07:11:23,712 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:11:41,187 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:11:41,238 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:11:41,239 - app.main - INFO - Langfuse observability enabled
+2026-02-28 07:11:41,241 - app.main - INFO - APOS is ready!
+2026-02-28 07:14:43,851 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-28 07:14:43,858 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-28 07:14:43,859 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-28 07:14:51,377 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-28 07:14:51,384 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-02-28 07:14:52,360 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-02-28 07:14:52,360 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-02-28 07:14:54,370 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "D:\Back\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 07:18:44,223 - app.agents.orchestrator - ERROR - Handle intent error: name 'time' is not defined
+Traceback (most recent call last):
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1004, in _handle_intent
+    return await self._handle_medicine_search(entities, message, user_allergies, memory, trace)
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1120, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "D:\Back\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 07:21:26,669 - app.main - INFO -  Shutting down APOS...
+2026-02-28 07:21:26,676 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:22:09,673 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:22:09,704 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:22:09,704 - app.main - INFO - Langfuse observability enabled
+2026-02-28 07:22:09,706 - app.main - INFO - APOS is ready!
+2026-02-28 07:25:03,465 - app.agents.orchestrator - INFO - Handling intent: GREETING, entities: {}
+2026-02-28 07:25:06,894 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}
+2026-02-28 07:25:06,895 - app.agents.orchestrator - INFO - Medicine search - entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}, message: I have a fever
+2026-02-28 07:25:06,895 - app.agents.orchestrator - INFO - Symptoms: ['fever'], Recommended: ['Paracetamol', 'Ibuprofen', 'Crocin'], Medicine names: []
+2026-02-28 07:25:06,896 - app.agents.orchestrator - INFO - Search queries: ['Paracetamol', 'Ibuprofen', 'Crocin']
+2026-02-28 07:25:06,896 - app.agents.orchestrator - INFO - Searching for: Paracetamol
+2026-02-28 07:25:06,914 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-28 07:25:06,952 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-28 07:25:06,959 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-28 07:25:09,472 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-28 07:25:11,674 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-28 07:25:11,675 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-02-28 07:25:13,788 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-02-28 07:25:13,788 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-02-28 07:25:14,855 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2066e99a027f79a6114ee', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.619, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ed', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Calpol 650', 'description': 'Fever and moderate pain - generic', 'category': 'painkiller', 'dosage': '650mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/wifp2vvwa08pvwgv2iex.jpg', 'relevance_score': 0.608, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ea', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Paracip', 'description': 'Fever and mild pain relief - generic', 'category': 'painkiller', 'dosage': '500mg', 'price': 8.0, 'stock': 25, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/506aeb350075460d9c40a1293e1607bc.jpg', 'relevance_score': 0.579, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114eb', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Crocin', 'description': 'Fever and mild pain relief', 'category': 'painkiller', 'dosage': '500mg', 'price': 15.0, 'stock': 500, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/d1b5d11ee8ba4b68a6a5c6f1c872dbfc.jpg', 'relevance_score': 0.574, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ec', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Panadol', 'description': 'Fever and mild pain relief - premium', 'category': 'painkiller', 'dosage': '500mg', 'price': 22.0, 'stock': 300, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://5.imimg.com/data5/SELLER/Default/2023/6/318634261/GR/RQ/MB/128145676/panadol-paracetamol-tablets.jpg', 'relevance_score': 0.559, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611540', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.419, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611541', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Zyrtec', 'description': 'Antihistamine for allergies - premium', 'category': 'other', 'dosage': '10mg', 'price': 25.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/036099a5615e40c6b282addeb978760e.jpg', 'relevance_score': 0.402, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114f8', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nise', 'description': 'Pain and fever - generic', 'category': 'painkiller', 'dosage': '100mg', 'price': 12.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/f1gfqqe1onciyxepyxsc.jpg', 'relevance_score': 0.401, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611544', 'name': 'Salbutamol 100mcg', 'generic_name': 'Salbutamol', 'brand': 'Asthalin', 'description': 'Asthma bronchospasm inhaler', 'category': 'other', 'dosage': '100mcg', 'price': 95.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Tremor', 'Tachycardia'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/9117d15a82fc4d41889e083e295d7de9.jpg', 'relevance_score': 0.4, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a61153f', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Cetzine', 'description': 'Antihistamine allergies - generic', 'category': 'other', 'dosage': '10mg', 'price': 8.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/a3a45eaf1a334fd6b223e418e43d81aa.jpg', 'relevance_score': 0.396, 'search_type': 'semantic_ai'}], 'query': 'Paracetamol', 'search_type': 'semantic_ai', 'duration_ms': 6943}
+2026-02-28 07:25:14,858 - app.agents.orchestrator - ERROR - Safety check error: name 'time' is not defined
+Traceback (most recent call last):
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1151, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "D:\Back\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 07:25:20,222 - app.agents.orchestrator - INFO - Handling intent: SIDE_EFFECTS, entities: {'medicine_names': ['Paracetamol 650mg'], 'is_followup': True}
+2026-02-28 07:25:26,082 - app.agents.orchestrator - INFO - Handling intent: PRICE_CHECK, entities: {'medicine_names': ['Paracetamol 650mg'], 'is_followup': True}
+2026-02-28 07:25:26,084 - app.agents.orchestrator - INFO - Medicine search - entities: {'medicine_names': ['Paracetamol 650mg'], 'is_followup': True}, message: Check price
+2026-02-28 07:25:26,085 - app.agents.orchestrator - INFO - Symptoms: [], Recommended: [], Medicine names: ['Paracetamol 650mg']
+2026-02-28 07:25:26,087 - app.agents.orchestrator - INFO - Search queries: ['Paracetamol 650mg']
+2026-02-28 07:25:26,675 - app.agents.orchestrator - INFO - Searching for: Paracetamol 650mg
+2026-02-28 07:25:27,552 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2066e99a027f79a6114ee', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.728, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ed', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Calpol 650', 'description': 'Fever and moderate pain - generic', 'category': 'painkiller', 'dosage': '650mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/wifp2vvwa08pvwgv2iex.jpg', 'relevance_score': 0.716, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ea', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Paracip', 'description': 'Fever and mild pain relief - generic', 'category': 'painkiller', 'dosage': '500mg', 'price': 8.0, 'stock': 25, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/506aeb350075460d9c40a1293e1607bc.jpg', 'relevance_score': 0.643, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114eb', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Crocin', 'description': 'Fever and mild pain relief', 'category': 'painkiller', 'dosage': '500mg', 'price': 15.0, 'stock': 500, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/d1b5d11ee8ba4b68a6a5c6f1c872dbfc.jpg', 'relevance_score': 0.64, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ec', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Panadol', 'description': 'Fever and mild pain relief - premium', 'category': 'painkiller', 'dosage': '500mg', 'price': 22.0, 'stock': 300, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://5.imimg.com/data5/SELLER/Default/2023/6/318634261/GR/RQ/MB/128145676/panadol-paracetamol-tablets.jpg', 'relevance_score': 0.631, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114f6', 'name': 'Tramadol 50mg', 'generic_name': 'Tramadol', 'brand': 'Tramazac', 'description': 'Moderate to severe pain - generic', 'category': 'painkiller', 'dosage': '50mg', 'price': 30.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Dizziness', 'Constipation'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/iako5ay4tvfebas4qssd.jpg', 'relevance_score': 0.482, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611540', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.481, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114f7', 'name': 'Tramadol 50mg', 'generic_name': 'Tramadol', 'brand': 'Ultracet', 'description': 'Moderate to severe pain', 'category': 'painkiller', 'dosage': '50mg', 'price': 45.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Dizziness', 'Constipation'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/eoreganmppqhojqzxb1i.jpg', 'relevance_score': 0.477, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114f4', 'name': 'Aspirin 75mg', 'generic_name': 'Aspirin', 'brand': 'Loprin', 'description': 'Blood clot prevention - generic', 'category': 'painkiller', 'dosage': '75mg', 'price': 7.0, 'stock': 600, 'in_stock': True, 'prescription_required': True, 'side_effects': ['GI bleeding', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cvntyxp7wisahbhphxua.jpg', 'relevance_score': 0.475, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114f8', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nise', 'description': 'Pain and fever - generic', 'category': 'painkiller', 'dosage': '100mg', 'price': 12.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/f1gfqqe1onciyxepyxsc.jpg', 'relevance_score': 0.474, 'search_type': 'semantic_ai'}], 'query': 'Paracetamol 650mg', 'search_type': 'semantic_ai', 'duration_ms': 42}
+2026-02-28 07:25:27,554 - app.agents.orchestrator - ERROR - Safety check error: name 'time' is not defined
+Traceback (most recent call last):
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1151, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "D:\Back\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 07:25:40,702 - app.agents.orchestrator - INFO - Handling intent: ORDER_STATUS, entities: {'raw_query': 'Track My Order'}
+2026-02-28 07:31:02,287 - app.agents.orchestrator - INFO - Handling intent: REORDER, entities: {'raw_query': 'Reorder medicines'}
+2026-02-28 07:41:43,599 - app.main - INFO -  Shutting down APOS...
+2026-02-28 07:41:43,603 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 07:42:09,644 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 07:42:09,738 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 07:42:09,740 - app.main - INFO - Langfuse observability enabled
+2026-02-28 07:42:09,741 - app.main - INFO - APOS is ready!
+2026-02-28 11:15:27,249 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 11:15:27,649 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 11:15:27,650 - app.main - INFO - Langfuse observability enabled
+2026-02-28 11:15:27,650 - app.main - INFO - APOS is ready!
+2026-02-28 11:17:09,350 - backoff - ERROR - Giving up execute_task_with_backoff(...) after 3 tries (httpx.ConnectError: [Errno 11001] getaddrinfo failed)
+2026-02-28 11:17:09,351 - langfuse - ERROR - error uploading: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 231, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 204, in upload
+    self._upload_batch(batch)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 244, in _upload_batch
+    execute_task_with_backoff(batch)
+  File "D:\Back\backend\venv\lib\site-packages\backoff\_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 242, in execute_task_with_backoff
+    raise e
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 230, in execute_task_with_backoff
+    self._client.batch_post(batch=batch, metadata=metadata)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 54, in batch_post
+    res = self.post(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 66, in post
+    res = self._session.post(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1146, in post
+    return self.request(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 828, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 915, in send
+    response = self._send_handling_auth(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 943, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 980, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1016, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 230, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-28 11:17:10,917 - backoff - ERROR - Giving up execute_task_with_backoff(...) after 3 tries (httpx.ConnectError: [Errno 11001] getaddrinfo failed)
+2026-02-28 11:17:10,920 - langfuse - ERROR - error uploading: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 231, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 204, in upload
+    self._upload_batch(batch)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 244, in _upload_batch
+    execute_task_with_backoff(batch)
+  File "D:\Back\backend\venv\lib\site-packages\backoff\_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 242, in execute_task_with_backoff
+    raise e
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\task_manager.py", line 230, in execute_task_with_backoff
+    self._client.batch_post(batch=batch, metadata=metadata)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 54, in batch_post
+    res = self.post(**kwargs)
+  File "D:\Back\backend\venv\lib\site-packages\langfuse\request.py", line 66, in post
+    res = self._session.post(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1146, in post
+    return self.request(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 828, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 915, in send
+    response = self._send_handling_auth(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 943, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 980, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_client.py", line 1016, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 230, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\RAJ\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Back\backend\venv\lib\site-packages\httpx\_transports\default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-28 11:19:00,916 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have fever'}
+2026-02-28 11:19:00,917 - app.agents.orchestrator - INFO - Medicine search - entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have fever'}, message: I have fever
+2026-02-28 11:19:00,919 - app.agents.orchestrator - INFO - Symptoms: ['fever'], Recommended: ['Paracetamol', 'Ibuprofen', 'Crocin'], Medicine names: []
+2026-02-28 11:19:00,920 - app.agents.orchestrator - INFO - Search queries: ['Paracetamol', 'Ibuprofen', 'Crocin']
+2026-02-28 11:19:00,920 - app.agents.orchestrator - INFO - Searching for: Paracetamol
+2026-02-28 11:19:00,943 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-28 11:19:00,951 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-28 11:19:00,951 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-28 11:19:01,725 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-28 11:19:07,792 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-28 11:19:07,793 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-02-28 11:19:09,624 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-02-28 11:19:09,625 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-02-28 11:19:11,056 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2066e99a027f79a6114ee', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.619, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ed', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Calpol 650', 'description': 'Fever and moderate pain - generic', 'category': 'painkiller', 'dosage': '650mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/wifp2vvwa08pvwgv2iex.jpg', 'relevance_score': 0.608, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ea', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Paracip', 'description': 'Fever and mild pain relief - generic', 'category': 'painkiller', 'dosage': '500mg', 'price': 8.0, 'stock': 25, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/506aeb350075460d9c40a1293e1607bc.jpg', 'relevance_score': 0.579, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114eb', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Crocin', 'description': 'Fever and mild pain relief', 'category': 'painkiller', 'dosage': '500mg', 'price': 15.0, 'stock': 500, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/d1b5d11ee8ba4b68a6a5c6f1c872dbfc.jpg', 'relevance_score': 0.574, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ec', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Panadol', 'description': 'Fever and mild pain relief - premium', 'category': 'painkiller', 'dosage': '500mg', 'price': 22.0, 'stock': 300, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://5.imimg.com/data5/SELLER/Default/2023/6/318634261/GR/RQ/MB/128145676/panadol-paracetamol-tablets.jpg', 'relevance_score': 0.559, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611540', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.419, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611541', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Zyrtec', 'description': 'Antihistamine for allergies - premium', 'category': 'other', 'dosage': '10mg', 'price': 25.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/036099a5615e40c6b282addeb978760e.jpg', 'relevance_score': 0.402, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114f8', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nise', 'description': 'Pain and fever - generic', 'category': 'painkiller', 'dosage': '100mg', 'price': 12.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/f1gfqqe1onciyxepyxsc.jpg', 'relevance_score': 0.401, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611544', 'name': 'Salbutamol 100mcg', 'generic_name': 'Salbutamol', 'brand': 'Asthalin', 'description': 'Asthma bronchospasm inhaler', 'category': 'other', 'dosage': '100mcg', 'price': 95.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Tremor', 'Tachycardia'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/9117d15a82fc4d41889e083e295d7de9.jpg', 'relevance_score': 0.4, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a61153f', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Cetzine', 'description': 'Antihistamine allergies - generic', 'category': 'other', 'dosage': '10mg', 'price': 8.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/a3a45eaf1a334fd6b223e418e43d81aa.jpg', 'relevance_score': 0.396, 'search_type': 'semantic_ai'}], 'query': 'Paracetamol', 'search_type': 'semantic_ai', 'duration_ms': 8721}
+2026-02-28 11:19:11,058 - app.agents.orchestrator - ERROR - Safety check error: name 'time' is not defined
+Traceback (most recent call last):
+  File "D:\Back\backend\app\agents\orchestrator.py", line 1151, in _handle_medicine_search
+    safety_result = self.safety_agent.check_drug_safety(
+  File "D:\Back\backend\app\agents\safety_agent.py", line 110, in check_drug_safety
+    start_time = time.time()
+NameError: name 'time' is not defined
+2026-02-28 11:32:08,237 - app.main - INFO -  Shutting down APOS...
+2026-02-28 11:32:08,255 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 11:32:30,554 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 11:32:30,604 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 11:32:30,605 - app.main - INFO - Langfuse observability enabled
+2026-02-28 11:32:30,605 - app.main - INFO - APOS is ready!
+2026-02-28 11:32:47,329 - app.agents.orchestrator - INFO - Handling intent: GREETING, entities: {}
+2026-02-28 11:41:12,991 - app.customer.chat_routes - INFO - Processing voice input...
+2026-02-28 11:41:14,166 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 0.805188 seconds
+2026-02-28 11:41:15,698 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 1.926275 seconds
+2026-02-28 11:41:18,530 - app.services.voice_service - ERROR - Speech-to-text error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-28 11:42:22,023 - app.customer.chat_routes - INFO - Processing voice input...
+2026-02-28 11:42:22,826 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 0.823321 seconds
+2026-02-28 11:42:24,558 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 1.730996 seconds
+2026-02-28 11:42:26,619 - app.services.voice_service - ERROR - Speech-to-text error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-28 11:42:29,863 - app.customer.chat_routes - INFO - Processing voice input...
+2026-02-28 11:42:30,822 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 0.797167 seconds
+2026-02-28 11:42:31,937 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 1.556132 seconds
+2026-02-28 11:42:34,381 - app.services.voice_service - ERROR - Speech-to-text error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-28 11:42:34,606 - app.customer.chat_routes - INFO - Processing voice input...
+2026-02-28 11:42:34,984 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 0.955697 seconds
+2026-02-28 11:42:36,350 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 1.637450 seconds
+2026-02-28 11:42:38,306 - app.services.voice_service - ERROR - Speech-to-text error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-28 11:43:08,612 - app.customer.chat_routes - INFO - Processing voice input...
+2026-02-28 11:43:12,273 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 0.960318 seconds
+2026-02-28 11:43:16,308 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 1.747693 seconds
+2026-02-28 11:43:20,926 - app.services.voice_service - ERROR - Speech-to-text error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-28 11:47:16,712 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have fever'}
+2026-02-28 11:47:16,713 - app.agents.orchestrator - INFO - Medicine search - entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have fever'}, message: I have fever
+2026-02-28 11:47:16,714 - app.agents.orchestrator - INFO - Symptoms: ['fever'], Recommended: ['Paracetamol', 'Ibuprofen', 'Crocin'], Medicine names: []
+2026-02-28 11:47:16,714 - app.agents.orchestrator - INFO - Search queries: ['Paracetamol', 'Ibuprofen', 'Crocin']
+2026-02-28 11:47:16,715 - app.agents.orchestrator - INFO - Searching for: Paracetamol
+2026-02-28 11:47:16,724 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-28 11:47:16,729 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-28 11:47:16,729 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-28 11:47:18,512 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-28 11:47:22,110 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-28 11:47:22,111 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-02-28 11:47:23,332 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-02-28 11:47:23,332 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-02-28 11:47:24,654 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2066e99a027f79a6114ee', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.619, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ed', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Calpol 650', 'description': 'Fever and moderate pain - generic', 'category': 'painkiller', 'dosage': '650mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/wifp2vvwa08pvwgv2iex.jpg', 'relevance_score': 0.608, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ea', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Paracip', 'description': 'Fever and mild pain relief - generic', 'category': 'painkiller', 'dosage': '500mg', 'price': 8.0, 'stock': 25, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/506aeb350075460d9c40a1293e1607bc.jpg', 'relevance_score': 0.579, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114eb', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Crocin', 'description': 'Fever and mild pain relief', 'category': 'painkiller', 'dosage': '500mg', 'price': 15.0, 'stock': 500, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/d1b5d11ee8ba4b68a6a5c6f1c872dbfc.jpg', 'relevance_score': 0.574, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114ec', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Panadol', 'description': 'Fever and mild pain relief - premium', 'category': 'painkiller', 'dosage': '500mg', 'price': 22.0, 'stock': 300, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://5.imimg.com/data5/SELLER/Default/2023/6/318634261/GR/RQ/MB/128145676/panadol-paracetamol-tablets.jpg', 'relevance_score': 0.559, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611540', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.419, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611541', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Zyrtec', 'description': 'Antihistamine for allergies - premium', 'category': 'other', 'dosage': '10mg', 'price': 25.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/036099a5615e40c6b282addeb978760e.jpg', 'relevance_score': 0.402, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a6114f8', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nise', 'description': 'Pain and fever - generic', 'category': 'painkiller', 'dosage': '100mg', 'price': 12.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/f1gfqqe1onciyxepyxsc.jpg', 'relevance_score': 0.401, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a611544', 'name': 'Salbutamol 100mcg', 'generic_name': 'Salbutamol', 'brand': 'Asthalin', 'description': 'Asthma bronchospasm inhaler', 'category': 'other', 'dosage': '100mcg', 'price': 95.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Tremor', 'Tachycardia'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/9117d15a82fc4d41889e083e295d7de9.jpg', 'relevance_score': 0.4, 'search_type': 'semantic_ai'}, {'id': '69a2066e99a027f79a61153f', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Cetzine', 'description': 'Antihistamine allergies - generic', 'category': 'other', 'dosage': '10mg', 'price': 8.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/a3a45eaf1a334fd6b223e418e43d81aa.jpg', 'relevance_score': 0.396, 'search_type': 'semantic_ai'}], 'query': 'Paracetamol', 'search_type': 'semantic_ai', 'duration_ms': 6655}
+2026-02-28 11:47:26,784 - openai._base_client - INFO - Retrying request to /audio/speech in 0.818058 seconds
+2026-02-28 11:47:27,875 - openai._base_client - INFO - Retrying request to /audio/speech in 1.554245 seconds
+2026-02-28 11:47:45,184 - app.services.voice_service - ERROR - Text-to-speech error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-28 11:47:45,185 - app.customer.chat_routes - ERROR - TTS error: 500: TTS generation failed
+Traceback (most recent call last):
+  File "D:\Back\backend\app\customer\chat_routes.py", line 290, in text_to_speech_only
+    raise HTTPException(status_code=500, detail="TTS generation failed")
+fastapi.exceptions.HTTPException: 500: TTS generation failed
+2026-02-28 11:48:09,294 - app.customer.chat_routes - INFO - Processing voice input...
+2026-02-28 11:48:10,087 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 0.926051 seconds
+2026-02-28 11:48:11,352 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 1.553954 seconds
+2026-02-28 11:48:13,251 - app.services.voice_service - ERROR - Speech-to-text error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-28 11:52:35,068 - app.main - INFO -  Shutting down APOS...
+2026-02-28 11:52:35,073 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 11:52:52,233 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 11:52:52,304 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 11:52:52,304 - app.main - INFO - Langfuse observability enabled
+2026-02-28 11:52:52,304 - app.main - INFO - APOS is ready!
+2026-02-28 11:53:36,678 - app.customer.chat_routes - INFO - Processing voice input...
+2026-02-28 11:53:37,941 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 0.940171 seconds
+2026-02-28 11:53:39,578 - openai._base_client - INFO - Retrying request to /audio/transcriptions in 1.816432 seconds
+2026-02-28 11:53:41,712 - app.services.voice_service - ERROR - Speech-to-text error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-02-28 11:57:06,093 - app.main - INFO -  Shutting down APOS...
+2026-02-28 11:57:06,097 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-02-28 11:57:37,532 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 11:57:37,560 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 11:57:37,561 - app.main - INFO - Langfuse observability enabled
+2026-02-28 11:57:37,561 - app.main - INFO - APOS is ready!
+2026-02-28 11:58:07,704 - app.main - INFO -  Shutting down APOS...
+2026-02-28 11:58:07,707 - app.database.mongodb - INFO -  Disconnected from MongoDB

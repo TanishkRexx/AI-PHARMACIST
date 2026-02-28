@@ -275,7 +275,7 @@ async def get_ai_demand_forecast(
     """
     analytics_agent = get_analytics_agent()
     
-    result = analytics_agent.forecast_demand(
+    result = await analytics_agent.forecast_demand(
         days_history=days_history,
         days_forecast=days_forecast
     )
@@ -297,7 +297,7 @@ async def detect_sales_anomalies(
     """
     analytics_agent = get_analytics_agent()
     
-    result = analytics_agent.detect_anomalies(days=days)
+    result = await analytics_agent.detect_anomalies(days=days)
     
     return {
         "success": True,
@@ -315,9 +315,69 @@ async def get_inventory_optimization(
     """
     analytics_agent = get_analytics_agent()
     
-    result = analytics_agent.get_inventory_optimization()
+    result = await analytics_agent.get_inventory_optimization()
     
     return {
         "success": True,
         "data": result
     }
+
+@router.get("/analytics/sales-velocity")
+async def get_sales_velocity(
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """Get sales velocity analysis."""
+    analytics_agent = get_analytics_agent()
+    result = await analytics_agent.get_sales_velocity()
+    return {"success": True, "data": result}
+
+
+@router.get("/analytics/dead-stock")
+async def get_dead_stock(
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """Identify dead and slow-moving stock."""
+    analytics_agent = get_analytics_agent()
+    result = await analytics_agent.get_dead_stock()
+    return {"success": True, "data": result}
+
+
+@router.get("/analytics/category-performance")
+async def get_category_performance(
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """Analyze performance by category."""
+    analytics_agent = get_analytics_agent()
+    result = await analytics_agent.get_category_performance()
+    return {"success": True, "data": result}
+
+
+@router.get("/analytics/revenue-forecast")
+async def get_revenue_forecast(
+    days: int = Query(30, ge=7, le=90),
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """Forecast future revenue."""
+    analytics_agent = get_analytics_agent()
+    result = await analytics_agent.get_revenue_forecast(days_forecast=days)
+    return {"success": True, "data": result}
+
+
+@router.get("/analytics/smart-reorder")
+async def get_smart_reorder(
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """Get AI-powered smart reorder suggestions."""
+    analytics_agent = get_analytics_agent()
+    result = await analytics_agent.get_smart_reorder_suggestions()
+    return {"success": True, "data": result}
+
+
+@router.get("/analytics/ai-summary")
+async def get_ai_summary(
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """Get comprehensive AI summary of pharmacy health."""
+    analytics_agent = get_analytics_agent()
+    result = await analytics_agent.get_ai_summary()
+    return {"success": True, "data": result}

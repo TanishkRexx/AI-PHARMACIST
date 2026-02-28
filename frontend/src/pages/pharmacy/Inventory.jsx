@@ -4,19 +4,24 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Search,
   Plus,
+  Minus,
   Filter,
   Package,
   AlertTriangle,
   RefreshCw,
   Edit,
   TrendingUp,
-  TrendingDown
+  TrendingDown,
+  MoreVertical,
+  Eye
 } from 'lucide-react';
 import { pharmacyService } from '../../api/pharmacyService';
+import { useDebounce } from '../../hooks/useDebounce';
 import SearchBar from '../../components/common/SearchBar';
 import Loading from '../../components/common/Loading';
 import Pagination from '../../components/common/Pagination';
 import EmptyState from '../../components/common/EmptyState';
+import StockUpdateModal from '../../components/pharmacy/StockUpdateModal';
 import toast from 'react-hot-toast';
 
 export default function Inventory() {
@@ -26,17 +31,33 @@ export default function Inventory() {
   const [medicines, setMedicines] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 500);
   const [stockFilter, setStockFilter] = useState(searchParams.get('stock_status') || 'all');
   const [category, setCategory] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [stats, setStats] = useState({ critical: 0, low: 0, sufficient: 0 });
+  const [total, setTotal] = useState(0);
+  
+  // Stats from backend
+  const [stats, setStats] = useState({ 
+    total: 0,
+    critical: 0, 
+    low: 0, 
+    sufficient: 0 
+  });
+
+  // Stock Update Modal
+  const [stockModal, setStockModal] = useState({
+    isOpen: false,
+    medicine: null,
+    operation: 'add'
+  });
 
   const limit = 20;
 
   useEffect(() => {
     loadInventory();
-  }, [page, stockFilter, category, search]);
+  }, [page, stockFilter, category, debouncedSearch]);
 
   const loadInventory = async () => {
     try {
@@ -46,18 +67,22 @@ export default function Inventory() {
         limit,
         stock_status: stockFilter !== 'all' ? stockFilter : undefined,
         category: category || undefined,
-        search: search || undefined
+        search: debouncedSearch || undefined
       });
 
       if (response.success) {
         setMedicines(response.data.medicines);
         setTotalPages(response.data.pagination.pages);
+        setTotal(response.data.pagination.total);
 
-        // Calculate stats
-        const critical = response.data.medicines.filter(m => m.stock_status === 'out_of_stock').length;
-        const low = response.data.medicines.filter(m => m.stock_status === 'low_stock').length;
-        const sufficient = response.data.medicines.filter(m => m.stock_status === 'in_stock').length;
-        setStats({ critical, low, sufficient });
+        if (response.data.stats) {
+          setStats({
+            total: response.data.stats.total || 0,
+            critical: response.data.stats.critical || 0,
+            low: response.data.stats.low || 0,
+            sufficient: response.data.stats.sufficient || 0
+          });
+        }
       }
     } catch (error) {
       toast.error('Failed to load inventory');
@@ -66,14 +91,20 @@ export default function Inventory() {
     }
   };
 
-  const handleStockUpdate = async (medicineId, quantity, operation) => {
-    try {
-      await pharmacyService.updateStock(medicineId, quantity, operation, 'Manual adjustment');
-      toast.success('Stock updated');
-      loadInventory();
-    } catch (error) {
-      toast.error('Failed to update stock');
-    }
+  const openStockModal = (medicine, operation) => {
+    setStockModal({
+      isOpen: true,
+      medicine,
+      operation
+    });
+  };
+
+  const closeStockModal = () => {
+    setStockModal({
+      isOpen: false,
+      medicine: null,
+      operation: 'add'
+    });
   };
 
   const getStockStatusColor = (status) => {
@@ -93,7 +124,7 @@ export default function Inventory() {
   };
 
   const filters = [
-    { key: 'all', label: 'All', count: medicines.length },
+    { key: 'all', label: 'All', count: stats.total },
     { key: 'low', label: 'Low Stock', count: stats.low, color: 'text-yellow-600' },
     { key: 'out', label: 'Out of Stock', count: stats.critical, color: 'text-red-600' }
   ];
@@ -118,24 +149,34 @@ export default function Inventory() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-4 gap-4">
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="bg-gradient-to-r from-red-50 to-red-100 p-4 rounded-xl border border-red-200"
+          className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200"
         >
-          <p className="text-sm text-red-600">Critical</p>
+          <p className="text-sm text-blue-600">Total</p>
+          <p className="text-2xl font-bold text-blue-700">{stats.total}</p>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          className="bg-gradient-to-r from-red-50 to-red-100 p-4 rounded-xl border border-red-200 cursor-pointer"
+          onClick={() => { setStockFilter('out'); setPage(1); }}
+        >
+          <p className="text-sm text-red-600">Out of Stock</p>
           <p className="text-2xl font-bold text-red-700">{stats.critical}</p>
         </motion.div>
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="bg-gradient-to-r from-yellow-50 to-yellow-100 p-4 rounded-xl border border-yellow-200"
+          className="bg-gradient-to-r from-yellow-50 to-yellow-100 p-4 rounded-xl border border-yellow-200 cursor-pointer"
+          onClick={() => { setStockFilter('low'); setPage(1); }}
         >
           <p className="text-sm text-yellow-600">Low Stock</p>
           <p className="text-2xl font-bold text-yellow-700">{stats.low}</p>
         </motion.div>
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-xl border border-green-200"
+          className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-xl border border-green-200 cursor-pointer"
+          onClick={() => { setStockFilter('ok'); setPage(1); }}
         >
           <p className="text-sm text-green-600">Sufficient</p>
           <p className="text-2xl font-bold text-green-700">{stats.sufficient}</p>
@@ -166,11 +207,19 @@ export default function Inventory() {
                   : `bg-white text-gray-600 border hover:bg-gray-50 ${filter.color || ''}`
               }`}
             >
-              {filter.label}
+              {filter.label} ({filter.count})
             </button>
           ))}
         </div>
       </div>
+
+      {/* Filtered Results Count */}
+      {(debouncedSearch || stockFilter !== 'all') && (
+        <div className="text-sm text-gray-500">
+          Showing {medicines.length} of {total} results
+          {debouncedSearch && <span className="ml-1">for "{debouncedSearch}"</span>}
+        </div>
+      )}
 
       {/* Inventory Table */}
       {loading ? (
@@ -179,7 +228,7 @@ export default function Inventory() {
         <EmptyState
           icon={<Package size={48} />}
           title="No medicines found"
-          description="Add medicines to your inventory"
+          description={debouncedSearch ? `No results for "${debouncedSearch}"` : "Add medicines to your inventory"}
           action={() => navigate('/pharmacy/inventory/add')}
           actionLabel="Add Medicine"
         />
@@ -255,23 +304,40 @@ export default function Inventory() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
+                        {/* Add Stock Button */}
                         <button
-                          onClick={() => handleStockUpdate(medicine.id, 10, 'add')}
+                          onClick={() => openStockModal(medicine, 'add')}
                           className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition"
-                          title="Add 10 units"
+                          title="Add Stock"
                         >
-                          <TrendingUp size={16} />
+                          <Plus size={16} />
                         </button>
+                        
+                        {/* Remove Stock Button */}
+                        <button
+                          onClick={() => openStockModal(medicine, 'subtract')}
+                          disabled={medicine.stock_quantity === 0}
+                          className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                          title="Remove Stock"
+                        >
+                          <Minus size={16} />
+                        </button>
+                        
+                        {/* Edit Button */}
                         <button
                           onClick={() => navigate(`/pharmacy/inventory/edit/${medicine.id}`)}
                           className="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition"
-                          title="Edit"
+                          title="Edit Medicine"
                         >
                           <Edit size={16} />
                         </button>
+                        
+                        {/* Reorder Button */}
                         <button
-                          onClick={() => navigate('/pharmacy/procurement')}
+                          onClick={() => navigate('/pharmacy/procurement', {
+                            state: { preselected: [{ medicine_id: medicine.id, quantity: medicine.reorder_level * 2 }] }
+                          })}
                           className="p-2 bg-purple-100 text-purple-600 rounded-lg hover:bg-purple-200 transition"
                           title="Reorder"
                         >
@@ -292,6 +358,15 @@ export default function Inventory() {
         currentPage={page}
         totalPages={totalPages}
         onPageChange={setPage}
+      />
+
+      {/* Stock Update Modal */}
+      <StockUpdateModal
+        isOpen={stockModal.isOpen}
+        onClose={closeStockModal}
+        medicine={stockModal.medicine}
+        defaultOperation={stockModal.operation}
+        onUpdate={loadInventory}
       />
     </div>
   );

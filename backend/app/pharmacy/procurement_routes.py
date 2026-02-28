@@ -24,6 +24,11 @@ class CreateProcurementRequest(BaseModel):
     items: List[ProcurementItemRequest]
     notes: Optional[str] = None
 
+class UpdateProcurementStatus(BaseModel):
+    status: str
+    tracking_number: Optional[str] = None
+    carrier: Optional[str] = None
+    expected_delivery: Optional[str] = None
 
 @router.get("/procurement")
 async def get_procurement_orders(
@@ -289,5 +294,67 @@ async def get_reorder_suggestions(
         "data": {
             "suggestions": suggestions,
             "total_items": len(suggestions)
+        }
+    }
+
+@router.put("/procurement/{po_id}/status")
+async def update_procurement_status(
+    po_id: str,
+    update: UpdateProcurementStatus,
+    current_user: dict = Depends(require_role([UserRole.PHARMACY]))
+):
+    """
+    Update procurement order status.
+    Used for simulation/testing or manual status updates.
+    """
+    db = get_database()
+    
+    valid_statuses = ["pending", "approved", "shipped", "delivered", "cancelled"]
+    
+    if update.status not in valid_statuses:
+        raise HTTPException(status_code=400, detail=f"Invalid status. Valid: {valid_statuses}")
+    
+    try:
+        order = await db["procurement_orders"].find_one({"_id": ObjectId(po_id)})
+    except:
+        raise HTTPException(status_code=400, detail="Invalid order ID")
+    
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    
+    update_data = {
+        "status": update.status,
+        "updated_at": datetime.utcnow()
+    }
+    
+    # Set timestamps based on status
+    if update.status == "approved":
+        update_data["approved_at"] = datetime.utcnow()
+    elif update.status == "shipped":
+        update_data["shipped_at"] = datetime.utcnow()
+        # Generate tracking number if not provided
+        if update.tracking_number:
+            update_data["tracking_number"] = update.tracking_number
+        else:
+            update_data["tracking_number"] = f"TRK{generate_po_number().replace('PO-', '')}"
+        if update.carrier:
+            update_data["carrier"] = update.carrier
+        if update.expected_delivery:
+            update_data["expected_delivery"] = update.expected_delivery
+    elif update.status == "delivered":
+        update_data["delivered_at"] = datetime.utcnow()
+    
+    await db["procurement_orders"].update_one(
+        {"_id": ObjectId(po_id)},
+        {"$set": update_data}
+    )
+    
+    return {
+        "success": True,
+        "message": f"Order status updated to {update.status}",
+        "data": {
+            "po_number": order["po_number"],
+            "new_status": update.status,
+            "tracking_number": update_data.get("tracking_number")
         }
     }

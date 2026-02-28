@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
 from bson import ObjectId
+import re
 
 from app.database.mongodb import get_database
 from app.auth.dependencies import require_role
@@ -42,14 +43,24 @@ class MedicineUpdate(BaseModel):
 
 class StockUpdate(BaseModel):
     quantity: int
-    operation: str = "add"  # "add" or "subtract"
+    operation: str = "add"
     reason: Optional[str] = None
+
+
+def escape_regex(text: str) -> str:
+    """
+    Escape special regex characters in search string.
+    Prevents regex errors when users type special characters.
+    """
+    # Escape all special regex characters
+    special_chars = r'[\^$.*+?{}()|[\]\\]'
+    return re.sub(special_chars, r'\\\g<0>', text)
 
 
 @router.get("/inventory")
 async def get_inventory(
     page: int = Query(1, ge=1),
-    limit: int = Query(50, ge=1, le=100),
+    limit: int = Query(50, ge=1, le=500),
     search: Optional[str] = None,
     category: Optional[str] = None,
     stock_status: Optional[str] = None,  # "all", "low", "out", "ok"
@@ -60,23 +71,50 @@ async def get_inventory(
     """
     db = get_database()
     
-    # Build filter
+    # ====================================
+    # ALWAYS CALCULATE TOTAL STATS FIRST
+    # (Regardless of filters)
+    # ====================================
+    
+    total_stats = {
+        "total": await db["medicines"].count_documents({"is_active": True}),
+        "critical": await db["medicines"].count_documents({
+            "is_active": True, 
+            "stock_quantity": 0
+        }),
+        "low": await db["medicines"].count_documents({
+            "is_active": True,
+            "stock_quantity": {"$gt": 0},
+            "$expr": {"$lte": ["$stock_quantity", "$reorder_level"]}
+        }),
+        "sufficient": await db["medicines"].count_documents({
+            "is_active": True,
+            "$expr": {"$gt": ["$stock_quantity", "$reorder_level"]}
+        })
+    }
+    
+    # ====================================
+    # BUILD FILTER FOR CURRENT VIEW
+    # ====================================
+    
     filter_query = {"is_active": True}
     
     if search:
-        filter_query["$or"] = [
-            {"name": {"$regex": search, "$options": "i"}},
-            {"generic_name": {"$regex": search, "$options": "i"}}
-        ]
+        # Escape special regex characters
+        escaped_search = escape_regex(search.strip())
+        if escaped_search:
+            filter_query["$or"] = [
+                {"name": {"$regex": escaped_search, "$options": "i"}},
+                {"generic_name": {"$regex": escaped_search, "$options": "i"}},
+                {"brand": {"$regex": escaped_search, "$options": "i"}}
+            ]
     
     if category:
         filter_query["category"] = category
     
     if stock_status == "low":
-        filter_query["$expr"] = {"$and": [
-            {"$gt": ["$stock_quantity", 0]},
-            {"$lte": ["$stock_quantity", "$reorder_level"]}
-        ]}
+        filter_query["stock_quantity"] = {"$gt": 0}
+        filter_query["$expr"] = {"$lte": ["$stock_quantity", "$reorder_level"]}
     elif stock_status == "out":
         filter_query["stock_quantity"] = 0
     elif stock_status == "ok":
@@ -84,22 +122,37 @@ async def get_inventory(
     
     # Pagination
     skip = (page - 1) * limit
-    total = await db["medicines"].count_documents(filter_query)
     
-    cursor = db["medicines"].find(filter_query).sort("name", 1).skip(skip).limit(limit)
-    medicines = await cursor.to_list(limit)
+    try:
+        # Count for current filter (for pagination)
+        filtered_total = await db["medicines"].count_documents(filter_query)
+        
+        # Get medicines for current page
+        cursor = db["medicines"].find(filter_query).sort("name", 1).skip(skip).limit(limit)
+        medicines = await cursor.to_list(limit)
+        
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e),
+            "data": {
+                "medicines": [],
+                "pagination": {"total": 0, "page": page, "pages": 0},
+                "stats": total_stats
+            }
+        }
     
+    # Format results
     result = []
     for med in medicines:
         stock = med.get("stock_quantity", 0)
         reorder = med.get("reorder_level", 50)
         
-        if stock == 0:
-            stock_status_label = "out_of_stock"
-        elif stock <= reorder:
-            stock_status_label = "low_stock"
-        else:
-            stock_status_label = "in_stock"
+        stock_status_label = (
+            "out_of_stock" if stock == 0 else
+            "low_stock" if stock <= reorder else
+            "in_stock"
+        )
         
         result.append({
             "id": str(med["_id"]),
@@ -121,13 +174,13 @@ async def get_inventory(
         "data": {
             "medicines": result,
             "pagination": {
-                "total": total,
+                "total": filtered_total,
                 "page": page,
-                "pages": (total + limit - 1) // limit
-            }
+                "pages": (filtered_total + limit - 1) // limit if filtered_total > 0 else 0
+            },
+            "stats": total_stats
         }
     }
-
 
 @router.get("/inventory/{medicine_id}")
 async def get_medicine(
