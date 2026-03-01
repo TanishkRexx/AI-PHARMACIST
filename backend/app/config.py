@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     
     # MongoDB
-    MONGODB_URL: str = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
+    MONGODB_URL: str = os.getenv("MONGODB_URL")
     DATABASE_NAME: str = os.getenv("DATABASE_NAME", "GoMed")
     
     # JWT
