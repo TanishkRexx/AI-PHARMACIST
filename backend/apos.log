@@ -2677,3 +2677,15 @@ groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process
 2026-03-01 06:34:46,006 - app.database.mongodb - INFO - Connected to MongoDB
 2026-03-01 06:34:46,007 - app.main - INFO - Langfuse observability enabled
 2026-03-01 06:34:46,007 - app.main - INFO - APOS is ready!
+2026-03-01 06:45:56,525 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 06:45:56,541 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 06:45:56,541 - app.main - INFO - Langfuse observability enabled
+2026-03-01 06:45:56,542 - app.main - INFO - APOS is ready!
+2026-03-01 06:47:34,046 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}
+2026-03-01 06:47:34,051 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 06:47:34,055 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 06:47:34,055 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 06:47:39,493 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 06:47:39,494 - app.agents.semantic_search - INFO - Creating embeddings for 145 medicines...
+2026-03-01 06:47:40,268 - app.agents.semantic_search - INFO - Indexed 145 medicines for semantic search
+2026-03-01 06:47:40,268 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 145 medicines
