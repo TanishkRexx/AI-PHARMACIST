@@ -11,6 +11,7 @@ from datetime import datetime
 import time
 import re
 import logging
+from groq import Groq
 
 logger = logging.getLogger(__name__)
 
@@ -75,10 +76,10 @@ class PharmacyAI:
         
         try:
             if settings.GROQ_API_KEY:
-                from groq import Groq
+                
                 self.groq_client = Groq(api_key=settings.GROQ_API_KEY)
                 self.use_groq = True
-                logger.info(f"✅ Groq initialized (Model: {settings.GROQ_LLM_MODEL})")
+                logger.info(f"Groq initialized (Model: {settings.GROQ_LLM_MODEL})")
         except Exception as e:
             logger.warning(f"Groq initialization failed: {e}")
         
@@ -88,7 +89,7 @@ class PharmacyAI:
             if settings.OPENAI_API_KEY:
                 from openai import OpenAI
                 self.openai_client = OpenAI(api_key=settings.OPENAI_API_KEY)
-                logger.info(f"✅ OpenAI initialized (Model: {settings.OPENAI_MODEL})")
+                logger.info(f" OpenAI initialized (Model: {settings.OPENAI_MODEL})")
         except Exception as e:
             logger.warning(f"OpenAI initialization failed: {e}")
         
