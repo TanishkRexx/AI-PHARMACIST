@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   ShoppingCart,
@@ -10,7 +10,12 @@ import {
   Shield,
   Info,
   Loader2,
-  Sparkles
+  Sparkles,
+  TrendingDown,
+  ChevronDown,
+  ChevronUp,
+  Zap,
+  Package
 } from 'lucide-react';
 import { customerService } from '../../api/customerService';
 import { useCart } from '../../context/CartContext';
@@ -24,7 +29,6 @@ function MedicineImage({ src, alt, className = "" }) {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Show placeholder if no src or error occurred
   if (!src || hasError) {
     return (
       <div className={`flex items-center justify-center bg-gradient-to-br from-blue-100 to-cyan-100 ${className}`}>
@@ -35,13 +39,11 @@ function MedicineImage({ src, alt, className = "" }) {
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      {/* Loading skeleton */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 animate-pulse">
           <Loader2 className="w-8 h-8 text-blue-400 animate-spin" />
         </div>
       )}
-      {/* Actual image */}
       <img
         src={src}
         alt={alt}
@@ -60,6 +62,85 @@ function MedicineImage({ src, alt, className = "" }) {
 }
 
 // ============================================
+// ALTERNATIVE CARD FOR DETAILS PAGE
+// ============================================
+function AlternativeOption({ alternative, quantity, onSelect, selecting }) {
+  const getMatchTypeBadge = () => {
+    switch (alternative.match_type) {
+      case 'generic_equivalent':
+        return (
+          <span className="flex items-center gap-1 text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full font-medium">
+            <Shield size={12} />
+            Generic Equivalent
+          </span>
+        );
+      case 'same_category':
+        return (
+          <span className="flex items-center gap-1 text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium">
+            <Package size={12} />
+            Same Category
+          </span>
+        );
+      case 'ai_similar':
+        return (
+          <span className="flex items-center gap-1 text-xs bg-amber-100 text-amber-600 px-2 py-0.5 rounded-full font-medium">
+            <Sparkles size={12} />
+            AI Recommended
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02 }}
+      className="border border-gray-200 rounded-xl p-4 hover:border-green-300 hover:bg-green-50/30 transition-all cursor-pointer"
+      onClick={onSelect}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 flex-wrap mb-1">
+            <h4 className="font-semibold text-gray-800">{alternative.name}</h4>
+            {getMatchTypeBadge()}
+          </div>
+          
+          {alternative.generic_name && (
+            <p className="text-xs text-gray-500">{alternative.generic_name}</p>
+          )}
+          
+          <div className="flex items-center gap-3 mt-2">
+            <span className="text-lg font-bold text-green-600">₹{alternative.unit_price}</span>
+            <span className="text-sm text-gray-400 line-through">₹{alternative.original_price}</span>
+            <span className="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded-full font-medium">
+              Save {alternative.savings_percentage}%
+            </span>
+          </div>
+          
+          {alternative.why_suggested && (
+            <p className="text-xs text-gray-500 mt-2">💡 {alternative.why_suggested}</p>
+          )}
+        </div>
+        
+        <button
+          disabled={selecting}
+          className="flex-shrink-0 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl text-sm font-semibold hover:shadow-lg transition disabled:opacity-50"
+        >
+          {selecting ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            'Add This'
+          )}
+        </button>
+      </div>
+    </motion.div>
+  );
+}
+
+// ============================================
 // MAIN MEDICINE DETAILS COMPONENT
 // ============================================
 export default function MedicineDetails() {
@@ -71,7 +152,12 @@ export default function MedicineDetails() {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
+  
+  // Price optimization states
   const [alternatives, setAlternatives] = useState([]);
+  const [loadingAlternatives, setLoadingAlternatives] = useState(false);
+  const [showAlternatives, setShowAlternatives] = useState(false);
+  const [addingAlternative, setAddingAlternative] = useState(null);
 
   useEffect(() => {
     loadMedicine();
@@ -83,6 +169,8 @@ export default function MedicineDetails() {
       const response = await customerService.getMedicineDetails(medicineId);
       if (response.success) {
         setMedicine(response.data);
+        // Load alternatives after medicine loads
+        loadAlternatives();
       }
     } catch (error) {
       toast.error('Failed to load medicine details');
@@ -92,6 +180,27 @@ export default function MedicineDetails() {
     }
   };
 
+  const loadAlternatives = async () => {
+    try {
+      setLoadingAlternatives(true);
+      const response = await customerService.getMedicineAlternatives(medicineId, quantity, 5);
+      if (response.success && response.data.alternatives) {
+        setAlternatives(response.data.alternatives);
+      }
+    } catch (error) {
+      console.error('Failed to load alternatives:', error);
+    } finally {
+      setLoadingAlternatives(false);
+    }
+  };
+
+  // Reload alternatives when quantity changes
+  useEffect(() => {
+    if (medicine) {
+      loadAlternatives();
+    }
+  }, [quantity]);
+
   const handleAddToCart = async () => {
     setAdding(true);
     const result = await addToCart(medicineId, quantity);
@@ -99,6 +208,16 @@ export default function MedicineDetails() {
     
     if (result.success) {
       toast.success('Added to cart!');
+    }
+  };
+
+  const handleAddAlternative = async (alternative) => {
+    setAddingAlternative(alternative.id);
+    const result = await addToCart(alternative.id, quantity);
+    setAddingAlternative(null);
+    
+    if (result.success) {
+      toast.success(`Added ${alternative.name} to cart!`);
     }
   };
 
@@ -111,6 +230,8 @@ export default function MedicineDetails() {
   if (!medicine) return null;
 
   const inCart = getCartQuantity();
+  const hasCheaperAlternatives = alternatives.length > 0;
+  const bestSavings = alternatives[0]?.savings_per_unit * quantity || 0;
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -130,8 +251,8 @@ export default function MedicineDetails() {
           animate={{ opacity: 1, x: 0 }}
           className="lg:col-span-1"
         >
-          <div className="bg-white rounded-2xl shadow-md border p-4 fixed top-28 w-[320px]">
-            {/* ====== MEDICINE IMAGE ====== */}
+          <div className="bg-white rounded-2xl shadow-md border p-4 sticky top-28">
+            {/* Medicine Image */}
             <MedicineImage
               src={medicine.image_url}
               alt={medicine.name}
@@ -150,6 +271,30 @@ export default function MedicineDetails() {
                 <p className="text-red-600 font-medium">✗ Out of Stock</p>
               )}
             </div>
+
+            {/* Cheaper Alternative Alert */}
+            {hasCheaperAlternatives && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-4 p-3 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl"
+              >
+                <div className="flex items-center gap-2 text-green-700 mb-1">
+                  <TrendingDown size={18} />
+                  <span className="font-semibold">Save up to ₹{bestSavings.toFixed(2)}!</span>
+                </div>
+                <p className="text-xs text-green-600">
+                  {alternatives.length} cheaper alternative{alternatives.length > 1 ? 's' : ''} available
+                </p>
+                <button
+                  onClick={() => setShowAlternatives(!showAlternatives)}
+                  className="mt-2 text-sm text-green-700 font-medium flex items-center gap-1"
+                >
+                  {showAlternatives ? 'Hide' : 'View'} alternatives
+                  {showAlternatives ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </button>
+              </motion.div>
+            )}
 
             {/* Prescription Badge */}
             {medicine.prescription_required && (
@@ -199,7 +344,7 @@ export default function MedicineDetails() {
                 ) : (
                   <>
                     <ShoppingCart size={20} />
-                    Add to Cart
+                    Add to Cart - ₹{(medicine.price * quantity).toFixed(2)}
                   </>
                 )}
               </button>
@@ -210,6 +355,38 @@ export default function MedicineDetails() {
                 ✓ {inCart} in cart
               </p>
             )}
+
+            {/* Alternatives Section */}
+            <AnimatePresence>
+              {showAlternatives && alternatives.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mt-4 pt-4 border-t border-gray-200 space-y-3 overflow-hidden"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles size={16} className="text-purple-500" />
+                    <span className="font-semibold text-gray-700 text-sm">Cheaper Alternatives</span>
+                  </div>
+                  {loadingAlternatives ? (
+                    <div className="flex items-center justify-center py-4">
+                      <Loader2 className="w-6 h-6 animate-spin text-purple-500" />
+                    </div>
+                  ) : (
+                    alternatives.map((alt) => (
+                      <AlternativeOption
+                        key={alt.id}
+                        alternative={alt}
+                        quantity={quantity}
+                        onSelect={() => handleAddAlternative(alt)}
+                        selecting={addingAlternative === alt.id}
+                      />
+                    ))
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </motion.div>
 
@@ -220,7 +397,7 @@ export default function MedicineDetails() {
           className="lg:col-span-2 space-y-6"
         >
           {/* Basic Info */}
-          <div className="bg-white rounded-2xl shadow-md border p-4">
+          <div className="bg-white rounded-2xl shadow-md border p-6">
             <div className="mb-4">
               <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
                 {medicine.category}
@@ -232,15 +409,15 @@ export default function MedicineDetails() {
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <span className="text-gray-500">Brand:</span>
-                <p className="font-medium text-gray-800">{medicine.brand}</p>
+                <p className="font-medium text-gray-800">{medicine.brand || 'N/A'}</p>
               </div>
               <div>
                 <span className="text-gray-500">Dosage:</span>
-                <p className="font-medium text-gray-800">{medicine.dosage}</p>
+                <p className="font-medium text-gray-800">{medicine.dosage || 'N/A'}</p>
               </div>
               <div>
                 <span className="text-gray-500">Manufacturer:</span>
-                <p className="font-medium text-gray-800">{medicine.manufacturer}</p>
+                <p className="font-medium text-gray-800">{medicine.manufacturer || 'N/A'}</p>
               </div>
             </div>
 
@@ -251,6 +428,85 @@ export default function MedicineDetails() {
               </div>
             )}
           </div>
+
+          {/* AI Alternatives Section (Desktop) */}
+          {hasCheaperAlternatives && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl shadow-md border border-green-200 p-6"
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <TrendingDown size={20} className="text-green-600" />
+                </div>
+                <div>
+                  <h2 className="font-bold text-gray-800">💰 Save Money with Alternatives</h2>
+                  <p className="text-sm text-gray-600">
+                    Same quality medicines at lower prices
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {alternatives.map((alt, index) => (
+                  <motion.div
+                    key={alt.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-white rounded-xl p-4 border border-green-100 hover:border-green-300 transition-all"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h4 className="font-semibold text-gray-800">{alt.name}</h4>
+                          {alt.match_type === 'generic_equivalent' && (
+                            <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full">
+                              🧬 Generic
+                            </span>
+                          )}
+                          {alt.match_type === 'ai_similar' && (
+                            <span className="text-xs bg-amber-100 text-amber-600 px-2 py-0.5 rounded-full">
+                              🤖 AI Match
+                            </span>
+                          )}
+                        </div>
+                        {alt.generic_name && (
+                          <p className="text-xs text-gray-500">{alt.generic_name}</p>
+                        )}
+                        <div className="flex items-center gap-2 mt-2">
+                          <span className="text-lg font-bold text-green-600">₹{alt.unit_price}</span>
+                          <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                            Save ₹{alt.savings_per_unit}/unit
+                          </span>
+                        </div>
+                        {alt.why_suggested && (
+                          <p className="text-xs text-gray-500 mt-1">💡 {alt.why_suggested}</p>
+                        )}
+                      </div>
+                      <div className="text-right ml-4">
+                        <p className="text-xs text-gray-500 mb-1">For {quantity} units</p>
+                        <p className="font-bold text-green-600">₹{(alt.unit_price * quantity).toFixed(2)}</p>
+                        <p className="text-xs text-green-600">Save ₹{(alt.savings_per_unit * quantity).toFixed(2)}</p>
+                        <button
+                          onClick={() => handleAddAlternative(alt)}
+                          disabled={addingAlternative === alt.id}
+                          className="mt-2 px-4 py-1.5 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition disabled:opacity-50"
+                        >
+                          {addingAlternative === alt.id ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            'Add This'
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* Safety Information */}
           {(medicine.side_effects?.length > 0 || medicine.contraindications?.length > 0) && (

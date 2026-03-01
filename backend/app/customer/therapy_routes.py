@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel,Field,validator
 from typing import Optional,Literal, List
 from datetime import datetime,date
@@ -141,8 +141,8 @@ async def therapy_plan( plan : TherapySchema, patient_id: str):
     doc["patient_id"] = patient_id
 
     # Safety: timestamps (if not already present)
-    doc.setdefault("created_at", datetime.utcnow())
-    doc.setdefault("updated_at", datetime.utcnow())
+    doc.setdefault("created_at", datetime.now())
+    doc.setdefault("updated_at", datetime.now())
 
     result = await therapies_col.insert_one(doc)
 

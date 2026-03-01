@@ -114,6 +114,7 @@ export default function CurrentPrescription() {
           { params: { patient_id: user?.id } }
         );
         setPrescription(response.data);
+        localStorage.setItem('prescription_id',prescription.prescription.id)
       } catch (error) {
         console.error(error);
       } finally {

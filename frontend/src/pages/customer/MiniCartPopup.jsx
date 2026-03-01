@@ -14,7 +14,7 @@ export default function MiniCartPopup({ isOpen, onClose }) {
           initial={{ opacity: 0, y: -10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -10 }}
-          className="absolute right-4 top-16 w-80 bg-white border rounded-xl shadow-xl z-50 p-4"
+          className="absolute right-24 top-32 w-80 bg-white border rounded-xl shadow-xl z-50 p-4"
         >
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold text-gray-800 flex items-center gap-2">

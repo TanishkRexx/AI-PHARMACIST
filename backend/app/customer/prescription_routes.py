@@ -137,6 +137,7 @@ async def process_prescription(
 
     insert_result = await db["prescriptions"].insert_one(prescription_data)
     prescription_id = insert_result.inserted_id
+    
 
     # -------- Insert Doctor --------
 

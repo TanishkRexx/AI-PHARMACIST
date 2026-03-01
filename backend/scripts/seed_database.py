@@ -118,7 +118,7 @@ async def seed_users():
     users = [
         {
             "email": "admin@demo.com",
-            "password_hash": get_password_hash("admin123"),
+            "password_hash": get_password_hash("admin@1397"),
             "name": "System Admin",
             "phone": "9000000000",
             "role": "admin",
@@ -128,7 +128,7 @@ async def seed_users():
         },
         {
             "email": "customer@demo.com",
-            "password_hash": get_password_hash("password123"),
+            "password_hash": get_password_hash("customer@1397"),
             "name": "Demo Customer",
             "phone": "9876543210",
             "role": "customer",
@@ -146,7 +146,7 @@ async def seed_users():
         },
         {
             "email": "pharmacy@demo.com",
-            "password_hash": get_password_hash("password123"),
+            "password_hash": get_password_hash("pharmacy@1397"),
             "name": "Pharmacy Admin",
             "phone": "9876543211",
             "role": "pharmacy",
@@ -156,7 +156,7 @@ async def seed_users():
         },
         {
             "email": "distributor@demo.com",
-            "password_hash": get_password_hash("password123"),
+            "password_hash": get_password_hash("distributor@1397"),
             "name": "Distributor Admin",
             "phone": "9876543212",
             "role": "distributor",

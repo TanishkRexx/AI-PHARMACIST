@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Activity, Pill, Calendar } from "lucide-react";
+import axios from "axios"; // ✅ Fix 1: was missing
 
 /* ------------------ THERAPY DATA ------------------ */
 
 const therapyData = [
   {
     id: 1,
-    name: "Amoxicillin 250mg",
     dosage: "1 tablet",
     frequency: "Once daily",
     time: "Morning",
@@ -16,7 +16,6 @@ const therapyData = [
   },
   {
     id: 2,
-    name: "Paracetamol 500mg",
     dosage: "1 tablet",
     frequency: "Twice daily",
     time: "Afternoon",
@@ -26,7 +25,15 @@ const therapyData = [
   },
   {
     id: 3,
-    name: "Cetirizine 10mg",
+    dosage: "1 tablet",
+    frequency: "Once daily",
+    time: "Night",
+    meal: "Before Meal",
+    totalDoses: 30,
+    remainingDoses: 12,
+  },
+  {
+    id: 4,
     dosage: "1 tablet",
     frequency: "Once daily",
     time: "Night",
@@ -40,6 +47,9 @@ const therapyData = [
 
 export default function Therapy() {
   /* -------- DAYS DATA -------- */
+
+  const [prescription, setPrescription] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ Fix 2: was missing
 
   const [days, setDays] = useState([
     {
@@ -69,6 +79,7 @@ export default function Therapy() {
   ]);
 
   const [selectedDay, setSelectedDay] = useState(0);
+  const [medicines, setMeds] = useState(null);
 
   /* -------- CALCULATIONS -------- */
 
@@ -86,6 +97,25 @@ export default function Therapy() {
   const adherence = Math.round(
     (takenDoses / totalDoses) * 100
   );
+
+  useEffect(() => {
+    const handleGetPrescription = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const response = await axios.get(
+          "http://localhost:8000/api/customer/show-prescription",
+          { params: { patient_id: user?.id } }
+        );
+        setPrescription(response.data);
+        setMeds(response.data.medicine_info); // ✅ Fix 3: was using stale `prescription` state
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    handleGetPrescription();
+  }, []); // ✅ Fix 4: empty array stops infinite loop
 
   /* -------- TOGGLE -------- */
 
@@ -244,7 +274,7 @@ export default function Therapy() {
                 <div>
 
                   <p className="font-medium text-gray-800">
-                    {med.name}
+                    {medicines?.[i]?.medicine_name ?? therapyData[i]?.id} {/* ✅ Fix 5: was [i+1], now [i]. Also safe fallback while loading */}
                   </p>
 
                   <div className="flex gap-3 mt-1 text-xs">

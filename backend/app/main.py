@@ -128,9 +128,18 @@ async def health_check():
     """Health check endpoint"""
     from app.database.mongodb import db
     from app.observability.tracer import get_langfuse
+    from app.config import settings
     
     db_status = "connected" if db.client else "disconnected"
     langfuse_status = "enabled" if get_langfuse() else "disabled"
+    
+    # AI Provider info
+    if settings.AI_PROVIDER == "groq" and settings.GROQ_API_KEY:
+        ai_engine = f"Groq {settings.GROQ_LLM_MODEL}"
+    elif settings.OPENAI_API_KEY:
+        ai_engine = f"OpenAI {settings.OPENAI_MODEL}"
+    else:
+        ai_engine = "Pattern-based (no AI)"
     
     return {
         "status": "healthy",
@@ -138,7 +147,8 @@ async def health_check():
         "version": "1.0.0",
         "database": db_status,
         "observability": langfuse_status,
-        "ai_engine": "OpenAI GPT-4o-mini"
+        "ai_engine": ai_engine,
+        "voice_enabled": bool(settings.GROQ_API_KEY)
     }
 
 

@@ -1582,6 +1582,7 @@ fastapi.exceptions.HTTPException: 500: TTS generation failed
 2026-02-28 15:58:40,427 - app.database.mongodb - INFO - Connected to MongoDB
 2026-02-28 15:58:40,427 - app.main - WARNING - Langfuse observability not configured
 2026-02-28 15:58:40,427 - app.main - INFO - APOS is ready!
+<<<<<<< HEAD
 2026-02-28 16:19:48,880 - app.main - INFO - Starting APOS Pharmacy System...
 2026-02-28 16:19:49,162 - app.database.mongodb - INFO - Connected to MongoDB
 2026-02-28 16:19:49,162 - app.main - WARNING - Langfuse observability not configured
@@ -1980,3 +1981,699 @@ fastapi.exceptions.HTTPException: 500: TTS generation failed
 2026-03-01 04:40:36,020 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
 2026-03-01 04:53:50,686 - app.main - INFO -  Shutting down APOS...
 2026-03-01 04:53:50,688 - app.database.mongodb - INFO -  Disconnected from MongoDB
+=======
+2026-02-28 16:03:29,846 - app.main - INFO - Starting APOS Pharmacy System...
+2026-02-28 16:03:29,860 - app.database.mongodb - INFO - Connected to MongoDB
+2026-02-28 16:03:29,861 - app.main - WARNING - Langfuse observability not configured
+2026-02-28 16:03:29,861 - app.main - INFO - APOS is ready!
+2026-02-28 16:26:52,129 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}
+2026-02-28 16:26:52,129 - app.agents.orchestrator - INFO - Medicine search - entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}, message: I have a fever
+2026-02-28 16:26:52,129 - app.agents.orchestrator - INFO - Symptoms: ['fever'], Recommended: ['Paracetamol', 'Ibuprofen', 'Crocin'], Medicine names: []
+2026-02-28 16:26:52,130 - app.agents.orchestrator - INFO - Search queries: ['Paracetamol', 'Ibuprofen', 'Crocin']
+2026-02-28 16:26:52,130 - app.agents.orchestrator - INFO - Searching for: Paracetamol
+2026-02-28 16:26:52,134 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-02-28 16:26:52,135 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-28 16:26:56,158 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-02-28 16:26:56,161 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-02-28 16:26:56,161 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-02-28 16:26:56,715 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-02-28 16:26:56,715 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-02-28 16:26:56,730 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2984f1cf54993cc904c70', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.619, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c6f', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Calpol 650', 'description': 'Fever and moderate pain - generic', 'category': 'painkiller', 'dosage': '650mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/wifp2vvwa08pvwgv2iex.jpg', 'relevance_score': 0.608, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c6c', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Paracip', 'description': 'Fever and mild pain relief - generic', 'category': 'painkiller', 'dosage': '500mg', 'price': 8.0, 'stock': 600, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/506aeb350075460d9c40a1293e1607bc.jpg', 'relevance_score': 0.579, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c6d', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Crocin', 'description': 'Fever and mild pain relief', 'category': 'painkiller', 'dosage': '500mg', 'price': 15.0, 'stock': 500, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/d1b5d11ee8ba4b68a6a5c6f1c872dbfc.jpg', 'relevance_score': 0.574, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c6e', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Panadol', 'description': 'Fever and mild pain relief - premium', 'category': 'painkiller', 'dosage': '500mg', 'price': 22.0, 'stock': 300, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://5.imimg.com/data5/SELLER/Default/2023/6/318634261/GR/RQ/MB/128145676/panadol-paracetamol-tablets.jpg', 'relevance_score': 0.559, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc2', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.419, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc3', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Zyrtec', 'description': 'Antihistamine for allergies - premium', 'category': 'other', 'dosage': '10mg', 'price': 25.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/036099a5615e40c6b282addeb978760e.jpg', 'relevance_score': 0.402, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7a', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nise', 'description': 'Pain and fever - generic', 'category': 'painkiller', 'dosage': '100mg', 'price': 12.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/f1gfqqe1onciyxepyxsc.jpg', 'relevance_score': 0.401, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc6', 'name': 'Salbutamol 100mcg', 'generic_name': 'Salbutamol', 'brand': 'Asthalin', 'description': 'Asthma bronchospasm inhaler', 'category': 'other', 'dosage': '100mcg', 'price': 95.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Tremor', 'Tachycardia'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/9117d15a82fc4d41889e083e295d7de9.jpg', 'relevance_score': 0.4, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc1', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Cetzine', 'description': 'Antihistamine allergies - generic', 'category': 'other', 'dosage': '10mg', 'price': 8.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/a3a45eaf1a334fd6b223e418e43d81aa.jpg', 'relevance_score': 0.396, 'search_type': 'semantic_ai'}], 'query': 'Paracetamol', 'search_type': 'semantic_ai', 'duration_ms': 4599}
+2026-02-28 16:27:00,132 - app.agents.orchestrator - INFO - Handling intent: SIDE_EFFECTS, entities: {'medicine_names': ['Paracetamol 650mg'], 'is_followup': True}
+2026-02-28 16:27:03,179 - app.agents.orchestrator - INFO - Handling intent: FIND_ALTERNATIVES, entities: {'medicine': {'id': '69a2984f1cf54993cc904c70', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'category': 'painkiller', 'dosage': '650mg', 'description': 'Fever and moderate pain', 'price': 20.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'contraindications': ['Liver disease', 'Alcohol use'], 'drug_interactions': ['Warfarin'], 'side_effects': ['Nausea', 'Rash'], 'max_daily_dosage': '4000mg', 'manufacturer': 'Micro Labs', 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg'}}
+2026-02-28 16:27:08,344 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'Browse more'}
+2026-02-28 16:27:12,632 - app.agents.orchestrator - INFO - Handling intent: ORDER_STATUS, entities: {'raw_query': 'Track order'}
+2026-02-28 16:27:16,353 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'Browse more'}
+2026-02-28 16:27:32,017 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['I Have Typhiod'], 'raw_query': 'i have typhiod'}
+2026-02-28 16:27:32,018 - app.agents.orchestrator - INFO - Medicine search - entities: {'medicine_names': ['I Have Typhiod'], 'raw_query': 'i have typhiod'}, message: i have typhiod
+2026-02-28 16:27:32,018 - app.agents.orchestrator - INFO - Symptoms: [], Recommended: [], Medicine names: ['I Have Typhiod']
+2026-02-28 16:27:32,018 - app.agents.orchestrator - INFO - Search queries: ['I Have Typhiod']
+2026-02-28 16:27:32,019 - app.agents.orchestrator - INFO - Searching for: I Have Typhoid
+2026-02-28 16:27:32,034 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2984f1cf54993cc904cf4', 'name': 'Oseltamivir 75mg', 'generic_name': 'Oseltamivir', 'brand': 'Fluvir', 'description': 'Influenza treatment - generic', 'category': 'other', 'dosage': '75mg', 'price': 650.0, 'stock': 100, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Nausea', 'Vomiting'], 'image_url': 'https://th.bing.com/th/id/OIP.KZl0_BFIFMStia-aCuLTSwHaFj?w=253&h=190&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3', 'relevance_score': 0.363, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7a', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nise', 'description': 'Pain and fever - generic', 'category': 'painkiller', 'dosage': '100mg', 'price': 12.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/f1gfqqe1onciyxepyxsc.jpg', 'relevance_score': 0.351, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c76', 'name': 'Aspirin 75mg', 'generic_name': 'Aspirin', 'brand': 'Loprin', 'description': 'Blood clot prevention - generic', 'category': 'painkiller', 'dosage': '75mg', 'price': 7.0, 'stock': 600, 'in_stock': True, 'prescription_required': True, 'side_effects': ['GI bleeding', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cvntyxp7wisahbhphxua.jpg', 'relevance_score': 0.334, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ce6', 'name': 'Allopurinol 100mg', 'generic_name': 'Allopurinol', 'brand': 'Zyloric', 'description': 'Gout and hyperuricemia - generic', 'category': 'other', 'dosage': '100mg', 'price': 8.0, 'stock': 350, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Rash', 'GI upset'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/7207620a8c6f41e4a3ed21a71768c26c.jpg', 'relevance_score': 0.332, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7b', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nimulid', 'description': 'Pain and fever', 'category': 'painkiller', 'dosage': '100mg', 'price': 18.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/782bb434a8bf48e5b51f8c934de4e292.jpg', 'relevance_score': 0.33, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cf5', 'name': 'Oseltamivir 75mg', 'generic_name': 'Oseltamivir', 'brand': 'Tamiflu', 'description': 'Influenza treatment and prevention', 'category': 'other', 'dosage': '75mg', 'price': 850.0, 'stock': 100, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Nausea', 'Vomiting'], 'image_url': 'https://pharmacareonline.qa/products/tamiflu-75mg-capsules-10s?srsltid=AfmBOorcCHoray9MQmwbgGrVw5OitmPOsl3Nhk4YYo-wh0E_Mi-DjW96', 'relevance_score': 0.326, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cca', 'name': 'Levothyroxine 100mcg', 'generic_name': 'Levothyroxine', 'brand': 'Thyrox 100', 'description': 'Hypothyroidism 100mcg - generic', 'category': 'other', 'dosage': '100mcg', 'price': 18.0, 'stock': 350, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Palpitations', 'Insomnia'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/e25ca73e16124b71b2b8bf6cc20cd16d.jpg', 'relevance_score': 0.325, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ccb', 'name': 'Levothyroxine 100mcg', 'generic_name': 'Levothyroxine', 'brand': 'Thyronorm', 'description': 'Hypothyroidism 100mcg', 'category': 'other', 'dosage': '100mcg', 'price': 25.0, 'stock': 350, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Palpitations', 'Insomnia'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/03c07162e68343df84d301a0d9da5a22.jpg', 'relevance_score': 0.315, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c74', 'name': 'Diclofenac 50mg', 'generic_name': 'Diclofenac', 'brand': 'Diclogesic', 'description': 'Arthritis and moderate pain - generic', 'category': 'painkiller', 'dosage': '50mg', 'price': 18.0, 'stock': 300, 'in_stock': True, 'prescription_required': True, 'side_effects': ['GI pain', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/lkhmxysmu4nkw3xjhect.jpg', 'relevance_score': 0.313, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ce7', 'name': 'Allopurinol 100mg', 'generic_name': 'Allopurinol', 'brand': 'Zyloprim', 'description': 'Gout and hyperuricemia', 'category': 'other', 'dosage': '100mg', 'price': 12.0, 'stock': 350, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Rash', 'GI upset'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.309, 'search_type': 'semantic_ai'}], 'query': 'I Have Typhoid', 'search_type': 'semantic_ai', 'duration_ms': 15}
+2026-02-28 16:43:41,357 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Azee Medicine'], 'raw_query': 'Azee medicine'}
+2026-02-28 16:43:41,357 - app.agents.orchestrator - INFO - Medicine search - entities: {'medicine_names': ['Azee Medicine'], 'raw_query': 'Azee medicine'}, message: Azee medicine
+2026-02-28 16:43:41,357 - app.agents.orchestrator - INFO - Symptoms: [], Recommended: [], Medicine names: ['Azee Medicine']
+2026-02-28 16:43:41,357 - app.agents.orchestrator - INFO - Search queries: ['Azee Medicine']
+2026-02-28 16:43:41,358 - app.agents.orchestrator - INFO - Searching for: Zee Medicine
+2026-02-28 16:43:41,374 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2984f1cf54993cc904c7a', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nise', 'description': 'Pain and fever - generic', 'category': 'painkiller', 'dosage': '100mg', 'price': 12.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/f1gfqqe1onciyxepyxsc.jpg', 'relevance_score': 0.376, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7b', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nimulid', 'description': 'Pain and fever', 'category': 'painkiller', 'dosage': '100mg', 'price': 18.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/782bb434a8bf48e5b51f8c934de4e292.jpg', 'relevance_score': 0.371, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc2', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.361, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ca4', 'name': 'Ramipril 5mg', 'generic_name': 'Ramipril', 'brand': 'Rami', 'description': 'Hypertension ACE inhibitor - generic', 'category': 'antihypertensive', 'dosage': '5mg', 'price': 15.0, 'stock': 300, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Dry cough', 'Angioedema'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.36, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc3', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Zyrtec', 'description': 'Antihistamine for allergies - premium', 'category': 'other', 'dosage': '10mg', 'price': 25.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/036099a5615e40c6b282addeb978760e.jpg', 'relevance_score': 0.351, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ca5', 'name': 'Ramipril 5mg', 'generic_name': 'Ramipril', 'brand': 'Cardace', 'description': 'Hypertension post-MI ACE inhibitor', 'category': 'antihypertensive', 'dosage': '5mg', 'price': 22.0, 'stock': 300, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Dry cough', 'Angioedema'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/e7a2bb83d47d441a8f1d5bc4d4d10292.jpg', 'relevance_score': 0.348, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cd2', 'name': 'Sertraline 50mg', 'generic_name': 'Sertraline', 'brand': 'Serlift', 'description': 'Depression SSRI - generic', 'category': 'neurological', 'dosage': '50mg', 'price': 42.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Nausea', 'Insomnia'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/zomt9lgoom5erhl9ihu0.jpg', 'relevance_score': 0.345, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cce', 'name': 'Gabapentin 300mg', 'generic_name': 'Gabapentin', 'brand': 'Gabapin', 'description': 'Neuropathic pain - generic', 'category': 'neurological', 'dosage': '300mg', 'price': 35.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Dizziness', 'Somnolence'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/ncv25wqijuof2b5dcul5.jpg', 'relevance_score': 0.338, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ccf', 'name': 'Gabapentin 300mg', 'generic_name': 'Gabapentin', 'brand': 'Neurontin', 'description': 'Neuropathic pain and seizures', 'category': 'neurological', 'dosage': '300mg', 'price': 55.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Dizziness', 'Somnolence'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/nsfccd2wmmy7cysm7wos.jpg', 'relevance_score': 0.336, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc1', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Cetzine', 'description': 'Antihistamine allergies - generic', 'category': 'other', 'dosage': '10mg', 'price': 8.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/a3a45eaf1a334fd6b223e418e43d81aa.jpg', 'relevance_score': 0.334, 'search_type': 'semantic_ai'}], 'query': 'Zee Medicine', 'search_type': 'semantic_ai', 'duration_ms': 15}
+2026-02-28 16:44:02,957 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Azee 250'], 'raw_query': 'Azee 250'}
+2026-02-28 16:44:02,957 - app.agents.orchestrator - INFO - Medicine search - entities: {'medicine_names': ['Azee 250'], 'raw_query': 'Azee 250'}, message: Azee 250
+2026-02-28 16:44:02,958 - app.agents.orchestrator - INFO - Symptoms: [], Recommended: [], Medicine names: ['Azee 250']
+2026-02-28 16:44:02,958 - app.agents.orchestrator - INFO - Search queries: ['Azee 250']
+2026-02-28 16:44:02,958 - app.agents.orchestrator - INFO - Searching for: Zee 250
+2026-02-28 16:44:02,974 - app.agents.orchestrator - INFO - Search result: {'found': False, 'message': "No medicines found for 'Zee 250'", 'medicines': [], 'query': 'Zee 250', 'search_type': 'database', 'duration_ms': 14}
+2026-02-28 16:44:08,458 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Azee 500'], 'raw_query': 'Azee 500'}
+2026-02-28 16:44:08,458 - app.agents.orchestrator - INFO - Medicine search - entities: {'medicine_names': ['Azee 500'], 'raw_query': 'Azee 500'}, message: Azee 500
+2026-02-28 16:44:08,459 - app.agents.orchestrator - INFO - Symptoms: [], Recommended: [], Medicine names: ['Azee 500']
+2026-02-28 16:44:08,459 - app.agents.orchestrator - INFO - Search queries: ['Azee 500']
+2026-02-28 16:44:08,459 - app.agents.orchestrator - INFO - Searching for: Zee 500
+2026-02-28 16:44:08,476 - app.agents.orchestrator - INFO - Search result: {'found': False, 'message': "No medicines found for 'Zee 500'", 'medicines': [], 'query': 'Zee 500', 'search_type': 'database', 'duration_ms': 15}
+2026-02-28 16:44:21,711 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Azee 500'], 'raw_query': 'give me medicine Azee 500'}
+2026-02-28 16:44:21,711 - app.agents.orchestrator - INFO - Medicine search - entities: {'medicine_names': ['Azee 500'], 'raw_query': 'give me medicine Azee 500'}, message: give me medicine Azee 500
+2026-02-28 16:44:21,711 - app.agents.orchestrator - INFO - Symptoms: [], Recommended: [], Medicine names: ['Azee 500']
+2026-02-28 16:44:21,712 - app.agents.orchestrator - INFO - Search queries: ['Azee 500']
+2026-02-28 16:44:21,712 - app.agents.orchestrator - INFO - Searching for: Zee 500
+2026-02-28 16:44:21,729 - app.agents.orchestrator - INFO - Search result: {'found': False, 'message': "No medicines found for 'Zee 500'", 'medicines': [], 'query': 'Zee 500', 'search_type': 'database', 'duration_ms': 17}
+2026-02-28 16:44:41,644 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Azithromycin 500Mg Medicine'], 'raw_query': 'Azithromycin 500mg medicine'}
+2026-02-28 16:44:41,645 - app.agents.orchestrator - INFO - Medicine search - entities: {'medicine_names': ['Azithromycin 500Mg Medicine'], 'raw_query': 'Azithromycin 500mg medicine'}, message: Azithromycin 500mg medicine
+2026-02-28 16:44:41,645 - app.agents.orchestrator - INFO - Symptoms: [], Recommended: [], Medicine names: ['Azithromycin 500Mg Medicine']
+2026-02-28 16:44:41,645 - app.agents.orchestrator - INFO - Search queries: ['Azithromycin 500Mg Medicine']
+2026-02-28 16:44:41,724 - app.agents.orchestrator - INFO - Searching for: Azithromycin 500Mg Medicine
+2026-02-28 16:44:41,738 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2984f1cf54993cc904c80', 'name': 'Azithromycin 500mg', 'generic_name': 'Azithromycin', 'brand': 'Zithromax', 'description': 'Respiratory and skin infections', 'category': 'antibiotic', 'dosage': '500mg', 'price': 55.0, 'stock': 300, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Nausea', 'Diarrhea'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.711, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7f', 'name': 'Azithromycin 500mg', 'generic_name': 'Azithromycin', 'brand': 'Azee', 'description': 'Respiratory and skin infections - generic', 'category': 'antibiotic', 'dosage': '500mg', 'price': 35.0, 'stock': 300, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Nausea', 'Diarrhea'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/4f1bdc71f0864996aeb9033cc8089c12.jpg', 'relevance_score': 0.699, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7d', 'name': 'Amoxicillin 500mg', 'generic_name': 'Amoxicillin', 'brand': 'Moxikind', 'description': 'Antibiotic for bacterial infections', 'category': 'antibiotic', 'dosage': '500mg', 'price': 85.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/hjlqn2ftdmmeyqyrl70q.jpg', 'relevance_score': 0.566, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7e', 'name': 'Amoxicillin 500mg', 'generic_name': 'Amoxicillin', 'brand': 'Amoxil', 'description': 'Antibiotic for bacterial infections - premium', 'category': 'antibiotic', 'dosage': '500mg', 'price': 120.0, 'stock': 150, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.561, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7c', 'name': 'Amoxicillin 500mg', 'generic_name': 'Amoxicillin', 'brand': 'Amox', 'description': 'Bacterial infections - generic', 'category': 'antibiotic', 'dosage': '500mg', 'price': 45.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.515, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c8a', 'name': 'Amoxicillin-Clavulanate 625mg', 'generic_name': 'Amoxicillin/Clavulanate', 'brand': 'Moxclav', 'description': 'Resistant bacterial infections - generic', 'category': 'antibiotic', 'dosage': '625mg', 'price': 65.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Hepatotoxicity'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.464, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c8b', 'name': 'Amoxicillin-Clavulanate 625mg', 'generic_name': 'Amoxicillin/Clavulanate', 'brand': 'Augmentin', 'description': 'Resistant bacterial infections', 'category': 'antibiotic', 'dosage': '625mg', 'price': 90.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Hepatotoxicity'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/2c93357b9b5e4c01b9d5f4b160a680e8.jpg', 'relevance_score': 0.46, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ce8', 'name': 'Acyclovir 400mg', 'generic_name': 'Acyclovir', 'brand': 'Acivir', 'description': 'Herpes infections - generic', 'category': 'other', 'dosage': '400mg', 'price': 20.0, 'stock': 250, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Nausea', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/9a4f4cc79d5a47499e7957a28f6e565b.jpg', 'relevance_score': 0.425, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ce9', 'name': 'Acyclovir 400mg', 'generic_name': 'Acyclovir', 'brand': 'Zovirax', 'description': 'Herpes simplex and zoster', 'category': 'other', 'dosage': '400mg', 'price': 35.0, 'stock': 250, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Nausea', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/xya7kntakqbfamjrpu70.jpg', 'relevance_score': 0.418, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c81', 'name': 'Ciprofloxacin 500mg', 'generic_name': 'Ciprofloxacin', 'brand': 'Cifran', 'description': 'UTI and respiratory infections - generic', 'category': 'antibiotic', 'dosage': '500mg', 'price': 25.0, 'stock': 350, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Nausea', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/wjre8kzez8sebe3ok7zw.jpg', 'relevance_score': 0.408, 'search_type': 'semantic_ai'}], 'query': 'Azithromycin 500Mg Medicine', 'search_type': 'semantic_ai', 'duration_ms': 14}
+2026-02-28 17:33:22,196 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['pain', 'stomach', 'stomach pain'], 'recommended_medicines': ['Ibuprofen', 'Paracetamol', 'Diclofenac', 'Omeprazole', 'Digene'], 'raw_query': 'I have stomach pain'}
+2026-02-28 17:33:22,197 - app.agents.orchestrator - INFO - Medicine search - entities: {'symptoms': ['pain', 'stomach', 'stomach pain'], 'recommended_medicines': ['Ibuprofen', 'Paracetamol', 'Diclofenac', 'Omeprazole', 'Digene'], 'raw_query': 'I have stomach pain'}, message: I have stomach pain
+2026-02-28 17:33:22,197 - app.agents.orchestrator - INFO - Symptoms: ['pain', 'stomach', 'stomach pain'], Recommended: ['Ibuprofen', 'Paracetamol', 'Diclofenac', 'Omeprazole', 'Digene'], Medicine names: []
+2026-02-28 17:33:22,197 - app.agents.orchestrator - INFO - Search queries: ['Ibuprofen', 'Paracetamol', 'Diclofenac', 'Omeprazole', 'Digene']
+2026-02-28 17:33:22,198 - app.agents.orchestrator - INFO - Searching for: Ibuprofen
+2026-02-28 17:33:22,224 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2984f1cf54993cc904c71', 'name': 'Ibuprofen 400mg', 'generic_name': 'Ibuprofen', 'brand': 'Ibugesic', 'description': 'Pain and inflammation - generic', 'category': 'painkiller', 'dosage': '400mg', 'price': 16.0, 'stock': 350, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Dizziness'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/ir50gcddanicxs6fjelq.jpg', 'relevance_score': 0.502, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c72', 'name': 'Ibuprofen 400mg', 'generic_name': 'Ibuprofen', 'brand': 'Brufen', 'description': 'Pain fever and inflammation', 'category': 'painkiller', 'dosage': '400mg', 'price': 25.0, 'stock': 350, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Dizziness'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5ba5701fcb6c46628c5cff317109886b.jpgs', 'relevance_score': 0.488, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c73', 'name': 'Ibuprofen 400mg', 'generic_name': 'Ibuprofen', 'brand': 'Nurofen', 'description': 'Pain fever and inflammation - premium', 'category': 'painkiller', 'dosage': '400mg', 'price': 45.0, 'stock': 200, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Dizziness'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.486, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c76', 'name': 'Aspirin 75mg', 'generic_name': 'Aspirin', 'brand': 'Loprin', 'description': 'Blood clot prevention - generic', 'category': 'painkiller', 'dosage': '75mg', 'price': 7.0, 'stock': 600, 'in_stock': True, 'prescription_required': True, 'side_effects': ['GI bleeding', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cvntyxp7wisahbhphxua.jpg', 'relevance_score': 0.421, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7a', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nise', 'description': 'Pain and fever - generic', 'category': 'painkiller', 'dosage': '100mg', 'price': 12.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/f1gfqqe1onciyxepyxsc.jpg', 'relevance_score': 0.407, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c8a', 'name': 'Amoxicillin-Clavulanate 625mg', 'generic_name': 'Amoxicillin/Clavulanate', 'brand': 'Moxclav', 'description': 'Resistant bacterial infections - generic', 'category': 'antibiotic', 'dosage': '625mg', 'price': 65.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Hepatotoxicity'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.404, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c77', 'name': 'Aspirin 75mg', 'generic_name': 'Aspirin', 'brand': 'Ecosprin', 'description': 'Blood clot prevention', 'category': 'painkiller', 'dosage': '75mg', 'price': 10.0, 'stock': 600, 'in_stock': True, 'prescription_required': True, 'side_effects': ['GI bleeding', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/reowbvajejs6awykdplk.jpg', 'relevance_score': 0.403, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c8b', 'name': 'Amoxicillin-Clavulanate 625mg', 'generic_name': 'Amoxicillin/Clavulanate', 'brand': 'Augmentin', 'description': 'Resistant bacterial infections', 'category': 'antibiotic', 'dosage': '625mg', 'price': 90.0, 'stock': 200, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Hepatotoxicity'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/2c93357b9b5e4c01b9d5f4b160a680e8.jpg', 'relevance_score': 0.395, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c99', 'name': 'Amlodipine 5mg', 'generic_name': 'Amlodipine', 'brand': 'Stamlo', 'description': 'High blood pressure - generic', 'category': 'antihypertensive', 'dosage': '5mg', 'price': 10.0, 'stock': 500, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Ankle swelling', 'Headache'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/8947a949dd6b4241be38faf9d30afeeb.jpg', 'relevance_score': 0.389, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c7b', 'name': 'Nimesulide 100mg', 'generic_name': 'Nimesulide', 'brand': 'Nimulid', 'description': 'Pain and fever', 'category': 'painkiller', 'dosage': '100mg', 'price': 18.0, 'stock': 320, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Headache'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/782bb434a8bf48e5b51f8c934de4e292.jpg', 'relevance_score': 0.384, 'search_type': 'semantic_ai'}], 'query': 'Ibuprofen', 'search_type': 'semantic_ai', 'duration_ms': 25}
+2026-02-28 17:33:27,034 - app.agents.orchestrator - INFO - Handling intent: FIND_ALTERNATIVES, entities: {'medicine': {'id': '69a2984f1cf54993cc904c71', 'name': 'Ibuprofen 400mg', 'generic_name': 'Ibuprofen', 'brand': 'Ibugesic', 'description': 'Pain and inflammation - generic', 'category': 'painkiller', 'dosage': '400mg', 'price': 16.0, 'stock': 350, 'in_stock': True, 'prescription_required': False, 'side_effects': ['GI upset', 'Dizziness'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/ir50gcddanicxs6fjelq.jpg', 'relevance_score': 0.502, 'search_type': 'semantic_ai'}}
+2026-02-28 17:34:45,306 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['cough'], 'recommended_medicines': ['Benadryl', 'Honitus', 'Cetirizine'], 'raw_query': 'i have cough'}
+2026-02-28 17:34:45,306 - app.agents.orchestrator - INFO - Medicine search - entities: {'symptoms': ['cough'], 'recommended_medicines': ['Benadryl', 'Honitus', 'Cetirizine'], 'raw_query': 'i have cough'}, message: i have cough
+2026-02-28 17:34:45,306 - app.agents.orchestrator - INFO - Symptoms: ['cough'], Recommended: ['Benadryl', 'Honitus', 'Cetirizine'], Medicine names: []
+2026-02-28 17:34:45,307 - app.agents.orchestrator - INFO - Search queries: ['Benadryl', 'Honitus', 'Cetirizine']
+2026-02-28 17:34:45,471 - app.agents.orchestrator - INFO - Searching for: Benadryl
+2026-02-28 17:34:45,487 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2984f1cf54993cc904cc2', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.518, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc3', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Zyrtec', 'description': 'Antihistamine for allergies - premium', 'category': 'other', 'dosage': '10mg', 'price': 25.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/036099a5615e40c6b282addeb978760e.jpg', 'relevance_score': 0.499, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc1', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Cetzine', 'description': 'Antihistamine allergies - generic', 'category': 'other', 'dosage': '10mg', 'price': 8.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/a3a45eaf1a334fd6b223e418e43d81aa.jpg', 'relevance_score': 0.479, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904ced', 'name': 'Clotrimazole 1% Cream', 'generic_name': 'Clotrimazole', 'brand': 'Canesten', 'description': 'Fungal skin infections topical', 'category': 'other', 'dosage': '1% cream', 'price': 55.0, 'stock': 200, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Local irritation', 'Burning'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/042a1c61173d4372928b57d6fa9cb73e.jpg', 'relevance_score': 0.425, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cec', 'name': 'Clotrimazole 1% Cream', 'generic_name': 'Clotrimazole', 'brand': 'Candid Cream', 'description': 'Fungal skin infections - generic', 'category': 'other', 'dosage': '1% cream', 'price': 22.0, 'stock': 200, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Local irritation', 'Burning'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/8e7d6c28ab904be3b35259969f3d020b.jpg', 'relevance_score': 0.418, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c70', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.412, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c6f', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Calpol 650', 'description': 'Fever and moderate pain - generic', 'category': 'painkiller', 'dosage': '650mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/wifp2vvwa08pvwgv2iex.jpg', 'relevance_score': 0.409, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c85', 'name': 'Metronidazole 400mg', 'generic_name': 'Metronidazole', 'brand': 'Metrogyl', 'description': 'Anaerobic infections - generic', 'category': 'antibiotic', 'dosage': '400mg', 'price': 10.0, 'stock': 400, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Metallic taste', 'Nausea'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/b3b9efbca45a447eaf2d41854bd92b60.jpg', 'relevance_score': 0.401, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c6d', 'name': 'Paracetamol 500mg', 'generic_name': 'Paracetamol', 'brand': 'Crocin', 'description': 'Fever and mild pain relief', 'category': 'painkiller', 'dosage': '500mg', 'price': 15.0, 'stock': 500, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Allergic reaction'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/d1b5d11ee8ba4b68a6a5c6f1c872dbfc.jpg', 'relevance_score': 0.393, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c86', 'name': 'Metronidazole 400mg', 'generic_name': 'Metronidazole', 'brand': 'Flagyl', 'description': 'Anaerobic infections and giardia', 'category': 'antibiotic', 'dosage': '400mg', 'price': 18.0, 'stock': 400, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Metallic taste', 'Nausea'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/nfas3cvt2itkmxi44tvg.jpg', 'relevance_score': 0.392, 'search_type': 'semantic_ai'}], 'query': 'Benadryl', 'search_type': 'semantic_ai', 'duration_ms': 15}
+2026-02-28 17:34:45,650 - app.agents.orchestrator - INFO - Searching for: Coitus
+2026-02-28 17:34:45,667 - app.agents.orchestrator - INFO - Search result: {'found': False, 'message': "No medicines found for 'Coitus'", 'medicines': [], 'query': 'Coitus', 'search_type': 'database', 'duration_ms': 16}
+2026-02-28 17:34:45,667 - app.agents.orchestrator - INFO - Searching for: Cetirizine
+2026-02-28 17:34:45,681 - app.agents.orchestrator - INFO - Search result: {'found': True, 'count': 10, 'medicines': [{'id': '69a2984f1cf54993cc904cc2', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.631, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc3', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Zyrtec', 'description': 'Antihistamine for allergies - premium', 'category': 'other', 'dosage': '10mg', 'price': 25.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/036099a5615e40c6b282addeb978760e.jpg', 'relevance_score': 0.61, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904cc1', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Cetzine', 'description': 'Antihistamine allergies - generic', 'category': 'other', 'dosage': '10mg', 'price': 8.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/a3a45eaf1a334fd6b223e418e43d81aa.jpg', 'relevance_score': 0.604, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c88', 'name': 'Cefixime 200mg', 'generic_name': 'Cefixime', 'brand': 'Taxim-O', 'description': 'UTI and ear infections', 'category': 'antibiotic', 'dosage': '200mg', 'price': 60.0, 'stock': 250, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Nausea'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/lt8bm4qbhvxnxtsfelcr.jpg', 'relevance_score': 0.419, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c87', 'name': 'Cefixime 200mg', 'generic_name': 'Cefixime', 'brand': 'Cefix', 'description': 'UTI and ear infections - generic', 'category': 'antibiotic', 'dosage': '200mg', 'price': 40.0, 'stock': 250, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Nausea'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/e286fe5de6eb4463bf78b9f79fba9de9.jpg', 'relevance_score': 0.401, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c89', 'name': 'Cefixime 200mg', 'generic_name': 'Cefixime', 'brand': 'Suprax', 'description': 'UTI and ear infections - premium', 'category': 'antibiotic', 'dosage': '200mg', 'price': 90.0, 'stock': 150, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Diarrhea', 'Nausea'], 'image_url': 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png', 'relevance_score': 0.39, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c86', 'name': 'Metronidazole 400mg', 'generic_name': 'Metronidazole', 'brand': 'Flagyl', 'description': 'Anaerobic infections and giardia', 'category': 'antibiotic', 'dosage': '400mg', 'price': 18.0, 'stock': 400, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Metallic taste', 'Nausea'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/nfas3cvt2itkmxi44tvg.jpg', 'relevance_score': 0.343, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c85', 'name': 'Metronidazole 400mg', 'generic_name': 'Metronidazole', 'brand': 'Metrogyl', 'description': 'Anaerobic infections - generic', 'category': 'antibiotic', 'dosage': '400mg', 'price': 10.0, 'stock': 400, 'in_stock': True, 'prescription_required': True, 'side_effects': ['Metallic taste', 'Nausea'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/b3b9efbca45a447eaf2d41854bd92b60.jpg', 'relevance_score': 0.332, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c8e', 'name': 'Metformin 500mg', 'generic_name': 'Metformin', 'brand': 'Glucored', 'description': 'Type 2 diabetes - generic', 'category': 'antidiabetic', 'dosage': '500mg', 'price': 12.0, 'stock': 500, 'in_stock': True, 'prescription_required': True, 'side_effects': ['GI upset', 'Metallic taste'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/4a97ba6c11eb4fbc95094a6151def6f7.jpg', 'relevance_score': 0.325, 'search_type': 'semantic_ai'}, {'id': '69a2984f1cf54993cc904c8f', 'name': 'Metformin 500mg', 'generic_name': 'Metformin', 'brand': 'Glycomet', 'description': 'Type 2 diabetes management', 'category': 'antidiabetic', 'dosage': '500mg', 'price': 35.0, 'stock': 300, 'in_stock': True, 'prescription_required': True, 'side_effects': ['GI upset', 'Metallic taste'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/utyaqcplcvlw6shx3lmm.jpg', 'relevance_score': 0.311, 'search_type': 'semantic_ai'}], 'query': 'Cetirizine', 'search_type': 'semantic_ai', 'duration_ms': 14}
+2026-02-28 17:35:00,250 - app.agents.orchestrator - INFO - Handling intent: FIND_ALTERNATIVES, entities: {'medicine': {'id': '69a2984f1cf54993cc904cc2', 'name': 'Cetirizine 10mg', 'generic_name': 'Cetirizine', 'brand': 'Alerid', 'description': 'Antihistamine for allergies', 'category': 'other', 'dosage': '10mg', 'price': 14.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Drowsiness', 'Dry mouth'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_380,h_380/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/ebql55l1cjgcgbjwl33e.jpg', 'relevance_score': 0.631, 'search_type': 'semantic_ai'}}
+2026-02-28 17:39:40,978 - app.main - INFO -  Shutting down APOS...
+2026-02-28 17:39:40,981 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 00:32:28,440 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 00:32:28,475 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 00:32:28,475 - app.main - INFO - Langfuse observability enabled
+2026-03-01 00:32:28,475 - app.main - INFO - APOS is ready!
+2026-03-01 00:53:22,091 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}
+2026-03-01 00:53:22,099 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 00:53:22,107 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 00:53:22,108 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 00:53:27,999 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 00:53:28,000 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 00:53:29,472 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 00:53:29,473 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 00:53:41,866 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have fever.'}
+2026-03-01 00:54:37,256 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['stomach'], 'recommended_medicines': ['Omeprazole', 'Digene'], 'raw_query': 'I have a stomach ache.'}
+2026-03-01 00:55:59,692 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Cat Ball 650Mg'], 'raw_query': 'I need a cat ball 650mg'}
+2026-03-01 00:56:29,420 - app.agents.orchestrator - INFO - Handling intent: THANKS, entities: {}
+2026-03-01 00:57:02,272 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Croscene'], 'raw_query': 'I need croscene'}
+2026-03-01 00:57:27,511 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['650'], 'raw_query': 'I need $6.50'}
+2026-03-01 00:58:29,113 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Dolo 650'], 'raw_query': 'I need Dolo 650'}
+2026-03-01 00:59:18,862 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Aspirin 750 Mg'], 'raw_query': 'I need aspirin 750 mg.'}
+2026-03-01 01:00:02,787 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Nemesulide 100 Mg'], 'raw_query': 'I need Nemesulide 100 mg'}
+2026-03-01 01:00:22,547 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Azithromycin 500 Mg'], 'raw_query': 'I need azithromycin 500 mg'}
+2026-03-01 01:01:14,215 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 01:01:14,934 - openai._base_client - INFO - Retrying request to /chat/completions in 0.799097 seconds
+2026-03-01 01:01:16,509 - openai._base_client - INFO - Retrying request to /chat/completions in 1.840829 seconds
+2026-03-01 01:01:18,950 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 01:01:18,952 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'Can you please add Emma Shahid?'}
+2026-03-01 01:01:19,741 - openai._base_client - INFO - Retrying request to /chat/completions in 0.859861 seconds
+2026-03-01 01:01:21,222 - openai._base_client - INFO - Retrying request to /chat/completions in 1.507226 seconds
+2026-03-01 01:02:09,320 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 01:02:10,371 - openai._base_client - INFO - Retrying request to /chat/completions in 0.765671 seconds
+2026-03-01 01:02:11,575 - openai._base_client - INFO - Retrying request to /chat/completions in 1.809395 seconds
+2026-03-01 01:02:13,742 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 01:02:13,743 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'Show order'}
+2026-03-01 01:02:14,762 - openai._base_client - INFO - Retrying request to /chat/completions in 0.912031 seconds
+2026-03-01 01:02:16,089 - openai._base_client - INFO - Retrying request to /chat/completions in 1.568262 seconds
+2026-03-01 01:02:28,231 - app.agents.orchestrator - INFO - Handling intent: ORDER_STATUS, entities: {'raw_query': 'Track my order.'}
+2026-03-01 01:07:48,846 - openai._base_client - INFO - Retrying request to /chat/completions in 0.774059 seconds
+2026-03-01 01:07:50,144 - openai._base_client - INFO - Retrying request to /chat/completions in 1.823109 seconds
+2026-03-01 02:27:17,776 - app.main - INFO -  Shutting down APOS...
+2026-03-01 02:27:17,786 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 02:27:36,541 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 02:27:36,566 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 02:27:36,567 - app.main - INFO - Langfuse observability enabled
+2026-03-01 02:27:36,567 - app.main - INFO - APOS is ready!
+2026-03-01 03:03:54,525 - app.main - INFO -  Shutting down APOS...
+2026-03-01 03:03:54,529 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 03:04:09,575 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 03:04:09,618 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 03:04:09,619 - app.main - INFO - Langfuse observability enabled
+2026-03-01 03:04:09,619 - app.main - INFO - APOS is ready!
+2026-03-01 03:06:06,062 - app.agents.orchestrator - INFO - Handling intent: GREETING, entities: {}
+2026-03-01 03:06:29,005 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:06:29,780 - openai._base_client - INFO - Retrying request to /chat/completions in 0.896939 seconds
+2026-03-01 03:06:31,261 - openai._base_client - INFO - Retrying request to /chat/completions in 1.574099 seconds
+2026-03-01 03:06:33,545 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:06:33,547 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['I Have'], 'raw_query': 'I have'}
+2026-03-01 03:06:33,558 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 03:06:33,571 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 03:06:33,572 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 03:06:35,259 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-01 03:06:38,495 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 03:06:38,496 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 03:06:40,582 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 03:06:40,582 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 03:07:15,135 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever.'}
+2026-03-01 03:07:19,836 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever.'}
+2026-03-01 03:09:01,389 - app.main - INFO -  Shutting down APOS...
+2026-03-01 03:09:01,394 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 03:09:28,272 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 03:09:28,339 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 03:09:28,340 - app.main - INFO - Langfuse observability enabled
+2026-03-01 03:09:28,340 - app.main - INFO - APOS is ready!
+2026-03-01 03:09:30,501 - app.agents.orchestrator - INFO - Handling intent: THANKS, entities: {}
+2026-03-01 03:09:32,177 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:09:32,576 - openai._base_client - INFO - Retrying request to /chat/completions in 0.788643 seconds
+2026-03-01 03:09:33,965 - openai._base_client - INFO - Retrying request to /chat/completions in 1.773913 seconds
+2026-03-01 03:09:36,011 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:09:36,013 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Hello.'], 'raw_query': 'Hello.'}
+2026-03-01 03:09:36,029 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 03:09:36,036 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 03:09:36,036 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 03:09:40,360 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 03:09:40,362 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 03:09:42,056 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 03:09:42,056 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 03:10:08,737 - app.customer.chat_routes - ERROR - Voice chat error: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "D:\Back\backend\app\customer\chat_routes.py", line 202, in process_voice_chat
+    transcribed_text, confidence = await voice_service.process_voice_message(
+  File "D:\Back\backend\app\services\voice_service.py", line 191, in process_voice_message
+    return await self.speech_to_text(audio_data, audio_format)
+  File "D:\Back\backend\app\services\voice_service.py", line 119, in speech_to_text
+    transcription = self.groq_client.audio.transcriptions.create(
+  File "D:\Back\backend\venv\lib\site-packages\groq\resources\audio\transcriptions.py", line 233, in create
+    return self._post(
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1044, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+2026-03-01 03:10:37,202 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have fever.'}
+2026-03-01 03:24:57,231 - app.main - INFO -  Shutting down APOS...
+2026-03-01 03:24:57,236 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 03:25:11,689 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 03:25:11,712 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 03:25:11,713 - app.main - INFO - Langfuse observability enabled
+2026-03-01 03:25:11,713 - app.main - INFO - APOS is ready!
+2026-03-01 03:27:25,435 - app.main - INFO -  Shutting down APOS...
+2026-03-01 03:27:25,437 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 03:27:43,423 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 03:27:43,465 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 03:27:43,465 - app.main - INFO - Langfuse observability enabled
+2026-03-01 03:27:43,465 - app.main - INFO - APOS is ready!
+2026-03-01 03:28:54,653 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:28:55,716 - openai._base_client - INFO - Retrying request to /chat/completions in 0.844588 seconds
+2026-03-01 03:28:56,891 - openai._base_client - INFO - Retrying request to /chat/completions in 1.537798 seconds
+2026-03-01 03:28:58,757 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:28:58,759 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['I Have Fewer.'], 'raw_query': 'I have fewer.'}
+2026-03-01 03:28:58,771 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 03:28:58,778 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 03:28:58,779 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 03:29:00,105 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-01 03:29:06,193 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 03:29:06,194 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 03:29:07,561 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 03:29:07,562 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 03:29:50,928 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:29:51,437 - openai._base_client - INFO - Retrying request to /chat/completions in 0.829560 seconds
+2026-03-01 03:29:52,681 - openai._base_client - INFO - Retrying request to /chat/completions in 1.522412 seconds
+2026-03-01 03:29:54,724 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:29:54,729 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['I Have Fewer.'], 'raw_query': 'I have fewer.'}
+2026-03-01 03:30:30,711 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:30:31,211 - openai._base_client - INFO - Retrying request to /chat/completions in 0.793604 seconds
+2026-03-01 03:30:32,503 - openai._base_client - INFO - Retrying request to /chat/completions in 1.568543 seconds
+2026-03-01 03:30:34,633 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:30:34,634 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['I Have Fewer'], 'raw_query': 'I have fewer'}
+2026-03-01 03:30:51,415 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['headache'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Aspirin'], 'raw_query': 'I have a headache.'}
+2026-03-01 03:32:27,973 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:32:28,392 - openai._base_client - INFO - Retrying request to /chat/completions in 0.969327 seconds
+2026-03-01 03:32:29,970 - openai._base_client - INFO - Retrying request to /chat/completions in 1.877346 seconds
+2026-03-01 03:32:32,116 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:32:32,117 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['...'], 'raw_query': '...'}
+2026-03-01 03:32:59,483 - app.agents.orchestrator - INFO - Handling intent: GREETING, entities: {}
+2026-03-01 03:33:07,853 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}
+2026-03-01 03:34:44,608 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART detected: Cetirizine x 5
+2026-03-01 03:34:44,609 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['Cetirizine'], 'quantity': 5, 'raw_query': 'I want 5 Cetirizine'}
+2026-03-01 03:37:28,046 - app.main - INFO -  Shutting down APOS...
+2026-03-01 03:37:28,057 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 03:37:54,456 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 03:37:54,494 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 03:37:54,495 - app.main - INFO - Langfuse observability enabled
+2026-03-01 03:37:54,495 - app.main - INFO - APOS is ready!
+2026-03-01 03:38:49,085 - app.main - INFO -  Shutting down APOS...
+2026-03-01 03:38:49,089 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 03:39:13,646 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 03:39:13,703 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 03:39:13,703 - app.main - INFO - Langfuse observability enabled
+2026-03-01 03:39:13,704 - app.main - INFO - APOS is ready!
+2026-03-01 03:39:14,372 - app.agents.orchestrator - INFO - Handling intent: GREETING, entities: {}
+2026-03-01 03:39:23,351 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}
+2026-03-01 03:39:23,361 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 03:39:23,368 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 03:39:23,369 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 03:39:24,050 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-01 03:39:27,939 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 03:39:27,941 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 03:39:29,038 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 03:39:29,039 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 03:39:49,581 - app.agents.orchestrator - INFO - Follow-up ADD_TO_CART for: Paracetamol 650mg
+2026-03-01 03:39:49,583 - app.agents.orchestrator - INFO - Handling intent: ADD_TO_CART, entities: {'medicine': {'id': '69a2066e99a027f79a6114ee', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 398, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.619, 'search_type': 'semantic_ai'}, 'quantity': 1}
+2026-03-01 03:39:58,645 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART (no qty): Paracetamol
+2026-03-01 03:39:58,647 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['Paracetamol'], 'quantity': 1, 'raw_query': 'Add Paracetamol to cart'}
+2026-03-01 03:40:05,853 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART: Ibuprofen x 10
+2026-03-01 03:40:05,854 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['Ibuprofen'], 'quantity': 10, 'raw_query': 'Add 10 Ibuprofen to cart'}
+2026-03-01 03:42:18,694 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}
+2026-03-01 03:43:43,363 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:43:43,897 - openai._base_client - INFO - Retrying request to /chat/completions in 0.841920 seconds
+2026-03-01 03:43:45,172 - openai._base_client - INFO - Retrying request to /chat/completions in 1.526931 seconds
+2026-03-01 03:43:47,394 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:43:47,396 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['I Have Stomachache'], 'raw_query': 'I have stomachache'}
+2026-03-01 03:44:18,894 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:44:19,427 - openai._base_client - INFO - Retrying request to /chat/completions in 0.752407 seconds
+2026-03-01 03:44:20,855 - openai._base_client - INFO - Retrying request to /chat/completions in 1.899983 seconds
+2026-03-01 03:44:23,133 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:44:23,135 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'Add to the cart.'}
+2026-03-01 03:44:24,280 - openai._base_client - INFO - Retrying request to /chat/completions in 0.969694 seconds
+2026-03-01 03:44:25,600 - openai._base_client - INFO - Retrying request to /chat/completions in 1.655435 seconds
+2026-03-01 03:48:21,093 - app.main - INFO -  Shutting down APOS...
+2026-03-01 03:48:21,098 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 03:48:42,947 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 03:48:42,982 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 03:48:42,982 - app.main - INFO - Langfuse observability enabled
+2026-03-01 03:48:42,982 - app.main - INFO - APOS is ready!
+2026-03-01 03:49:08,639 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have fever.'}
+2026-03-01 03:49:08,651 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 03:49:08,655 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 03:49:08,659 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 03:49:10,180 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-01 03:49:13,579 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 03:49:13,580 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 03:49:14,740 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 03:49:14,745 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 03:49:36,797 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:49:37,178 - openai._base_client - INFO - Retrying request to /chat/completions in 0.913805 seconds
+2026-03-01 03:49:38,450 - openai._base_client - INFO - Retrying request to /chat/completions in 1.805241 seconds
+2026-03-01 03:49:40,526 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:49:40,527 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'add to the cart'}
+2026-03-01 03:49:41,423 - openai._base_client - INFO - Retrying request to /chat/completions in 0.933682 seconds
+2026-03-01 03:49:42,746 - openai._base_client - INFO - Retrying request to /chat/completions in 1.913525 seconds
+2026-03-01 03:50:07,143 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:50:07,529 - openai._base_client - INFO - Retrying request to /chat/completions in 0.999160 seconds
+2026-03-01 03:50:08,856 - openai._base_client - INFO - Retrying request to /chat/completions in 1.933769 seconds
+2026-03-01 03:50:11,054 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:50:11,057 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'add to the cart'}
+2026-03-01 03:50:12,140 - openai._base_client - INFO - Retrying request to /chat/completions in 0.992566 seconds
+2026-03-01 03:50:13,466 - openai._base_client - INFO - Retrying request to /chat/completions in 1.685112 seconds
+2026-03-01 03:50:27,809 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:50:28,192 - openai._base_client - INFO - Retrying request to /chat/completions in 0.771258 seconds
+2026-03-01 03:50:29,377 - openai._base_client - INFO - Retrying request to /chat/completions in 1.577318 seconds
+2026-03-01 03:50:31,409 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:50:31,410 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'add paracetamol to the cart'}
+2026-03-01 03:50:32,219 - openai._base_client - INFO - Retrying request to /chat/completions in 0.976788 seconds
+2026-03-01 03:50:33,545 - openai._base_client - INFO - Retrying request to /chat/completions in 1.643309 seconds
+2026-03-01 03:50:54,511 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:50:54,912 - openai._base_client - INFO - Retrying request to /chat/completions in 0.763772 seconds
+2026-03-01 03:50:55,990 - openai._base_client - INFO - Retrying request to /chat/completions in 1.852649 seconds
+2026-03-01 03:50:58,142 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:50:58,144 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'add paracetamol to the cart'}
+2026-03-01 03:50:59,232 - openai._base_client - INFO - Retrying request to /chat/completions in 0.912772 seconds
+2026-03-01 03:51:00,476 - openai._base_client - INFO - Retrying request to /chat/completions in 1.526949 seconds
+2026-03-01 03:51:28,871 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:51:29,204 - openai._base_client - INFO - Retrying request to /chat/completions in 0.879111 seconds
+2026-03-01 03:51:30,370 - openai._base_client - INFO - Retrying request to /chat/completions in 1.541404 seconds
+2026-03-01 03:51:32,190 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:51:32,192 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'add paracetamol to the cart'}
+2026-03-01 03:51:32,977 - openai._base_client - INFO - Retrying request to /chat/completions in 0.935291 seconds
+2026-03-01 03:51:34,263 - openai._base_client - INFO - Retrying request to /chat/completions in 1.509847 seconds
+2026-03-01 03:51:53,617 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART (no qty): Paracetamol
+2026-03-01 03:51:53,618 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['Paracetamol'], 'quantity': 1, 'raw_query': 'Add Paracetamol to cart'}
+2026-03-01 03:52:22,258 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART (no qty): Paracetamol
+2026-03-01 03:52:22,263 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['Paracetamol'], 'quantity': 1, 'raw_query': 'add paracetamol to cart'}
+2026-03-01 03:58:14,268 - app.main - INFO -  Shutting down APOS...
+2026-03-01 03:58:14,270 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 03:58:27,974 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 03:58:28,001 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 03:58:28,007 - app.main - INFO - Langfuse observability enabled
+2026-03-01 03:58:28,008 - app.main - INFO - APOS is ready!
+2026-03-01 03:58:49,163 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever.'}
+2026-03-01 03:58:49,199 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 03:58:49,205 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 03:58:49,205 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 03:58:49,941 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-01 03:58:54,393 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 03:58:54,395 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 03:58:55,514 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 03:58:55,514 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 03:59:21,083 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:59:21,500 - openai._base_client - INFO - Retrying request to /chat/completions in 0.975678 seconds
+2026-03-01 03:59:22,847 - openai._base_client - INFO - Retrying request to /chat/completions in 1.575726 seconds
+2026-03-01 03:59:24,710 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:59:24,712 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Add To The Stock'], 'raw_query': 'Add to the stock'}
+2026-03-01 03:59:36,861 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:59:37,566 - openai._base_client - INFO - Retrying request to /chat/completions in 0.816166 seconds
+2026-03-01 03:59:38,718 - openai._base_client - INFO - Retrying request to /chat/completions in 1.814199 seconds
+2026-03-01 03:59:40,875 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:59:40,877 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['All Right.'], 'raw_query': 'All right.'}
+2026-03-01 03:59:42,857 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 03:59:43,229 - openai._base_client - INFO - Retrying request to /chat/completions in 0.893578 seconds
+2026-03-01 03:59:44,441 - openai._base_client - INFO - Retrying request to /chat/completions in 1.901835 seconds
+2026-03-01 03:59:46,624 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 03:59:46,627 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'Add to the cart.'}
+2026-03-01 03:59:47,634 - openai._base_client - INFO - Retrying request to /chat/completions in 0.837651 seconds
+2026-03-01 03:59:48,858 - openai._base_client - INFO - Retrying request to /chat/completions in 1.501177 seconds
+2026-03-01 04:00:33,060 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:00:33,450 - openai._base_client - INFO - Retrying request to /chat/completions in 0.946729 seconds
+2026-03-01 04:00:34,727 - openai._base_client - INFO - Retrying request to /chat/completions in 1.967480 seconds
+2026-03-01 04:00:37,019 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:00:37,022 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['I Hope You Are'], 'raw_query': 'I hope you are'}
+2026-03-01 04:00:52,001 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have fever.'}
+2026-03-01 04:01:10,425 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART (no qty): To
+2026-03-01 04:01:10,431 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['To'], 'quantity': 1, 'raw_query': 'Add to the cart'}
+2026-03-01 04:01:47,729 - app.customer.chat_routes - ERROR - Voice chat error: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "D:\Back\backend\app\customer\chat_routes.py", line 185, in process_voice_chat
+    transcribed_text, confidence = await voice_service.process_voice_message(
+  File "D:\Back\backend\app\services\voice_service.py", line 191, in process_voice_message
+    return await self.speech_to_text(audio_data, audio_format)
+  File "D:\Back\backend\app\services\voice_service.py", line 119, in speech_to_text
+    transcription = self.groq_client.audio.transcriptions.create(
+  File "D:\Back\backend\venv\lib\site-packages\groq\resources\audio\transcriptions.py", line 233, in create
+    return self._post(
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1044, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+2026-03-01 04:02:10,719 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART (no qty): Paracetamol
+2026-03-01 04:02:10,725 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['Paracetamol'], 'quantity': 1, 'raw_query': 'add paracetamol to the cart'}
+2026-03-01 04:03:08,937 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['fever'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Crocin'], 'raw_query': 'I have a fever'}
+2026-03-01 04:03:24,290 - app.agents.orchestrator - INFO - Follow-up ADD_TO_CART for: Paracetamol 650mg
+2026-03-01 04:03:24,291 - app.agents.orchestrator - INFO - Handling intent: ADD_TO_CART, entities: {'medicine': {'id': '69a2066e99a027f79a6114ee', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 398, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.619, 'search_type': 'semantic_ai'}, 'quantity': 1}
+2026-03-01 04:03:50,578 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:03:50,949 - openai._base_client - INFO - Retrying request to /chat/completions in 0.889281 seconds
+2026-03-01 04:03:52,156 - openai._base_client - INFO - Retrying request to /chat/completions in 1.953293 seconds
+2026-03-01 04:03:54,419 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:03:54,420 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['I Have Fewer.'], 'raw_query': 'I have fewer.'}
+2026-03-01 04:04:10,734 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['headache'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Aspirin'], 'raw_query': 'I have a headache'}
+2026-03-01 04:04:29,814 - app.agents.orchestrator - INFO - ADD_TO_CART (use context medicine)
+2026-03-01 04:04:29,814 - app.agents.orchestrator - INFO - Handling intent: ADD_TO_CART, entities: {'use_last_medicine': True, 'quantity': 1}
+2026-03-01 04:04:44,626 - app.customer.chat_routes - ERROR - Voice chat error: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "D:\Back\backend\app\customer\chat_routes.py", line 185, in process_voice_chat
+    transcribed_text, confidence = await voice_service.process_voice_message(
+  File "D:\Back\backend\app\services\voice_service.py", line 191, in process_voice_message
+    return await self.speech_to_text(audio_data, audio_format)
+  File "D:\Back\backend\app\services\voice_service.py", line 119, in speech_to_text
+    transcription = self.groq_client.audio.transcriptions.create(
+  File "D:\Back\backend\venv\lib\site-packages\groq\resources\audio\transcriptions.py", line 233, in create
+    return self._post(
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1044, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+2026-03-01 04:04:52,962 - app.customer.chat_routes - ERROR - Voice chat error: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "D:\Back\backend\app\customer\chat_routes.py", line 185, in process_voice_chat
+    transcribed_text, confidence = await voice_service.process_voice_message(
+  File "D:\Back\backend\app\services\voice_service.py", line 191, in process_voice_message
+    return await self.speech_to_text(audio_data, audio_format)
+  File "D:\Back\backend\app\services\voice_service.py", line 119, in speech_to_text
+    transcription = self.groq_client.audio.transcriptions.create(
+  File "D:\Back\backend\venv\lib\site-packages\groq\resources\audio\transcriptions.py", line 233, in create
+    return self._post(
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1044, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+2026-03-01 04:04:56,182 - app.customer.chat_routes - ERROR - Voice chat error: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "D:\Back\backend\app\customer\chat_routes.py", line 185, in process_voice_chat
+    transcribed_text, confidence = await voice_service.process_voice_message(
+  File "D:\Back\backend\app\services\voice_service.py", line 191, in process_voice_message
+    return await self.speech_to_text(audio_data, audio_format)
+  File "D:\Back\backend\app\services\voice_service.py", line 119, in speech_to_text
+    transcription = self.groq_client.audio.transcriptions.create(
+  File "D:\Back\backend\venv\lib\site-packages\groq\resources\audio\transcriptions.py", line 233, in create
+    return self._post(
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1044, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+2026-03-01 04:05:05,606 - app.customer.chat_routes - ERROR - Voice chat error: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "D:\Back\backend\app\customer\chat_routes.py", line 185, in process_voice_chat
+    transcribed_text, confidence = await voice_service.process_voice_message(
+  File "D:\Back\backend\app\services\voice_service.py", line 191, in process_voice_message
+    return await self.speech_to_text(audio_data, audio_format)
+  File "D:\Back\backend\app\services\voice_service.py", line 119, in speech_to_text
+    transcription = self.groq_client.audio.transcriptions.create(
+  File "D:\Back\backend\venv\lib\site-packages\groq\resources\audio\transcriptions.py", line 233, in create
+    return self._post(
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1044, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+2026-03-01 04:05:10,220 - app.customer.chat_routes - ERROR - Voice chat error: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "D:\Back\backend\app\customer\chat_routes.py", line 185, in process_voice_chat
+    transcribed_text, confidence = await voice_service.process_voice_message(
+  File "D:\Back\backend\app\services\voice_service.py", line 191, in process_voice_message
+    return await self.speech_to_text(audio_data, audio_format)
+  File "D:\Back\backend\app\services\voice_service.py", line 119, in speech_to_text
+    transcription = self.groq_client.audio.transcriptions.create(
+  File "D:\Back\backend\venv\lib\site-packages\groq\resources\audio\transcriptions.py", line 233, in create
+    return self._post(
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "D:\Back\backend\venv\lib\site-packages\groq\_base_client.py", line 1044, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process file - is it a valid media file?', 'type': 'invalid_request_error'}}
+2026-03-01 04:07:31,620 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:07:31,623 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:12:23,170 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:12:23,429 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:12:23,431 - app.main - INFO - Langfuse observability enabled
+2026-03-01 04:12:23,433 - app.main - INFO - APOS is ready!
+2026-03-01 04:12:39,422 - app.services.voice_service - INFO - Groq SDK available
+2026-03-01 04:12:40,761 - app.services.voice_service - INFO - Edge TTS available
+2026-03-01 04:12:40,800 - app.services.voice_service - INFO - Pydub available for audio conversion
+2026-03-01 04:12:40,844 - app.services.voice_service - INFO - Groq Whisper client initialized
+2026-03-01 04:12:41,417 - app.services.voice_service - INFO - Processing voice message: 72219 bytes, format: webm
+2026-03-01 04:12:41,421 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772318561419.webm, size: 72219 bytes
+2026-03-01 04:12:42,700 - app.services.voice_service - INFO - STT completed in 1.28s: 'I have a headache....' (confidence: 0.75)
+2026-03-01 04:12:42,742 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['headache'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Aspirin'], 'raw_query': 'I have a headache.'}
+2026-03-01 04:12:42,763 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 04:12:42,771 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 04:12:42,772 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 04:12:43,422 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-01 04:12:47,902 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 04:12:47,903 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 04:12:49,221 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 04:12:49,222 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 04:12:53,120 - app.services.voice_service - INFO - TTS completed in 1.29s, size: 59328 bytes
+2026-03-01 04:13:15,265 - app.services.voice_service - INFO - Processing voice message: 86837 bytes, format: webm
+2026-03-01 04:13:15,271 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772318595268.webm, size: 86837 bytes
+2026-03-01 04:13:15,670 - app.services.voice_service - INFO - STT completed in 0.40s: 'add it to the stock...' (confidence: 0.75)
+2026-03-01 04:13:15,802 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:13:16,283 - openai._base_client - INFO - Retrying request to /chat/completions in 0.989695 seconds
+2026-03-01 04:13:17,613 - openai._base_client - INFO - Retrying request to /chat/completions in 1.882357 seconds
+2026-03-01 04:13:19,833 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:13:19,835 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'add it to the stock'}
+2026-03-01 04:13:20,946 - openai._base_client - INFO - Retrying request to /chat/completions in 0.804040 seconds
+2026-03-01 04:13:22,078 - openai._base_client - INFO - Retrying request to /chat/completions in 1.560345 seconds
+2026-03-01 04:13:26,447 - app.services.voice_service - INFO - TTS completed in 2.10s, size: 78480 bytes
+2026-03-01 04:13:35,952 - app.services.voice_service - INFO - Processing voice message: 100473 bytes, format: webm
+2026-03-01 04:13:35,955 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772318615953.webm, size: 100473 bytes
+2026-03-01 04:13:36,361 - app.services.voice_service - INFO - STT completed in 0.41s: 'Add Paracetamol 2 Stock...' (confidence: 0.75)
+2026-03-01 04:13:36,527 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:13:36,969 - openai._base_client - INFO - Retrying request to /chat/completions in 0.928392 seconds
+2026-03-01 04:13:38,194 - openai._base_client - INFO - Retrying request to /chat/completions in 1.805810 seconds
+2026-03-01 04:13:40,271 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:13:40,272 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Add Paracetamol 2 Stock'], 'raw_query': 'Add Paracetamol 2 Stock'}
+2026-03-01 04:13:43,766 - app.services.voice_service - INFO - TTS completed in 1.16s, size: 59328 bytes
+2026-03-01 04:13:58,833 - app.services.voice_service - INFO - Processing voice message: 95595 bytes, format: webm
+2026-03-01 04:13:58,838 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772318638836.webm, size: 95595 bytes
+2026-03-01 04:13:59,236 - app.services.voice_service - INFO - STT completed in 0.40s: 'Add paracetamol to cart....' (confidence: 0.75)
+2026-03-01 04:13:59,379 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:13:59,804 - openai._base_client - INFO - Retrying request to /chat/completions in 0.964762 seconds
+2026-03-01 04:14:01,244 - openai._base_client - INFO - Retrying request to /chat/completions in 1.808509 seconds
+2026-03-01 04:14:03,390 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:14:03,392 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'Add paracetamol to cart.'}
+2026-03-01 04:14:08,349 - app.services.voice_service - INFO - TTS completed in 3.01s, size: 130464 bytes
+2026-03-01 04:14:35,878 - app.services.voice_service - INFO - Processing voice message: 71253 bytes, format: webm
+2026-03-01 04:14:35,894 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772318675892.webm, size: 71253 bytes
+2026-03-01 04:14:36,263 - app.services.voice_service - INFO - STT completed in 0.37s: 'Add it to the cart...' (confidence: 0.75)
+2026-03-01 04:14:36,270 - app.agents.orchestrator - INFO - ADD_TO_CART (use context medicine)
+2026-03-01 04:14:36,270 - app.agents.orchestrator - INFO - Handling intent: ADD_TO_CART, entities: {'use_last_medicine': True, 'quantity': 1}
+2026-03-01 04:14:38,048 - app.services.voice_service - INFO - TTS completed in 1.01s, size: 41184 bytes
+2026-03-01 04:14:47,862 - app.services.voice_service - INFO - Processing voice message: 18657 bytes, format: webm
+2026-03-01 04:14:47,866 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772318687864.webm, size: 18657 bytes
+2026-03-01 04:14:48,242 - app.services.voice_service - INFO - STT completed in 0.38s: 'See ya....' (confidence: 0.75)
+2026-03-01 04:14:48,370 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:14:48,761 - openai._base_client - INFO - Retrying request to /chat/completions in 0.862314 seconds
+2026-03-01 04:14:49,977 - openai._base_client - INFO - Retrying request to /chat/completions in 1.642882 seconds
+2026-03-01 04:14:51,929 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:14:51,932 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['See Ya.'], 'raw_query': 'See ya.'}
+2026-03-01 04:14:54,298 - app.services.voice_service - INFO - TTS completed in 0.94s, size: 34992 bytes
+2026-03-01 04:15:04,535 - app.services.voice_service - INFO - Processing voice message: 49825 bytes, format: webm
+2026-03-01 04:15:04,538 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772318704537.webm, size: 49825 bytes
+2026-03-01 04:15:04,926 - app.services.voice_service - INFO - STT completed in 0.39s: 'Thank you....' (confidence: 0.75)
+2026-03-01 04:15:04,928 - app.agents.orchestrator - INFO - Handling intent: THANKS, entities: {}
+2026-03-01 04:15:07,320 - app.services.voice_service - INFO - TTS completed in 1.56s, size: 42912 bytes
+2026-03-01 04:23:04,593 - app.services.voice_service - INFO - Processing voice message: 56635 bytes, format: webm
+2026-03-01 04:23:04,601 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772319184600.webm, size: 56635 bytes
+2026-03-01 04:23:04,994 - app.services.voice_service - INFO - STT completed in 0.40s: '....' (confidence: 0.75)
+2026-03-01 04:23:19,240 - app.services.voice_service - INFO - Processing voice message: 179359 bytes, format: webm
+2026-03-01 04:23:19,244 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772319199242.webm, size: 179359 bytes
+2026-03-01 04:23:19,729 - app.services.voice_service - INFO - STT completed in 0.49s: 'so...' (confidence: 0.75)
+2026-03-01 04:23:19,840 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:23:20,343 - openai._base_client - INFO - Retrying request to /chat/completions in 0.789379 seconds
+2026-03-01 04:23:21,485 - openai._base_client - INFO - Retrying request to /chat/completions in 1.666788 seconds
+2026-03-01 04:23:23,514 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:23:23,515 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'so'}
+2026-03-01 04:23:24,341 - openai._base_client - INFO - Retrying request to /chat/completions in 0.947988 seconds
+2026-03-01 04:23:25,575 - openai._base_client - INFO - Retrying request to /chat/completions in 1.618908 seconds
+2026-03-01 04:23:29,020 - app.services.voice_service - INFO - TTS completed in 1.10s, size: 78480 bytes
+2026-03-01 04:23:51,000 - app.services.voice_service - INFO - Processing voice message: 120919 bytes, format: webm
+2026-03-01 04:23:51,002 - app.services.voice_service - INFO - Audio saved to: C:\Users\RAJ\AppData\Local\Temp\voice_uploads\audio_1772319231001.webm, size: 120919 bytes
+2026-03-01 04:23:51,389 - app.services.voice_service - INFO - STT completed in 0.39s: 'Change car ID...' (confidence: 0.75)
+2026-03-01 04:23:51,517 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:23:51,892 - openai._base_client - INFO - Retrying request to /chat/completions in 0.850761 seconds
+2026-03-01 04:23:53,109 - openai._base_client - INFO - Retrying request to /chat/completions in 1.616917 seconds
+2026-03-01 04:23:55,003 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:23:55,004 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Change Car Id'], 'raw_query': 'Change car ID'}
+2026-03-01 04:23:57,263 - app.services.voice_service - INFO - TTS completed in 1.08s, size: 34992 bytes
+2026-03-01 04:27:52,537 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:27:52,539 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:28:08,042 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:28:08,080 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:28:08,082 - app.main - INFO - Langfuse observability enabled
+2026-03-01 04:28:08,085 - app.main - INFO - APOS is ready!
+2026-03-01 04:28:22,649 - app.services.voice_service - INFO - Groq Whisper client initialized
+2026-03-01 04:28:23,291 - app.services.voice_service - INFO - Processing audio: 86407 bytes, format: webmcodecs=opus
+2026-03-01 04:28:23,294 - app.services.voice_service - INFO - Saved audio: audio_39d2a104.webm, size: 86407 bytes
+2026-03-01 04:28:24,251 - app.services.voice_service - INFO - STT done in 0.96s: 'I have a headache...'
+2026-03-01 04:28:24,307 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['headache'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Aspirin'], 'raw_query': 'I have a headache'}
+2026-03-01 04:28:24,340 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 04:28:24,355 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 04:28:24,357 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 04:28:25,705 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-01 04:28:29,507 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 04:28:29,509 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 04:28:30,902 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 04:28:30,903 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 04:28:48,277 - app.services.voice_service - INFO - Processing audio: 37947 bytes, format: webmcodecs=opus
+2026-03-01 04:28:48,282 - app.services.voice_service - INFO - Saved audio: audio_af79c52e.webm, size: 37947 bytes
+2026-03-01 04:28:48,739 - app.services.voice_service - INFO - STT done in 0.46s: 'Hello....'
+2026-03-01 04:28:48,854 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:28:49,239 - openai._base_client - INFO - Retrying request to /chat/completions in 0.758740 seconds
+2026-03-01 04:28:50,376 - openai._base_client - INFO - Retrying request to /chat/completions in 1.597162 seconds
+2026-03-01 04:28:52,324 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:28:52,325 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Hello.'], 'raw_query': 'Hello.'}
+2026-03-01 04:31:25,794 - app.services.voice_service - INFO - Processing audio: 25357 bytes, format: webmcodecs=opus
+2026-03-01 04:31:25,797 - app.services.voice_service - INFO - Saved audio: audio_9c1fd592.webm, size: 25357 bytes
+2026-03-01 04:31:26,334 - app.services.voice_service - INFO - STT done in 0.54s: 'Thank you....'
+2026-03-01 04:31:26,337 - app.agents.orchestrator - INFO - Handling intent: THANKS, entities: {}
+2026-03-01 04:31:44,704 - app.services.voice_service - INFO - Processing audio: 76715 bytes, format: webmcodecs=opus
+2026-03-01 04:31:44,708 - app.services.voice_service - INFO - Saved audio: audio_7ea35f4d.webm, size: 76715 bytes
+2026-03-01 04:31:45,274 - app.services.voice_service - INFO - STT done in 0.57s: 'Hello....'
+2026-03-01 04:31:45,366 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 04:31:45,971 - openai._base_client - INFO - Retrying request to /chat/completions in 0.755842 seconds
+2026-03-01 04:31:47,122 - openai._base_client - INFO - Retrying request to /chat/completions in 1.989445 seconds
+2026-03-01 04:31:49,481 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 04:31:49,483 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Hello.'], 'raw_query': 'Hello.'}
+2026-03-01 04:32:00,313 - app.agents.orchestrator - INFO - Handling intent: GREETING, entities: {}
+2026-03-01 04:44:46,212 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:44:46,217 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:45:44,743 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:45:44,862 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:45:44,865 - app.main - INFO - Langfuse observability enabled
+2026-03-01 04:45:44,866 - app.main - INFO - APOS is ready!
+2026-03-01 04:46:57,903 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:46:57,906 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:48:12,376 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:48:12,404 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:48:12,404 - app.main - INFO - Langfuse observability enabled
+2026-03-01 04:48:12,405 - app.main - INFO - APOS is ready!
+2026-03-01 04:48:42,552 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:48:42,554 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:48:57,411 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:48:57,438 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:48:57,439 - app.main - INFO - Langfuse observability enabled
+2026-03-01 04:48:57,439 - app.main - INFO - APOS is ready!
+2026-03-01 04:49:27,567 - app.main - INFO -  Shutting down APOS...
+2026-03-01 04:49:27,570 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 04:49:47,445 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 04:49:47,488 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 04:49:47,488 - app.main - INFO - Langfuse observability enabled
+2026-03-01 04:49:47,489 - app.main - INFO - APOS is ready!
+
+2026-03-01 05:29:38,371 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 05:29:38,392 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 05:29:38,392 - app.main - INFO - Langfuse observability enabled
+2026-03-01 05:29:38,393 - app.main - INFO - APOS is ready!
+2026-03-01 05:34:49,239 - openai._base_client - INFO - Retrying request to /chat/completions in 0.396669 seconds
+2026-03-01 05:34:52,062 - openai._base_client - INFO - Retrying request to /chat/completions in 0.816892 seconds
+2026-03-01 05:36:54,538 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['headache'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Aspirin'], 'raw_query': 'I have a headache'}
+2026-03-01 05:36:54,546 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-03-01 05:36:54,549 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-03-01 05:36:54,550 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-01 05:37:00,155 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-01 05:37:00,587 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-03-01 05:37:00,588 - app.agents.semantic_search - INFO - Creating embeddings for 138 medicines...
+2026-03-01 05:37:01,316 - app.agents.semantic_search - INFO - Indexed 138 medicines for semantic search
+2026-03-01 05:37:01,316 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 138 medicines
+2026-03-01 05:37:19,010 - app.agents.orchestrator - INFO - Follow-up ADD_TO_CART for: Paracetamol 650mg
+2026-03-01 05:37:19,010 - app.agents.orchestrator - INFO - Handling intent: ADD_TO_CART, entities: {'medicine': {'id': '69a2984f1cf54993cc904c70', 'name': 'Paracetamol 650mg', 'generic_name': 'Paracetamol', 'brand': 'Dolo 650', 'description': 'Fever and moderate pain', 'category': 'painkiller', 'dosage': '650mg', 'price': 20.0, 'stock': 400, 'in_stock': True, 'prescription_required': False, 'side_effects': ['Nausea', 'Rash'], 'image_url': 'https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/mu5bahqxfrp28cut6que.jpg', 'relevance_score': 0.619, 'search_type': 'semantic_ai'}, 'quantity': 1}
+2026-03-01 05:37:38,963 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART (no qty): Dolo
+2026-03-01 05:37:38,964 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['Dolo'], 'quantity': 1, 'raw_query': 'Add dolo to cart'}
+2026-03-01 05:38:27,756 - app.agents.orchestrator - INFO - SMART_ADD_TO_CART (no qty): Aspirin
+2026-03-01 05:38:27,756 - app.agents.orchestrator - INFO - Handling intent: SMART_ADD_TO_CART, entities: {'medicine_names': ['Aspirin'], 'quantity': 1, 'raw_query': 'add aspirin to cart'}
+2026-03-01 05:38:49,295 - app.services.voice_service - INFO - Groq Whisper client initialized
+2026-03-01 05:38:49,303 - app.services.voice_service - INFO - Processing audio: 211437 bytes, format: webmcodecs=opus
+2026-03-01 05:38:49,304 - app.services.voice_service - INFO - Saved audio: audio_9bbdabb6.webm, size: 211437 bytes
+2026-03-01 05:38:50,194 - app.services.voice_service - INFO - STT done in 0.89s: 'Hello cheese cover girl What? Where did you Moist ...'
+2026-03-01 05:38:50,197 - app.agents.orchestrator - INFO - Handling intent: GREETING, entities: {}
+2026-03-01 05:39:18,504 - app.services.voice_service - INFO - Processing audio: 100945 bytes, format: webmcodecs=opus
+2026-03-01 05:39:18,506 - app.services.voice_service - INFO - Saved audio: audio_1643bae9.webm, size: 100945 bytes
+2026-03-01 05:39:18,937 - app.services.voice_service - INFO - STT done in 0.43s: 'Hello, I am having a stomach ache....'
+2026-03-01 05:39:18,939 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['stomach'], 'recommended_medicines': ['Omeprazole', 'Digene'], 'raw_query': 'Hello, I am having a stomach ache.'}
+2026-03-01 05:39:37,438 - app.services.voice_service - INFO - Processing audio: 73817 bytes, format: webmcodecs=opus
+2026-03-01 05:39:37,439 - app.services.voice_service - INFO - Saved audio: audio_20b91e71.webm, size: 73817 bytes
+2026-03-01 05:39:38,283 - app.services.voice_service - INFO - STT done in 0.85s: 'Oh, yes. Nothing. Excepter, excepter. Excepter. Ex...'
+2026-03-01 05:39:38,689 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-03-01 05:39:39,452 - openai._base_client - INFO - Retrying request to /chat/completions in 0.482673 seconds
+2026-03-01 05:39:40,545 - openai._base_client - INFO - Retrying request to /chat/completions in 0.943609 seconds
+2026-03-01 05:39:42,184 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-01 05:39:42,184 - app.agents.orchestrator - INFO - Handling intent: GENERAL, entities: {'raw_query': 'Oh, yes. Nothing. Excepter, excepter. Excepter. Excepter.'}
+2026-03-01 05:39:43,499 - openai._base_client - INFO - Retrying request to /chat/completions in 0.433757 seconds
+2026-03-01 05:39:44,828 - openai._base_client - INFO - Retrying request to /chat/completions in 0.825558 seconds
+2026-03-01 05:40:35,768 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 05:51:51,464 - app.main - INFO -  Shutting down APOS...
+2026-03-01 05:51:51,469 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 05:52:05,507 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 05:52:05,526 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 05:52:05,526 - app.main - INFO - Langfuse observability enabled
+2026-03-01 05:52:05,526 - app.main - INFO - APOS is ready!
+2026-03-01 06:00:09,825 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 06:00:10,636 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 06:01:10,907 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 06:01:10,921 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 06:01:10,921 - app.main - INFO - Langfuse observability enabled
+2026-03-01 06:01:10,921 - app.main - INFO - APOS is ready!
+2026-03-01 06:03:26,027 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-03-01 06:20:01,350 - app.main - INFO -  Shutting down APOS...
+2026-03-01 06:20:01,352 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 06:20:17,686 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 06:20:17,720 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 06:20:17,720 - app.main - INFO - Langfuse observability enabled
+2026-03-01 06:20:17,720 - app.main - INFO - APOS is ready!
+2026-03-01 06:21:55,134 - app.main - INFO -  Shutting down APOS...
+2026-03-01 06:21:55,135 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 06:22:07,461 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 06:22:07,476 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 06:22:07,476 - app.main - INFO - Langfuse observability enabled
+2026-03-01 06:22:07,476 - app.main - INFO - APOS is ready!
+2026-03-01 06:34:33,917 - app.main - INFO -  Shutting down APOS...
+2026-03-01 06:34:33,919 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 06:34:45,991 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 06:34:46,006 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 06:34:46,007 - app.main - INFO - Langfuse observability enabled
+2026-03-01 06:34:46,007 - app.main - INFO - APOS is ready!
