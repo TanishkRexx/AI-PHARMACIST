@@ -2719,3 +2719,13 @@ groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process
 2026-03-01 07:33:35,148 - app.database.mongodb - INFO -  Disconnected from MongoDB
 2026-03-01 07:34:51,829 - app.database.mongodb - INFO - Connected to MongoDB
 2026-03-01 07:35:01,040 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 12:11:15,456 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 12:11:17,444 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 12:11:17,445 - app.main - INFO - Langfuse observability enabled
+2026-03-01 12:11:17,445 - app.main - INFO - APOS is ready!
+2026-03-01 12:24:23,075 - app.main - INFO -  Shutting down APOS...
+2026-03-01 12:24:23,367 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-03-01 12:24:36,992 - app.main - INFO - Starting APOS Pharmacy System...
+2026-03-01 12:24:38,952 - app.database.mongodb - INFO - Connected to MongoDB
+2026-03-01 12:24:38,952 - app.main - INFO - Langfuse observability enabled
+2026-03-01 12:24:38,952 - app.main - INFO - APOS is ready!

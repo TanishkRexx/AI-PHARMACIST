@@ -86,7 +86,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://gomed1.vercel.app",
-        "https://gomed1.vercel.app/",
+        # "https://gomed1.vercel.app/",
         "http://localhost:5173"
     ], 
     allow_credentials=True,
@@ -96,7 +96,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(auth_router, prefix="/api", tags=["Authentication"])
-app.include_router(customer_router, prefix="/api")
+app.include_router(customer_router, prefix="/api/customer")
 app.include_router(pharmacy_router, prefix="/api")
 app.include_router(distributor_router, prefix="/api")
 app.include_router(admin_router, prefix="/api/admin", tags=["Admin"])

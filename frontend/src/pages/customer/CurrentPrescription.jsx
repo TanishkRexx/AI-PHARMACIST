@@ -12,6 +12,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import api from "../../api/axios";
 
 // ─────────────────────────────────────────────
 // HELPERS
@@ -109,8 +110,7 @@ export default function CurrentPrescription() {
     const handleGetPrescription = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        const response = await axios.get(
-          "http://localhost:8000/api/customer/show-prescription",
+        const response = await api.get("/customer/show-prescription",
           { params: { patient_id: user?.id } }
         );
         setPrescription(response.data);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Activity, Pill, Calendar } from "lucide-react";
 import axios from "axios"; // ✅ Fix 1: was missing
+import api from "../../api/axios"
 
 /* ------------------ THERAPY DATA ------------------ */
 
@@ -102,8 +103,7 @@ export default function Therapy() {
     const handleGetPrescription = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        const response = await axios.get(
-          "http://localhost:8000/api/customer/show-prescription",
+        const response = await api.get("/customer/show-prescription",
           { params: { patient_id: user?.id } }
         );
         setPrescription(response.data);
