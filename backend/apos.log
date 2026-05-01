@@ -2729,3 +2729,54 @@ groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process
 2026-03-01 12:24:38,952 - app.database.mongodb - INFO - Connected to MongoDB
 2026-03-01 12:24:38,952 - app.main - INFO - Langfuse observability enabled
 2026-03-01 12:24:38,952 - app.main - INFO - APOS is ready!
+2026-05-02 01:30:55,550 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 01:30:57,200 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 01:30:57,201 - app.main - INFO - Langfuse observability enabled
+2026-05-02 01:30:57,201 - app.main - INFO - APOS is ready!
+2026-05-02 01:32:47,129 - app.main - INFO -  Shutting down APOS...
+2026-05-02 01:32:47,148 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-05-02 01:33:00,150 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 01:33:01,733 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 01:33:01,733 - app.main - INFO - Langfuse observability enabled
+2026-05-02 01:33:01,734 - app.main - INFO - APOS is ready!
+2026-05-02 01:35:32,679 - app.main - INFO -  Shutting down APOS...
+2026-05-02 01:35:32,687 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-05-02 01:35:57,636 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 01:35:58,070 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 01:35:58,070 - app.main - INFO - Langfuse observability enabled
+2026-05-02 01:35:58,071 - app.main - INFO - APOS is ready!
+2026-05-02 01:41:31,108 - app.main - INFO -  Shutting down APOS...
+2026-05-02 01:41:31,125 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-05-02 01:41:43,015 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 01:41:44,436 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 01:41:44,436 - app.main - INFO - Langfuse observability enabled
+2026-05-02 01:41:44,436 - app.main - INFO - APOS is ready!
+2026-05-02 01:51:34,779 - app.main - INFO -  Shutting down APOS...
+2026-05-02 01:51:34,794 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-05-02 01:52:01,004 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 01:52:02,315 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 01:52:02,315 - app.main - INFO - Langfuse observability enabled
+2026-05-02 01:52:02,315 - app.main - INFO - APOS is ready!
+2026-05-02 01:55:06,066 - app.main - INFO -  Shutting down APOS...
+2026-05-02 01:55:06,084 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-05-02 01:55:11,082 - torch._subclasses.fake_tensor - INFO - FakeTensor cache stats:
+2026-05-02 01:55:11,082 - torch._subclasses.fake_tensor - INFO -   cache_hits: 0
+2026-05-02 01:55:11,082 - torch._subclasses.fake_tensor - INFO -   cache_misses: 0
+2026-05-02 01:56:07,724 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 01:56:08,186 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 01:56:08,186 - app.main - INFO - Langfuse observability enabled
+2026-05-02 01:56:08,186 - app.main - INFO - APOS is ready!
+2026-05-02 01:58:57,744 - app.main - INFO -  Shutting down APOS...
+2026-05-02 01:58:57,757 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-05-02 01:59:20,604 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 01:59:22,001 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 01:59:22,001 - app.main - INFO - Langfuse observability enabled
+2026-05-02 01:59:22,002 - app.main - INFO - APOS is ready!
+2026-05-02 02:01:27,343 - app.main - INFO -  Shutting down APOS...
+2026-05-02 02:01:27,356 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-05-02 02:01:42,943 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 02:01:43,252 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 02:01:43,253 - app.main - INFO - Langfuse observability enabled
+2026-05-02 02:01:43,253 - app.main - INFO - APOS is ready!
+2026-05-02 02:06:09,870 - app.main - INFO -  Shutting down APOS...
+2026-05-02 02:06:09,879 - app.database.mongodb - INFO -  Disconnected from MongoDB

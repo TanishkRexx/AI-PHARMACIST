@@ -87,7 +87,8 @@ app.add_middleware(
     allow_origins=[
         # "https://gomed1.vercel.app",
         # "https://gomed1.vercel.app/",
-        "http://localhost:5173"
+        "http://localhost:5173",
+        "https://ai-pharmacist-azure.vercel.app/"
     ], 
     allow_credentials=True,
     allow_methods=["*"],
@@ -95,12 +96,12 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(auth_router, prefix="/api", tags=["Authentication"])
-app.include_router(customer_router, prefix="/api/customer")
-app.include_router(pharmacy_router, prefix="/api")
-app.include_router(distributor_router, prefix="/api")
-app.include_router(admin_router, prefix="/api/admin", tags=["Admin"])
-app.include_router(observability_router, prefix="/api/admin", tags=["Admin", "Observability"])
+app.include_router(auth_router,  tags=["Authentication"])
+app.include_router(customer_router, )
+app.include_router(pharmacy_router)
+app.include_router(distributor_router)
+app.include_router(admin_router, prefix="/admin", tags=["Admin"])
+app.include_router(observability_router, prefix="/admin", tags=["Admin", "Observability"])
 
 
 @app.on_event("startup")

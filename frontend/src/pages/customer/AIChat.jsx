@@ -565,36 +565,44 @@ What can I help you with today?`,
 
   // ==================== AUDIO PLAYBACK ====================
   
-  const playAudio = (audioBase64) => {
-    return new Promise((resolve) => {
-      try {
-        stopAudioPlayback();
-        
-        const audio = new Audio(`data:audio/mp3;base64,${audioBase64}`);
-        currentAudioRef.current = audio;
+const playAudio = (audioBase64) => {
+  return new Promise((resolve) => {
+    try {
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current = null;
+      }
 
-        audio.onended = () => {
-          currentAudioRef.current = null;
-          setVoiceState("idle");
-          resolve();
-        };
+      const audio = new Audio(`data:audio/mp3;base64,${audioBase64}`);
+      currentAudioRef.current = audio;
 
-        audio.onerror = () => {
-          currentAudioRef.current = null;
-          setVoiceState("idle");
-          resolve();
-        };
-
-        audio.play().catch(() => {
-          setVoiceState("idle");
-          resolve();
-        });
-      } catch (e) {
+      audio.onended = () => {
+        currentAudioRef.current = null;
         setVoiceState("idle");
         resolve();
+      };
+
+      audio.onerror = () => {
+        currentAudioRef.current = null;
+        setVoiceState("idle");
+        resolve();
+      };
+
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn("Playback interrupted:", err);
+          resolve(); // avoid crash
+        });
       }
-    });
-  };
+
+    } catch (e) {
+      console.warn("Audio error:", e);
+      resolve();
+    }
+  });
+};
 
   // ==================== ALEXA MODE CONTROLS ====================
   
@@ -609,11 +617,11 @@ What can I help you with today?`,
     setChatMode(CHAT_MODES.VOICE_TO_VOICE);
     setIsAlexaModeActive(true);
     
-    toast.success("🎧 Alexa Mode ON!");
+    toast.success("Alexa Mode ON!");
     
     // Start recording after a short delay
     setTimeout(() => {
-      if (isAlexaModeActiveRef.current) {
+      if (isAlexaModeActiveRef.current && voiceState !== "speaking") {
         startRecording();
       }
     }, 300);
