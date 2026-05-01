@@ -2800,3 +2800,5 @@ groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process
 2026-05-02 02:08:05,187 - openai._base_client - INFO - Retrying request to /chat/completions in 0.939054 seconds
 2026-05-02 02:08:06,625 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
 2026-05-02 02:08:06,626 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Ibuprofen'], 'raw_query': 'Ibuprofen'}
+2026-05-02 02:22:26,723 - app.main - INFO -  Shutting down APOS...
+2026-05-02 02:22:26,745 - app.database.mongodb - INFO -  Disconnected from MongoDB
