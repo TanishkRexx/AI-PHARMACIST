@@ -2780,3 +2780,23 @@ groq.BadRequestError: Error code: 400 - {'error': {'message': 'could not process
 2026-05-02 02:01:43,253 - app.main - INFO - APOS is ready!
 2026-05-02 02:06:09,870 - app.main - INFO -  Shutting down APOS...
 2026-05-02 02:06:09,879 - app.database.mongodb - INFO -  Disconnected from MongoDB
+2026-05-02 02:06:23,805 - app.main - INFO - Starting APOS Pharmacy System...
+2026-05-02 02:06:25,855 - app.database.mongodb - INFO - Connected to MongoDB
+2026-05-02 02:06:25,856 - app.main - INFO - Langfuse observability enabled
+2026-05-02 02:06:25,856 - app.main - INFO - APOS is ready!
+2026-05-02 02:07:50,673 - app.agents.orchestrator - INFO - Groq initialized (Model: llama-3.1-70b-versatile)
+2026-05-02 02:07:50,690 - app.agents.orchestrator - INFO -  OpenAI initialized (Model: gpt-4o-mini)
+2026-05-02 02:07:50,865 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'symptoms': ['headache'], 'recommended_medicines': ['Paracetamol', 'Ibuprofen', 'Aspirin'], 'raw_query': 'I have a headache'}
+2026-05-02 02:07:50,981 - app.agents.semantic_search - INFO - Loading embedding model: all-MiniLM-L6-v2
+2026-05-02 02:07:50,986 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-05-02 02:07:50,987 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-05-02 02:07:51,288 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-02 02:07:55,879 - app.agents.semantic_search - INFO - Semantic search model loaded
+2026-05-02 02:07:55,881 - app.agents.semantic_search - INFO - Creating embeddings for 145 medicines...
+2026-05-02 02:07:56,606 - app.agents.semantic_search - INFO - Indexed 145 medicines for semantic search
+2026-05-02 02:07:56,607 - app.agents.medicine_agent - INFO - Medicine Agent initialized with 145 medicines
+2026-05-02 02:08:02,160 - app.agents.orchestrator - WARNING - Groq classification failed, trying OpenAI: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}
+2026-05-02 02:08:04,276 - openai._base_client - INFO - Retrying request to /chat/completions in 0.383257 seconds
+2026-05-02 02:08:05,187 - openai._base_client - INFO - Retrying request to /chat/completions in 0.939054 seconds
+2026-05-02 02:08:06,625 - app.agents.orchestrator - WARNING - OpenAI classification also failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-05-02 02:08:06,626 - app.agents.orchestrator - INFO - Handling intent: BUY_MEDICINE, entities: {'medicine_names': ['Ibuprofen'], 'raw_query': 'Ibuprofen'}
