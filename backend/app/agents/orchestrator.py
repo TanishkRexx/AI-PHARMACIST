@@ -78,7 +78,7 @@ class PharmacyAI:
                 from groq import Groq
                 self.groq_client = Groq(api_key=settings.GROQ_API_KEY)
                 self.use_groq = True
-                logger.info(f"✅ Groq initialized (Model: {settings.GROQ_LLM_MODEL})")
+                logger.info(f" Groq initialized (Model: {settings.GROQ_LLM_MODEL})")
         except Exception as e:
             logger.warning(f"Groq initialization failed: {e}")
         
@@ -88,17 +88,17 @@ class PharmacyAI:
             if settings.OPENAI_API_KEY:
                 from openai import OpenAI
                 self.openai_client = OpenAI(api_key=settings.OPENAI_API_KEY)
-                logger.info(f"✅ OpenAI initialized (Model: {settings.OPENAI_MODEL})")
+                logger.info(f" OpenAI initialized (Model: {settings.OPENAI_MODEL})")
         except Exception as e:
             logger.warning(f"OpenAI initialization failed: {e}")
         
         # Log which provider will be used
         if self.use_groq:
-            logger.info("🚀 Using Groq as PRIMARY AI provider")
+            logger.info(" Using Groq as PRIMARY AI provider")
         elif self.openai_client:
-            logger.info("🚀 Using OpenAI as PRIMARY AI provider")
+            logger.info(" Using OpenAI as PRIMARY AI provider")
         else:
-            logger.warning("⚠️ No AI provider available - using pattern-based only")
+            logger.warning(" No AI provider available - using pattern-based only")
         
         # ==================== AGENTS ====================
         self.medicine_agent = MedicineAgent()
@@ -471,7 +471,7 @@ Respond naturally in conversation."""
                 "data": {"action": "VIEW_CART"}
             },
             "CHECKOUT": {
-                "message": "✅ **Checkout**\n\nTo complete your purchase, go to your Cart and click 'Proceed to Checkout'.\n\nWould you like to add anything else before checking out?",
+                "message": " **Checkout**\n\nTo complete your purchase, go to your Cart and click 'Proceed to Checkout'.\n\nWould you like to add anything else before checking out?",
                 "suggestions": ["View cart", "Browse medicines", "I need help"],
                 "data": {"action": "CHECKOUT"}
             },

@@ -62,8 +62,8 @@ settings = Settings()
 
 # Log which AI provider is configured
 if settings.GROQ_API_KEY:
-    logging.info(f"✅ Groq API configured (Model: {settings.GROQ_LLM_MODEL})")
+    logging.info(f"Groq API configured (Model: {settings.GROQ_LLM_MODEL})")
 if settings.OPENAI_API_KEY:
-    logging.info(f"✅ OpenAI API configured (Model: {settings.OPENAI_MODEL})")
+    logging.info(f"OpenAI API configured (Model: {settings.OPENAI_MODEL})")
 if not settings.GROQ_API_KEY and not settings.OPENAI_API_KEY:
-    logging.warning("⚠️ No AI API keys configured! Chat will use pattern-based only.")
+    logging.warning("No AI API keys configured! Chat will use pattern-based only.")
