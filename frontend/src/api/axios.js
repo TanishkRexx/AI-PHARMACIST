@@ -27,14 +27,23 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    const message = error.response?.data?.detail || 'Something went wrong';
-    
+  async (error) => {
+    const originalRequest = error.config;
+
+    // 🔥 Retry once if request fails (important for Render cold start)
+    if (!originalRequest._retry) {
+      originalRequest._retry = true;
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // wait 2 sec
+      return api(originalRequest);
+    }
+
+    // 🔹 Handle errors after retry
     if (error.response?.status === 401) {
+      toast.error('Session expired. Please login again.');
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/';
-      toast.error('Session expired. Please login again.');
     } else if (error.response?.status === 403) {
       toast.error('Access denied');
     } else if (error.response?.status === 404) {
@@ -42,7 +51,7 @@ api.interceptors.response.use(
     } else if (error.response?.status >= 500) {
       toast.error('Server error. Please try again.');
     }
-    
+
     return Promise.reject(error);
   }
 );
