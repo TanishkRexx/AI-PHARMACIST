@@ -88,7 +88,7 @@ app.add_middleware(
         # "https://gomed1.vercel.app",
         # "https://gomed1.vercel.app/",
         "http://localhost:5173",
-        "https://ai-pharmacist-azure.vercel.app",
+        "https://ai-pharmacist-gules.vercel.app"
     ], 
     allow_credentials=True,
     allow_methods=["*"],
